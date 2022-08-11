@@ -1,8 +1,10 @@
 ---
 category: "pipeline"
-description: "A template Nextflow pipeline for styling and standardization"
-maintainers: "Boutros Lab Infrastructure <BoutrosLabInfrastructure@mednet.ucla.edu>"
+description: "A pipeline for calculating summary stats for targeted sequencing experiments"
+maintainers: "Nicole Zeltser <nzeltser@mednet.ucla.edu>"
 languages: ["Nextflow", "Docker"]
 dependencies: ["Java", "Nextflow", "Docker"]
 references: "https://confluence.mednet.ucla.edu/display/BOUTROSLAB/Guide+to+Nextflow"
-tools: ["tool_a:v1.1.0", "tool_b:v1.1.0"]
+tools: ["SAMTools 1.12", "Picard Tools 2.26.10"]
+Engineering_Owner: "Nicole Zeltser"
+Scientific_Owner: "Nicole Zeltser"
