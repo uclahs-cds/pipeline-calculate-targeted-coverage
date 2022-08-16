@@ -13,7 +13,7 @@ process run_depth_SAMtools {
     publishDir path: "${params.output_dir}/${task.process.replace(':','/')}-${task.index}",
         pattern: "*.tsv",
         mode: "copy",
-        enabled: params.save_intermediate.files
+        enabled: params.save_intermediate_files
 
     publishDir path: "${params.log_output_dir}",
         pattern: ".command.*",
@@ -24,11 +24,9 @@ process run_depth_SAMtools {
     
     input: 
         path input_BAM
-        path target_file
-
+        path input_bed
 
     output:
-        // path("${variable_name}.command_name.file_extension"), emit: output_ch_tool_name_command_name
         path "*.tsv", emit: tsv
         path ".command.*"
 
@@ -38,8 +36,8 @@ process run_depth_SAMtools {
 
     samtools \
         depth \
-        $input_BAM
-        -b $target_file \
+        $input_BAM \
+        -b $input_bed \
         -a \
         --min-BQ ${params.min_base_quality} \
         -o ${params.sample_id}.depth_per_base.tsv

@@ -37,8 +37,8 @@ process run_merge_BEDtools {
     bedtools \
         merge \
         -i $input_BED
-        -c 4 \ Column to perform a collapsing operation on. Read depth is in column 4.
-        -o ${params.merge_operation} \ Operation that is performed on -c columns
+        -c 4 \
+        -o ${params.merge_operation} \
         > ${params.sample_name}.collapsed_coverage.bed
     """
 }
