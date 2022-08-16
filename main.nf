@@ -71,4 +71,8 @@ workflow {
         run_depth_SAMtools.out.tsv
         )
 
+    run_merge_BEDtools(
+        convert_depth_to_bed.out.bed
+        )
+
 }

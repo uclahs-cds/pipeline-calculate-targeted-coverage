@@ -23,7 +23,7 @@ process run_merge_BEDtools {
     // Additional directives here
     
     input: 
-        path input_BED
+        path input_depth_bed
 
     output:
         // path("${variable_name}.command_name.file_extension"), emit: output_ch_tool_name_command_name
@@ -36,9 +36,9 @@ process run_merge_BEDtools {
 
     bedtools \
         merge \
-        -i $input_BED
+        -i $input_depth_bed \
         -c 4 \
         -o ${params.merge_operation} \
-        > ${params.sample_name}.collapsed_coverage.bed
+        > ${params.sample_id}.collapsed_coverage.bed
     """
 }
