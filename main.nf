@@ -66,4 +66,9 @@ workflow {
         input_ch_bam,
         params.input_bed
         )
+    
+    convert_depth_to_bed(
+        run_depth_SAMtools.out.tsv
+        )
+
 }
