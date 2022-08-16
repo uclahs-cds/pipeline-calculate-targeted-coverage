@@ -1,0 +1,4 @@
+---
+sample_id: ''
+input:
+  bam: /path/to/bam
