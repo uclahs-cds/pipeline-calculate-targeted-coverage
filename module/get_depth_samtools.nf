@@ -11,7 +11,7 @@ process run_depth_SAMtools {
     // label "resource_allocation_tool_name_command_name" samtools_depth ??
 
     publishDir path: "${params.output_dir}/${task.process.replace(':','/')}-${task.index}",
-        pattern: "*.bed",
+        pattern: "*.tsv",
         mode: "copy",
         enabled: params.save_intermediate.files
 
@@ -29,7 +29,7 @@ process run_depth_SAMtools {
 
     output:
         // path("${variable_name}.command_name.file_extension"), emit: output_ch_tool_name_command_name
-        path "*.bed", emit: bed
+        path "*.tsv", emit: tsv
         path ".command.*"
 
     script:
@@ -41,12 +41,7 @@ process run_depth_SAMtools {
         $input_BAM
         -b $target_file \
         -a \
-        --min-BQ ${params.min_base_quality}
-        -o ${variable_name}.command_name.tsv \
-        // This is NOT a bed file yet. To convert to bedfile need to add a start column using awk:
-        | \
-        awk 'BEGIN {OFS="\t"} {chr = $1; start=$2-1; stop=$2; depth=$3; print chr,start,stop,depth}' \
-        sort -k1,1 -k2,2n \ sort the bedfile for good measure
-        > ${variable_name}.command_name.bed \\ this bedfile is now acceptable to bedtools
+        --min-BQ ${params.min_base_quality} \
+        -o ${params.sample_id}.depth_per_base.tsv
     """
 }
