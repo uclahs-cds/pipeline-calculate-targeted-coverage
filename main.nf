@@ -4,12 +4,14 @@ nextflow.enable.dsl=2
 
 // Include processes and workflows here
 include { run_validate_PipeVal } from './module/validation'
-include { tool_name_command_name } from './module/module-name'
+include { run_depth_SAMtools } from './module/get_depth_samtools'
+include { convert_depth_to_bed } from './module/depth_to_bed'
+include { run_merge_BEDtools } from './module/merge_intervals_bedtools'
 
 // Log info here
-log.info """\    
+log.info """\
         ======================================
-        T E M P L A T E - N F  P I P E L I N E
+        T A R G E T E D - C O V E R A G E
         ======================================
         Boutros Lab
 
@@ -19,19 +21,20 @@ log.info """\
             version: ${workflow.manifest.version}
 
         - input:
-            input a: ${params.variable_name}
-            ...
+            sample_id: ${params.sample_id}
+            input.bam: ${params.input.bam}
+            input_bed: ${params.input_bed}
 
         - output: 
-            output a: ${params.output_path}
-            ...
+            output_dir: ${params.output_dir}
+            output_log_dir: ${params.output_log_dir}
 
         - options:
-            option a: ${params.option_name}
-            ...
+            save_intermediate_files: ${params.save_intermediate_files}
 
         Tools Used:
-            tool a: ${params.docker_image_name}
+            samtools: ${params.docker_image_samtools}
+            bedtools: ${params.docker_image_bedtools}
 
         ------------------------------------
         Starting workflow...
@@ -41,42 +44,26 @@ log.info """\
 
 // Channels here
 // Decription of input channel
-Channel
-    .fromPath(params.input_csv)
-    .ifEmpty { error "Cannot find input csv: ${params.input_csv}" }
-    .splitCsv(header:true)
-    .map { row -> 
-        return tuple(row.row_1_name,
-            row.row_2_name_file_extension
-            )
-        }
-    .into { input_ch_input_csv } // copy into two channels, one is for validation
-
-// Decription of input channel
-Channel
-    .fromPath(params.variable_name)
-    .ifEmpty { error "Cannot find: ${params.variable_name}" }
-    .into { input_ch_variable_name } // copy into two channels, one is for validation
-
-// Pre-validation steps
-input_ch_input_csv // flatten csv channel to only file paths
-    .flatMap { library, lane, read_group_name, read1_fastq, read2_fastq ->
-        [read1_fastq, read2_fastq]
-    }
-    .map { ['file-input', it] } // Add the validation type as a tuple
-    .set { input_ch_input_csv_validate_tuple } // new tuple validation channel
 
 
 // Main workflow here
 workflow {
+
+    Channel
+        .from( params.input.bam )
+        .multiMap { it -> 
+            bam: it
+            }
+        .set { input_ch_bam }
+
     // Validation process
-    run_validate_PipeVal(
-        input_ch_input_csv_validate_tuple
-        )
+    // run_validate_PipeVal(
+    //     input_ch_input_csv.BAM
+    //     )
 
     // Workflow or process
-    tool_name_command_name(
-        input_ch_input_csv,
-        input_ch_variable_name
+    run_depth_SAMtools(
+        input_ch_bam,
+        params.input_bed
         )
 }
