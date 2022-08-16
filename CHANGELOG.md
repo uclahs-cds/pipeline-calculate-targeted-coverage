@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - Add `get_depth_samtools.nf` module
 - Add `merge_intervals_bedtools.nf` module
+- Add `depth_to_bed.nf` module
 - Add preliminary configs
 ### Changed
 - Update manifest
