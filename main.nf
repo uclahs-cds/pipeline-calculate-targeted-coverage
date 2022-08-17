@@ -2,8 +2,8 @@
 
 nextflow.enable.dsl=2
 
-// Include processes and workflows here
-include { run_validate_PipeVal } from './module/validation'
+// Include processes and workflows here  // './module/validation' 
+include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main'
 include { run_depth_SAMtools } from './module/get_depth_samtools'
 include { convert_depth_to_bed } from './module/depth_to_bed'
 include { run_merge_BEDtools } from './module/merge_intervals_bedtools'
@@ -56,10 +56,16 @@ workflow {
             }
         .set { input_ch_bam }
 
+    Channel
+        input_ch_bam.map{ it ->
+            ['file-input', it]
+            }
+        .set { input_ch_validate }
+
     // Validation process
-    // run_validate_PipeVal(
-    //     input_ch_input_csv.BAM
-    //     )
+    run_validate_PipeVal(
+        input_ch_validate
+        )
 
     // Workflow or process
     run_depth_SAMtools(
