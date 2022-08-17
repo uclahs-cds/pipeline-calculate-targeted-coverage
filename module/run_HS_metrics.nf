@@ -5,7 +5,34 @@
 *   @params <name>  <type>  <description>
 *   @output <name>  <type>  <description>
 */
-process run_CollectHsMetrics {
+
+
+process run_BedToIntervalList_picard {
+    container params.docker_image_picard
+
+
+    publishDir path: "${workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
+        pattern: "*.interval_list",
+        mode: "copy",
+        enabled: params.save_intermediate_files
+
+    publishDir path: "${params.log_output_dir}",
+        pattern: ".command.*",
+        mode: "copy",
+        saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
+
+    input: 
+        path input_bed
+        val workflow_output_dir
+
+    output:
+        // path("${variable_name}.command_name.file_extension"), emit: output_ch_tool_name_command_name
+        path "*.interval_list", emit: interval_list
+        path ".command.*"
+
+}
+
+process run_CollectHsMetrics_picard {
     container params.docker_image_picard
 
     // label "resource_allocation_tool_name_command_name" samtools_depth ??
@@ -24,6 +51,8 @@ process run_CollectHsMetrics {
     
     input: 
         path input_bam
+        path target_interval_list
+        path bait_interval_list
         val workflow_output_dir
 
     output:
@@ -37,11 +66,10 @@ process run_CollectHsMetrics {
 
     java -jar /usr/local/share/picard-slim-2.26.8-0/picard.jar \
         CollectHsMetrics \
-        --BAIT_INTERVALS \
+        --BAIT_INTERVALS $bait_interval_list \
         --INPUT $input_bam \
-        --TARGET_INTERVALS interval list \
+        --TARGET_INTERVALS $target_interval_list \
         --OUTPUT ${params.sample_id}.HsMetrics.txt \
-        --TMP_DIR ${params.work_dir} \
-        > ${params.sample_id}.collapsed_coverage.bed
+        --TMP_DIR ${params.work_dir} 
     """
 }
