@@ -48,7 +48,7 @@ log.info """\
 
 // Main workflow here
 workflow {
-
+    coverage_output_dir = "${params.output_dir}/targeted-coverage"
     Channel
         .from( params.input.bam )
         .multiMap { it -> 
@@ -70,15 +70,18 @@ workflow {
     // Workflow or process
     run_depth_SAMtools(
         input_ch_bam,
-        params.input_bed
+        params.input_bed,
+        coverage_output_dir
         )
     
     convert_depth_to_bed(
-        run_depth_SAMtools.out.tsv
+        run_depth_SAMtools.out.tsv,
+        coverage_output_dir
         )
 
     run_merge_BEDtools(
-        convert_depth_to_bed.out.bed
+        convert_depth_to_bed.out.bed,
+        coverage_output_dir
         )
 
 }

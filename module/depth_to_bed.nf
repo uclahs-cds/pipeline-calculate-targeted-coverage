@@ -10,7 +10,7 @@ process convert_depth_to_bed {
 
     // label "resource_allocation_tool_name_command_name" samtools_depth ??
 
-    publishDir path: "${params.output_dir}/${task.process.replace(':','/')}-${task.index}",
+    publishDir path: "${workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
         pattern: "*.bed",
         mode: "copy",
         enabled: params.save_intermediate_files
@@ -24,6 +24,7 @@ process convert_depth_to_bed {
     
     input: 
         path input_tsv
+        val workflow_output_dir
 
     output:
         // path("${variable_name}.command_name.file_extension"), emit: output_ch_tool_name_command_name
