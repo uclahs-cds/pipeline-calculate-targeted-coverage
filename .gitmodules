@@ -1,3 +1,3 @@
-[submodule "module/pipeline-Nextflow-module"]
-	path = module/pipeline-Nextflow-module
+[submodule "external/pipeline-Nextflow-module"]
+	path = external/pipeline-Nextflow-module
 	url = git@github.com:uclahs-cds/pipeline-Nextflow-module.git
