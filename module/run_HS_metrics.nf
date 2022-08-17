@@ -30,6 +30,18 @@ process run_BedToIntervalList_picard {
         path "*.interval_list", emit: interval_list
         path ".command.*"
 
+    script:
+    """
+    set -euo pipefail
+
+    java -jar /usr/local/share/picard-slim-2.26.8-0/picard.jar \
+        BedToIntervalList \
+        --INPUT $input_bed \
+        --OUTPUT ${params.sample_id}.target.interval_list \
+        --SEQUENCE_DICTIONARY ${params.reference_dict}
+        --SORT false
+    """
+
 }
 
 process run_CollectHsMetrics_picard {

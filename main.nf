@@ -7,6 +7,7 @@ include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modul
 include { run_depth_SAMtools } from './module/get_depth_samtools'
 include { convert_depth_to_bed } from './module/depth_to_bed'
 include { run_merge_BEDtools } from './module/merge_intervals_bedtools'
+include { run_BedToIntervalList_picard, run_CollectHsMetrics_picard } from './module/run_HS_metrics.nf'
 
 // Log info here
 log.info """\
