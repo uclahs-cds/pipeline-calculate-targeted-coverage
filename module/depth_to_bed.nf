@@ -26,7 +26,6 @@ process convert_depth_to_bed {
         path input_tsv
 
     output:
-        // path("${variable_name}.command_name.file_extension"), emit: output_ch_tool_name_command_name
         path "*.bed", emit: bed
         path ".command.*"
 

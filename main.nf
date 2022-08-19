@@ -35,6 +35,8 @@ log.info """\
         Tools Used:
             samtools: ${params.docker_image_samtools}
             bedtools: ${params.docker_image_bedtools}
+            picard: ${params.docker_image_picard}
+            pipeval: ${docker_image_validate}
 
         ------------------------------------
         Starting workflow...
@@ -56,7 +58,6 @@ workflow {
             }
         .set { input_ch_bam }
 
-    Channel
         input_ch_bam.map{ it ->
             ['file-input', it]
             }
