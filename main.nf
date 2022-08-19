@@ -56,12 +56,12 @@ workflow {
         .multiMap { it -> 
             bam: it
             }
-        .set { input_ch_bam }
+            .set { input_ch_bam }
 
         input_ch_bam.map{ it ->
             ['file-input', it]
             }
-        .set { input_ch_validate }
+            .set { input_ch_validate }
 
     // Validation process
     run_validate_PipeVal(
