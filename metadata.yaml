@@ -5,6 +5,6 @@ maintainers: "Nicole Zeltser <nzeltser@mednet.ucla.edu>"
 languages: ["Nextflow", "Docker"]
 dependencies: ["Java", "Nextflow", "Docker"]
 references: "https://confluence.mednet.ucla.edu/display/BOUTROSLAB/Guide+to+Nextflow"
-tools: ["SAMTools 1.12", "Picard Tools 2.26.10"]
+tools: ["SAMTools 1.15.1", "Picard Tools 2.27.4", BEDtools 2.29.2]
 Engineering_Owner: "Nicole Zeltser"
 Scientific_Owner: "Nicole Zeltser"

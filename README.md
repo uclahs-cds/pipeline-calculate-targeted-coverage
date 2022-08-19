@@ -1,4 +1,4 @@
-# Pipeline Name
+# Targeted Coverage
 
 - [Pipeline Name](#pipeline-name)
   - [Overview](#overview)
@@ -18,7 +18,7 @@
   - [License](#license) 
 ## Overview
 
-A 3-4 sentence summary of the pipeline, including the pipeline's purpose, the type of expected scientific inputs/outputs of the pipeline (e.g: FASTQs and BAMs), and a list of tools/steps in the pipeline.
+This pipeline performs coverage calculations from a BAM file at intervals specified by a target bed file and reports some basic coverage metrics. The SAMtools depth tool is used to calculate per-base coverage in specified regions. This intermediate output is converted into bed format using an awk script. Then the BEDtools merge tool is used to collapse consecutive coordinates into intervals, with a final output reporting a comma-separated list of per-base read depths for each coordinate in an interval.
 
 ---
 
@@ -26,7 +26,7 @@ A 3-4 sentence summary of the pipeline, including the pipeline's purpose, the ty
 
 1. Update the params section of the .config file
 
-2. Update the input csv
+2. Update the input yaml
 
 3. See the submission script, [here](https://github.com/uclahs-cds/tool-submit-nf), to submit your pipeline
 
@@ -42,27 +42,29 @@ A directed acyclic graph of your pipeline.
 
 ## Pipeline Steps
 
-### 1. Step/Proccess 1
+### 1. Depth Calculation
 
-> A 2-3 sentence description of each step/proccess in your pipeline that includes the purpose of the step/process, the tool(s) being used and their version, and the expected scientific inputs/outputs (e.g: FASTQs and BAMs) of the pipeline.
+> Per-base depth is calculated from the input BAM file at coordinates specified by the input target BED file using `samtools depth`.
 
-### 2. Step/Proccess 2
+### 2. BED Formatting
 
-> A 2-3 sentence description of each step/proccess in your pipeline that includes the purpose of the step/process, the tool(s) being used and their version, and the expected scientific inputs/outputs (e.g: FASTQs and BAMs) of the pipeline.
+> TSV output from `samtools depth` is converted into BED format using `awk`.
 
-### 3. Step/Proccess n
+### 3. BED Merging
 
-> A 2-3 sentence description of each step/proccess in your pipeline that includes the purpose of the step/process, the tool(s) being used and their version, and the expected scientific inputs/outputs (e.g: FASTQs and BAMs) of the pipeline.
+> BED file of read depths is collapsed into intervals using `bedtools merge`.
 
 ---
 
 ## Inputs
 
- Input and Input Parameter/Flag | Required | Description |
-| ------------ | ------------ | ------------------------ |
-| input/ouput 1 | yes/no | 1 - 2 sentence description of the input/output. |
-| input/ouput 2 | yes/no | 1 - 2 sentence description of the input/output. |
-| input/ouput n | yes/no | 1 - 2 sentence description of the input/output. |
+ Input and Input Parameter/Flag | Required | Type | Description |
+| ------------ | ------------ | ------- | ------------------------ |
+| input BAM | yes | path | BAM file for which to calculate coverage, path provided in input yaml. |
+| input BED | yes | path | BED file specifying target intervals at which to calculate coverage. |
+| `save_intermediate_files` | yes | boolean | Whether to save intermediate files. |
+| `min_base_quality` | no | integer | Minimum base quality for a read to be counted in depth calculation by `samtools depth`. Defaults to 20. |
+| `merge_operation` | no | string | Operation performed on read depth column values when intervals are collapsed during `bedtools merge`. Defaults to 'collapse'. See [bedtools documentation](https://bedtools.readthedocs.io/en/latest/content/tools/merge.html#:~:text=%2Dc.-,Valid%20operations%3A,-sum%2C%20min%2C%20max) for other options. |
 | `work_dir` | no | path | Path of working directory for Nextflow. When included in the sample config file, Nextflow intermediate files and logs will be saved to this directory. With ucla_cds, the default is `/scratch` and should only be changed for testing/development. Changing this directory to `/hot` or `/tmp` can lead to high server latency and potential disk space limitations, respectively. |
 
 > Include the optional param `work_dir` in the inputs accompanied by a warning of the potentials dangers of using the param. Update the warning if necessary.
@@ -71,11 +73,12 @@ A directed acyclic graph of your pipeline.
 
 ## Outputs
 
- Output and Output Parameter/Flag | Required | Description |
-| ------------ | ------------ | ------------------------ |
-| input/ouput 1 | yes/no | 1 - 2 sentence description of the input/output. |
-| input/ouput 2 | yes/no | 1 - 2 sentence description of the input/output. |
-| input/ouput n | yes/no | 1 - 2 sentence description of the input/output. |
+ Output and Output Parameter/Flag | Description |
+| ------------ | ------------------------ |
+| `.bed` | Coverage at specified merged target intervals in BED format. |
+|  `.tsv` `.bed` | Intermdiate outputs of unformatted and unmerged depth files. (OPTIONAL)  |
+| `report.html`, `timeline.html` and `trace.txt` | A Nextflowreport, timeline and trace files |
+| `log.command.*` | Process specific logging files created by nextflow. |
 
 ---
 
