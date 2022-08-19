@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add `merge_intervals_bedtools.nf` module
 - Add `depth_to_bed.nf` module
 - Add preliminary configs
+- Add main workflow
 ### Changed
 - Update manifest
 - Update `metadata.yaml`
