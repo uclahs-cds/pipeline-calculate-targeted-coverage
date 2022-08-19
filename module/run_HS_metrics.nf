@@ -9,6 +9,8 @@
 
 process run_BedToIntervalList_picard {
     container params.docker_image_picard
+    containerOptions "--volume ${params.reference}"
+    // picard-slim-2.27.4-0
 
 
     publishDir path: "${workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
@@ -34,11 +36,11 @@ process run_BedToIntervalList_picard {
     """
     set -euo pipefail
 
-    java -jar /usr/local/share/picard-slim-2.26.8-0/picard.jar \
+    java -jar /usr/local/share/picard-slim-${params.picard_version}-0/picard.jar \
         BedToIntervalList \
         --INPUT $input_bed \
         --OUTPUT ${params.sample_id}.target.interval_list \
-        --SEQUENCE_DICTIONARY ${params.reference_dict}
+        --SEQUENCE_DICTIONARY ${params.reference}
         --SORT false
     """
 
@@ -46,6 +48,7 @@ process run_BedToIntervalList_picard {
 
 process run_CollectHsMetrics_picard {
     container params.docker_image_picard
+    containerOptions "--volume ${params.reference}"
 
     // label "resource_allocation_tool_name_command_name" samtools_depth ??
 
@@ -76,7 +79,7 @@ process run_CollectHsMetrics_picard {
     """
     set -euo pipefail
 
-    java -jar /usr/local/share/picard-slim-2.26.8-0/picard.jar \
+    java -jar /usr/local/share/picard-slim-${params.picard_version}-0/picard.jar \
         CollectHsMetrics \
         --BAIT_INTERVALS $bait_interval_list \
         --INPUT $input_bam \
