@@ -25,6 +25,7 @@ log.info """\
             sample_id: ${params.sample_id}
             input.bam: ${params.input.bam}
             input_bed: ${params.input_bed}
+            reference_dict: ${params.reference_dict}
 
         - output: 
             output_dir: ${params.output_dir}
