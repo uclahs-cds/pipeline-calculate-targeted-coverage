@@ -47,11 +47,8 @@ process run_BedToIntervalList_picard {
 
 process run_CollectHsMetrics_picard {
     container params.docker_image_picard
-    containerOptions "--volume ${params.reference}"
 
-    // label "resource_allocation_tool_name_command_name" samtools_depth ??
-
-    publishDir path: "${params.workflow_output_dir}/metrics/${task.process.replace(':','/')}-${task.index}",
+    publishDir path: "${params.workflow_output_dir}/QC/${task.process.replace(':','/')}-${task.index}",
         pattern: "*.txt",
         mode: "copy",
         enabled: true
@@ -65,8 +62,8 @@ process run_CollectHsMetrics_picard {
     
     input: 
         path input_bam
-        path target_interval_list
-        path bait_interval_list
+        path target_interval_list, stageAs: 'target_intervals.interval_list'
+        path bait_interval_list, stageAs: 'bait_intervals.interval_list'
 
     output:
         // path("${variable_name}.command_name.file_extension"), emit: output_ch_tool_name_command_name
@@ -83,6 +80,6 @@ process run_CollectHsMetrics_picard {
         --INPUT $input_bam \
         --TARGET_INTERVALS $target_interval_list \
         --OUTPUT ${params.sample_id}.HsMetrics.txt \
-        --TMP_DIR ${params.work_dir} 
+        --TMP_DIR ${params.work_dir}
     """
 }
