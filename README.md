@@ -18,7 +18,7 @@
   - [License](#license) 
 ## Overview
 
-This pipeline performs coverage calculations from a BAM file at intervals specified by a target bed file and reports some basic coverage metrics. The SAMtools depth tool is used to calculate per-base coverage in specified regions. This intermediate output is converted into bed format using an awk script. Then the BEDtools merge tool is used to collapse consecutive coordinates into intervals, with a final output reporting a comma-separated list of per-base read depths for each coordinate in an interval.
+This pipeline performs coverage calculations from a BAM file at intervals specified by a target bed file and reports some basic coverage metrics. The SAMtools depth tool is used to calculate per-base coverage in specified regions. This intermediate output is converted into bed format using an awk script. Then the BEDtools merge tool is used to collapse consecutive coordinates into intervals, with a final output reporting a comma-separated list of per-base read depths for each coordinate in an interval. Picard's CollectHsMetrics is used to report various interval related metrics on the input BAM.
 
 ---
 
@@ -54,6 +54,10 @@ A directed acyclic graph of your pipeline.
 
 > BED file of read depths is collapsed into intervals using `bedtools merge`.
 
+### 4. Metrics Reporting
+
+> target BED file is converted to INTERVAL_LIST format using picard `BedToIntervalList` then used to report metrics on input BAM using picard `CollectHsMetrics`.
+
 ---
 
 ## Inputs
@@ -63,6 +67,7 @@ A directed acyclic graph of your pipeline.
 | input BAM | yes | path | BAM file for which to calculate coverage, path provided in input yaml. |
 | input BED | yes | path | BED file specifying target intervals at which to calculate coverage. |
 | `save_intermediate_files` | yes | boolean | Whether to save intermediate files. |
+| `reference_dict` | yes | path | Human genome reference dictionary file for use in BED to INTERVAL_LIST conversion |
 | `min_base_quality` | no | integer | Minimum base quality for a read to be counted in depth calculation by `samtools depth`. Defaults to 20. |
 | `merge_operation` | no | string | Operation performed on read depth column values when intervals are collapsed during `bedtools merge`. Defaults to 'collapse'. See [bedtools documentation](https://bedtools.readthedocs.io/en/latest/content/tools/merge.html#:~:text=%2Dc.-,Valid%20operations%3A,-sum%2C%20min%2C%20max) for other options. |
 | `work_dir` | no | path | Path of working directory for Nextflow. When included in the sample config file, Nextflow intermediate files and logs will be saved to this directory. With ucla_cds, the default is `/scratch` and should only be changed for testing/development. Changing this directory to `/hot` or `/tmp` can lead to high server latency and potential disk space limitations, respectively. |
@@ -76,7 +81,9 @@ A directed acyclic graph of your pipeline.
  Output and Output Parameter/Flag | Description |
 | ------------ | ------------------------ |
 | `.bed` | Coverage at specified merged target intervals in BED format. |
+| `.HsMetrics.txt` | QC output from CollectHsMetrics()|
 |  `.tsv` `.bed` | Intermdiate outputs of unformatted and unmerged depth files. (OPTIONAL)  |
+|  `.interval_list` | Intermdiate output of target bed file converted to picard's interval list format. (OPTIONAL)  |
 | `report.html`, `timeline.html` and `trace.txt` | A Nextflowreport, timeline and trace files |
 | `log.command.*` | Process specific logging files created by nextflow. |
 
