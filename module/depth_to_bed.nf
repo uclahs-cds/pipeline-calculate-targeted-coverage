@@ -15,7 +15,7 @@ process convert_depth_to_bed {
         mode: "copy",
         enabled: params.save_intermediate_files
 
-    publishDir path: "${params.log_output_dir}",
+    publishDir path: "${params.log_output_dir}/process-log/",
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }

@@ -14,7 +14,7 @@ process run_merge_BEDtools {
         pattern: "*.bed",
         mode: "copy"
 
-    publishDir path: "${params.log_output_dir}",
+    publishDir path: "${params.log_output_dir}/process-log/",
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
