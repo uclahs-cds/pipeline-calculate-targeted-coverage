@@ -27,7 +27,7 @@ log.info """\
 
         - output: 
             output_dir: ${params.output_dir}
-            output_log_dir: ${params.output_log_dir}
+            output_log_dir: ${params.output_log_directory}
 
         - options:
             save_intermediate_files: ${params.save_intermediate_files}
@@ -36,7 +36,7 @@ log.info """\
             samtools: ${params.docker_image_samtools}
             bedtools: ${params.docker_image_bedtools}
             picard: ${params.docker_image_picard}
-            pipeval: ${docker_image_validate}
+            pipeval: ${params.docker_image_validate}
 
         ------------------------------------
         Starting workflow...
@@ -50,7 +50,6 @@ log.info """\
 
 // Main workflow here
 workflow {
-    coverage_output_dir = "${params.output_dir}/targeted-coverage"
     Channel
         .from( params.input.bam )
         .multiMap { it -> 
@@ -72,17 +71,14 @@ workflow {
     run_depth_SAMtools(
         input_ch_bam,
         params.input_bed,
-        coverage_output_dir
         )
     
     convert_depth_to_bed(
         run_depth_SAMtools.out.tsv,
-        coverage_output_dir
         )
 
     run_merge_BEDtools(
         convert_depth_to_bed.out.bed,
-        coverage_output_dir
         )
 
 }

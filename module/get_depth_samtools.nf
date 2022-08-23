@@ -10,7 +10,7 @@ process run_depth_SAMtools {
 
     // label "resource_allocation_tool_name_command_name" samtools_depth ??
 
-    publishDir path: "${workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
+    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
         pattern: "*.tsv",
         mode: "copy",
         enabled: params.save_intermediate_files
@@ -25,7 +25,6 @@ process run_depth_SAMtools {
     input: 
         path input_BAM
         path input_bed
-        val workflow_output_dir
 
     output:
         path "*.tsv", emit: tsv
