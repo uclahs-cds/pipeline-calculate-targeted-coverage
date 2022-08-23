@@ -27,7 +27,7 @@ log.info """\
 
         - output: 
             output_dir: ${params.output_dir}
-            output_log_dir: ${params.output_log_dir}
+            output_log_dir: ${params.log_output_dir}
 
         - options:
             save_intermediate_files: ${params.save_intermediate_files}
@@ -36,7 +36,7 @@ log.info """\
             samtools: ${params.docker_image_samtools}
             bedtools: ${params.docker_image_bedtools}
             picard: ${params.docker_image_picard}
-            pipeval: ${docker_image_validate}
+            pipeval: ${params.docker_image_validate}
 
         ------------------------------------
         Starting workflow...
@@ -50,7 +50,6 @@ log.info """\
 
 // Main workflow here
 workflow {
-
     Channel
         .from( params.input.bam )
         .multiMap { it -> 
@@ -67,19 +66,24 @@ workflow {
     run_validate_PipeVal(
         input_ch_validate
         )
+    
+    run_validate_PipeVal.out.validation_result.collectFile(
+        name: 'input_validation.txt', newLine: true,
+        storeDir: "${params.workflow_output_dir}/validation"
+        )
 
     // Workflow or process
     run_depth_SAMtools(
         input_ch_bam,
-        params.input_bed
+        params.input_bed,
         )
     
     convert_depth_to_bed(
-        run_depth_SAMtools.out.tsv
+        run_depth_SAMtools.out.tsv,
         )
 
     run_merge_BEDtools(
-        convert_depth_to_bed.out.bed
+        convert_depth_to_bed.out.bed,
         )
 
 }

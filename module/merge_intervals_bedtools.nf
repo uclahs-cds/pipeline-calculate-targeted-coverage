@@ -10,12 +10,11 @@ process run_merge_BEDtools {
 
     // label "resource_allocation_tool_name_command_name" samtools_depth ??
 
-    publishDir path: "${params.output_dir}/${task.process.replace(':','/')}-${task.index}",
+    publishDir path: "${params.workflow_output_dir}/output/",
         pattern: "*.bed",
-        mode: "copy",
-        enabled: true
+        mode: "copy"
 
-    publishDir path: "${params.log_output_dir}",
+    publishDir path: "${params.log_output_dir}/process-log/",
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }

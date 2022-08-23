@@ -17,6 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 - Update manifest
 - Update `metadata.yaml`
+- Update output directory structure according to lab standards
 
 ---
 
