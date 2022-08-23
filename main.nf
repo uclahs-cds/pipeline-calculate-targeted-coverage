@@ -66,6 +66,11 @@ workflow {
     run_validate_PipeVal(
         input_ch_validate
         )
+    
+    run_validate_PipeVal.out.validation_result.collectFile(
+        name: 'input_validation.txt', newLine: true,
+        storeDir: "${params.workflow_output_dir}/validation"
+        )
 
     // Workflow or process
     run_depth_SAMtools(
