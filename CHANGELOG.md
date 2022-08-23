@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add `depth_to_bed.nf` module
 - Add preliminary configs
 - Add main workflow
+- Add `run_HS_metrics.nf` module
 ### Changed
 - Update manifest
 - Update `metadata.yaml`
