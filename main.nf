@@ -79,7 +79,7 @@ workflow {
     // Calculate Metrics
     run_BedToIntervalList_picard(
         input_ch_bed,
-        coverage_output_dir
+        params.reference_dict
         )
     
     // add logic accepting external bait file
@@ -88,8 +88,7 @@ workflow {
     run_CollectHsMetrics_picard(
         input_ch_bam,
         run_BedToIntervalList_picard.out.interval_list,
-        params.bait_interval_list,
-        coverage_output_dir
+        params.bait_interval_list
         )
 
     // Calculate Coverage

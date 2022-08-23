@@ -9,11 +9,10 @@
 
 process run_BedToIntervalList_picard {
     container params.docker_image_picard
-    containerOptions "--volume ${params.reference}"
     // picard-slim-2.27.4-0
 
 
-    publishDir path: "${workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
+    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
         pattern: "*.interval_list",
         mode: "copy",
         enabled: params.save_intermediate_files
@@ -25,7 +24,7 @@ process run_BedToIntervalList_picard {
 
     input: 
         path input_bed
-        val workflow_output_dir
+        path reference_dict
 
     output:
         // path("${variable_name}.command_name.file_extension"), emit: output_ch_tool_name_command_name
@@ -40,7 +39,7 @@ process run_BedToIntervalList_picard {
         BedToIntervalList \
         --INPUT $input_bed \
         --OUTPUT ${params.sample_id}.target.interval_list \
-        --SEQUENCE_DICTIONARY ${params.reference}
+        --SEQUENCE_DICTIONARY $reference_dict \
         --SORT false
     """
 
@@ -52,7 +51,7 @@ process run_CollectHsMetrics_picard {
 
     // label "resource_allocation_tool_name_command_name" samtools_depth ??
 
-    publishDir path: "${workflow_output_dir}/metrics/${task.process.replace(':','/')}-${task.index}",
+    publishDir path: "${params.workflow_output_dir}/metrics/${task.process.replace(':','/')}-${task.index}",
         pattern: "*.txt",
         mode: "copy",
         enabled: true
@@ -68,7 +67,6 @@ process run_CollectHsMetrics_picard {
         path input_bam
         path target_interval_list
         path bait_interval_list
-        val workflow_output_dir
 
     output:
         // path("${variable_name}.command_name.file_extension"), emit: output_ch_tool_name_command_name
