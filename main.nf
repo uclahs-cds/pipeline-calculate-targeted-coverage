@@ -27,7 +27,7 @@ log.info """\
 
         - output: 
             output_dir: ${params.output_dir}
-            output_log_dir: ${params.output_log_directory}
+            output_log_dir: ${params.log_output_dir}
 
         - options:
             save_intermediate_files: ${params.save_intermediate_files}
