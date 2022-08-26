@@ -36,6 +36,7 @@ process run_depth_SAMtools {
         -b $input_bed \
         -a \
         --min-BQ ${params.min_base_quality} \
-        -o ${params.sample_id}.depth_per_base.tsv
+        -o ${params.sample_id}.depth_per_base.tsv \
+        ${params.samtools_depth_extra_args}
     """
 }
