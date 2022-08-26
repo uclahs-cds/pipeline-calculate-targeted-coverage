@@ -68,6 +68,9 @@ A directed acyclic graph of your pipeline.
 | input BED | yes | path | BED file specifying target intervals at which to calculate coverage. |
 | `save_intermediate_files` | yes | boolean | Whether to save intermediate files. |
 | `reference_dict` | yes | path | Human genome reference dictionary file for use in BED to INTERVAL_LIST conversion |
+| `bait_interval_list` | no | path | Bait file in INTERVAL_LIST format for CollectHsMetrics tool. By default the pipeline uses the target file as both interval and bait file. |
+| `samtools_depth_extra_args` | no | string | Extra arguments for `samtools depth`. |
+| `picard_CollectHsMetrics_extra_args` | no | string | Extra arguments for `picard CollectHsMetrics`. |
 | `min_base_quality` | no | integer | Minimum base quality for a read to be counted in depth calculation by `samtools depth`. Defaults to 20. |
 | `merge_operation` | no | string | Operation performed on read depth column values when intervals are collapsed during `bedtools merge`. Defaults to 'collapse'. See [bedtools documentation](https://bedtools.readthedocs.io/en/latest/content/tools/merge.html#:~:text=%2Dc.-,Valid%20operations%3A,-sum%2C%20min%2C%20max) for other options. |
 | `work_dir` | no | path | Path of working directory for Nextflow. When included in the sample config file, Nextflow intermediate files and logs will be saved to this directory. With ucla_cds, the default is `/scratch` and should only be changed for testing/development. Changing this directory to `/hot` or `/tmp` can lead to high server latency and potential disk space limitations, respectively. |
