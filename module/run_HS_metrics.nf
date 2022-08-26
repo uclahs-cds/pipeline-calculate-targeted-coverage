@@ -9,8 +9,6 @@
 
 process run_BedToIntervalList_picard {
     container params.docker_image_picard
-    // picard-slim-2.27.4-0
-
 
     publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
         pattern: "*.interval_list",
@@ -27,7 +25,6 @@ process run_BedToIntervalList_picard {
         path reference_dict
 
     output:
-        // path("${variable_name}.command_name.file_extension"), emit: output_ch_tool_name_command_name
         path "*.interval_list", emit: interval_list
         path ".command.*"
 
@@ -57,8 +54,6 @@ process run_CollectHsMetrics_picard {
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
-
-    // Additional directives here
     
     input: 
         path input_bam
@@ -66,7 +61,6 @@ process run_CollectHsMetrics_picard {
         path bait_interval_list, stageAs: 'bait_intervals.interval_list'
 
     output:
-        // path("${variable_name}.command_name.file_extension"), emit: output_ch_tool_name_command_name
         path "*.txt", emit: txt
         path ".command.*"
 
