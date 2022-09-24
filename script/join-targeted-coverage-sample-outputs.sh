@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# recursive function for joining single sample outputs of pipeline-targeted-coverage
-# ie bed files with a fourth column
+# this script joins single sample outputs of pipeline-targeted-coverage into one bed file
 
-# Usage: bash join-targeted-coverage-sample-outputs [pathfile] [output]
+# Usage: bash join-targeted-coverage-sample-outputs.sh [pathfile] [output]
 # where pathfile = a list of filenames to join. 
 # The file names must be separated by NUL (like the output produced by the command "find ... -print0").
 
