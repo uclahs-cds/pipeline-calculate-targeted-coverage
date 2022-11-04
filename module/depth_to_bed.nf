@@ -8,8 +8,6 @@
 process convert_depth_to_bed {
     container params.docker_image_validate
 
-    // label "resource_allocation_tool_name_command_name" samtools_depth ??
-
     publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
         pattern: "*.bed",
         mode: "copy",
@@ -19,8 +17,6 @@ process convert_depth_to_bed {
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
-
-    // Additional directives here
     
     input: 
         path input_tsv

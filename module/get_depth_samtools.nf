@@ -8,8 +8,6 @@
 process run_depth_SAMtools {
     container params.docker_image_samtools
 
-    // label "resource_allocation_tool_name_command_name" samtools_depth ??
-
     publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
         pattern: "*.tsv",
         mode: "copy",
@@ -19,8 +17,6 @@ process run_depth_SAMtools {
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
-
-    // Additional directives here
     
     input: 
         path input_BAM
@@ -40,6 +36,7 @@ process run_depth_SAMtools {
         -b $input_bed \
         -a \
         --min-BQ ${params.min_base_quality} \
-        -o ${params.sample_id}.depth_per_base.tsv
+        -o ${params.sample_id}.depth_per_base.tsv \
+        ${params.samtools_depth_extra_args}
     """
 }

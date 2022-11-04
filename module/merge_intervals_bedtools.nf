@@ -8,8 +8,6 @@
 process run_merge_BEDtools {
     container params.docker_image_bedtools
 
-    // label "resource_allocation_tool_name_command_name" samtools_depth ??
-
     publishDir path: "${params.workflow_output_dir}/output/",
         pattern: "*.bed",
         mode: "copy"
@@ -18,14 +16,11 @@ process run_merge_BEDtools {
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
-
-    // Additional directives here
     
     input: 
         path input_depth_bed
 
     output:
-        // path("${variable_name}.command_name.file_extension"), emit: output_ch_tool_name_command_name
         path "*.bed", emit: bed
         path ".command.*"
 

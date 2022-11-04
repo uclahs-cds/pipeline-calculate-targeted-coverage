@@ -15,11 +15,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add preliminary configs
 - Add main workflow
 - Add `run_HS_metrics.nf` module
+- Add parameters for providing extra arguments to process tools
 - Add external script for joining single sample outputs
+
 ### Changed
 - Update manifest
 - Update `metadata.yaml`
 - Update output directory structure according to lab standards
+- Update workflow to accept external bait file.
 
 ---
 

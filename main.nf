@@ -88,13 +88,13 @@ workflow {
         params.reference_dict
         )
     
-    // add logic accepting external bait file
-    params.bait_interval_list = run_BedToIntervalList_picard.out.interval_list
+    // if no provided bait file, use target file as bait file in CollectHsMetrics
+    ich_bait_intervals = (params.bait_interval_list) ?: run_BedToIntervalList_picard.out.interval_list
 
     run_CollectHsMetrics_picard(
         input_ch_bam,
         run_BedToIntervalList_picard.out.interval_list,
-        params.bait_interval_list
+        ich_bait_intervals
         )
 
     // Calculate Coverage
