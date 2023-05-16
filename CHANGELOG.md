@@ -23,6 +23,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Update `metadata.yaml`
 - Update output directory structure according to lab standards
 - Update workflow to accept external bait file.
+- Update docker container registry to ghcr.io/uclahs-cds
 
 ---
 
