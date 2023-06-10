@@ -74,6 +74,7 @@ process run_CollectHsMetrics_picard {
         --INPUT $input_bam \
         --TARGET_INTERVALS $target_interval_list \
         --OUTPUT ${params.sample_id}.HsMetrics.txt \
+        --COVERAGE_CAP ${params.coverage_cap} \
         ${params.picard_CollectHsMetrics_extra_args} \
         --TMP_DIR ${params.work_dir}
     """
