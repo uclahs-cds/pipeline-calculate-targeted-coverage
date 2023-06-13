@@ -24,6 +24,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Update output directory structure according to lab standards
 - Update workflow to accept external bait file.
 - Update docker container registry to ghcr.io/uclahs-cds
+- Add coverage cap parameter to `CollectHsMetrics` command
+- Add default parameter definitions for coverage cap and external bait file
 
 ---
 
