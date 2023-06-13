@@ -89,7 +89,7 @@ workflow {
         )
     
     // if no provided bait file, use target file as bait file in CollectHsMetrics
-    ich_bait_intervals = (params.bait_interval_list != '') ?: run_BedToIntervalList_picard.out.interval_list
+    ich_bait_intervals = (params.bait_interval_list) ?: run_BedToIntervalList_picard.out.interval_list
 
     run_CollectHsMetrics_picard(
         input_ch_bam,
