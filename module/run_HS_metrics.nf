@@ -55,7 +55,7 @@ process run_BedToIntervalList_picard_bait {
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
 
     input:
-        path target_bed
+        path bait_bed
         path reference_dict
 
     output:
@@ -68,7 +68,7 @@ process run_BedToIntervalList_picard_bait {
 
     java -jar /usr/local/share/picard-slim-${params.picard_version}-0/picard.jar \
         BedToIntervalList \
-        --INPUT $target_bed \
+        --INPUT $bait_bed \
         --OUTPUT ${params.sample_id}.target.interval_list \
         --SEQUENCE_DICTIONARY $reference_dict \
         --SORT false

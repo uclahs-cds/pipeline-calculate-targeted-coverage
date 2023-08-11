@@ -78,8 +78,6 @@ workflow {
         )
 
     //Get intervalLists
-    //input_ch_bait_bed = (params.bait_bed) ? params.bait_bed : input_ch_target_bed //if no bait bed, use target bed
-
     //if you already have the interval list use that, otherwise, generate interval list from BedToIntervalList process
     if ( params.target_interval_list ) {
         input_ch_target_intervals = params.target_interval_list
@@ -105,7 +103,6 @@ workflow {
     else {
         input_ch_bait_intervals = input_ch_target_intervals
         }
-   //input_ch_bait_intervals = (params.bait_interval_list) ? params.bait_interval_list : run_BedToIntervalList_picard_bait.out.interval_list
 
     // Calculate Metrics
     run_CollectHsMetrics_picard(
