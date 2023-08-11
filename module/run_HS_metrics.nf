@@ -6,8 +6,7 @@
 *   @output <name>  <type>  <description>
 */
 
-
-process run_BedToIntervalList_picard {
+process run_BedToIntervalList_picard_target {
     container params.docker_image_picard
 
     publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
@@ -20,8 +19,8 @@ process run_BedToIntervalList_picard {
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
 
-    input: 
-        path input_bed
+    input:
+        path target_bed
         path reference_dict
 
     output:
@@ -34,7 +33,42 @@ process run_BedToIntervalList_picard {
 
     java -jar /usr/local/share/picard-slim-${params.picard_version}-0/picard.jar \
         BedToIntervalList \
-        --INPUT $input_bed \
+        --INPUT $target_bed \
+        --OUTPUT ${params.sample_id}.target.interval_list \
+        --SEQUENCE_DICTIONARY $reference_dict \
+        --SORT false
+    """
+
+}
+
+process run_BedToIntervalList_picard_bait {
+    container params.docker_image_picard
+
+    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
+        pattern: "*.interval_list",
+        mode: "copy",
+        enabled: params.save_intermediate_files
+
+    publishDir path: "${params.log_output_dir}",
+        pattern: ".command.*",
+        mode: "copy",
+        saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
+
+    input:
+        path target_bed
+        path reference_dict
+
+    output:
+        path "*.interval_list", emit: interval_list
+        path ".command.*"
+
+    script:
+    """
+    set -euo pipefail
+
+    java -jar /usr/local/share/picard-slim-${params.picard_version}-0/picard.jar \
+        BedToIntervalList \
+        --INPUT $target_bed \
         --OUTPUT ${params.sample_id}.target.interval_list \
         --SEQUENCE_DICTIONARY $reference_dict \
         --SORT false
@@ -54,8 +88,8 @@ process run_CollectHsMetrics_picard {
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
-    
-    input: 
+
+    input:
         path input_bam
         path target_interval_list, stageAs: 'target_intervals.interval_list'
         path bait_interval_list, stageAs: 'bait_intervals.interval_list'
