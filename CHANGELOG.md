@@ -29,6 +29,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Update docker container registry to ghcr.io/uclahs-cds
 - Add coverage cap parameter to `CollectHsMetrics` command
 - Add default parameter definitions for coverage cap and external bait file
-- Update template.yaml for target bed +/- bait bed, bait interval list, or target interval list
+- Update template.config for target bed +/- bait bed, bait interval list, or target interval list
 ---
 
