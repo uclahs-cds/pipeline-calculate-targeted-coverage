@@ -31,7 +31,6 @@ process run_BedToIntervalList_picard {
 
     output:
         path "*.interval_list", emit: interval_list
-        path ""
         path ".command.*"
 
     script:
