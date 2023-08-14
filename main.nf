@@ -7,7 +7,9 @@ include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modul
 include { run_depth_SAMtools } from './module/get_depth_samtools'
 include { convert_depth_to_bed } from './module/depth_to_bed'
 include { run_merge_BEDtools } from './module/merge_intervals_bedtools'
-include { run_BedToIntervalList_picard_target; run_BedToIntervalList_picard_bait; run_CollectHsMetrics_picard } from './module/run_HS_metrics.nf'
+include { run_CollectHsMetrics_picard } from './module/run_HS_metrics.nf'
+include { run_BedToIntervalList_picard as run_BedToIntervalList_picard_target } from './module/run_HS_metrics.nf'
+include { run_BedToIntervalList_picard as run_BedToIntervalList_picard_bait } from './module/run_HS_metrics.nf'
 
 // Log info here
 log.info """\
@@ -85,7 +87,8 @@ workflow {
     else {
         run_BedToIntervalList_picard_target(
             params.target_bed,
-            params.reference_dict
+            params.reference_dict,
+            'target'
             )
         input_ch_target_intervals = run_BedToIntervalList_picard_target.out.interval_list
         }
@@ -96,7 +99,8 @@ workflow {
     else if ( params.bait_bed ){
         run_BedToIntervalList_picard_bait(
             params.bait_bed,
-            params.reference_dict
+            params.reference_dict,
+            'bait'
             )
         input_ch_bait_intervals = run_BedToIntervalList_picard_bait.out.interval_list
         }
