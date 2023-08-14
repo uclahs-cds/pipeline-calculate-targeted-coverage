@@ -9,20 +9,20 @@
 process run_BedToIntervalList_picard {
     container params.docker_image_picard
 
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
+    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}", //save intermediate files
         pattern: "*.interval_list",
         mode: "copy",
         enabled: params.save_intermediate_files
 
-    publishDir path: "${params.log_output_dir}",
+    publishDir path: "${params.log_output_dir}", //print log
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
 
-    publishDir path: "${params.output_dir}/",
+    publishDir path: "${params.output_dir}/", //print out and save generated interval list
         pattern: "*.interval_list",
         mode: "copy",
-        enabled: true //TODO to print out the interval list
+        enabled: params.save_interval_list
 
     input:
         path input_bed
