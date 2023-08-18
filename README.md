@@ -60,12 +60,16 @@ A directed acyclic graph of your pipeline.
 
 ---
 
-## Inputs
+## Inputs and Configuration
 
  Input and Input Parameter/Flag | Required | Type | Description |
 | ------------ | ------------ | ------- | ------------------------ |
-| input BAM | yes | path | BAM file for which to calculate coverage, path provided in input yaml. |
-| input BED | yes | path | BED file specifying target intervals at which to calculate coverage. |
+| `input.BAM` | yes | path | BAM file for which to calculate coverage, path provided in input yaml. |
+| `target_BED` | yes | path | BED file specifying target intervals at which to calculate coverage. |
+| `target_interval_list` | no | path | Interval list file specifying target intervals used to calculate coverage. If not provided, the target BED will be used to calculate the intervals. |
+| `bait_BED` | no | path | BED file with bait locations that can be used to generate a bait interval list to use to calculate coverage. If not provided, the target BED will be used. |
+| `bait_interval_list` | no | path | Interval list file specifying bait intervals used to calculate coverage. If not provided, the bait BED will be used to calculate the intervals. |
+| `save_interval_list` | yes | boolean | Whether to save a copy of any generated interval lists. Saves to the `output_dir`. |
 | `save_intermediate_files` | yes | boolean | Whether to save intermediate files. |
 | `reference_dict` | yes | path | Human genome reference dictionary file for use in BED to INTERVAL_LIST conversion |
 | `bait_interval_list` | no | path | Bait file in INTERVAL_LIST format for CollectHsMetrics tool. By default the pipeline uses the target file as both interval and bait file. |
@@ -84,10 +88,11 @@ A directed acyclic graph of your pipeline.
 
  Output and Output Parameter/Flag | Description |
 | ------------ | ------------------------ |
+| `output_dir` | Location where generated output should be saved. |
 | `.bed` | Coverage at specified merged target intervals in BED format. |
 | `.HsMetrics.txt` | QC output from CollectHsMetrics()|
-|  `.tsv` `.bed` | Intermdiate outputs of unformatted and unmerged depth files. (OPTIONAL)  |
-|  `.interval_list` | Intermdiate output of target bed file converted to picard's interval list format. (OPTIONAL)  |
+| `.tsv`,`.bed` | Intermediate outputs of unformatted and unmerged depth files. (OPTIONAL) Set `save_intermediate_files` in config file. |
+| `.interval_list` | Intermediate output of target bed file converted to picard's interval list format. (OPTIONAL)  Set `save_interval_list` in config file. |
 | `report.html`, `timeline.html` and `trace.txt` | A Nextflowreport, timeline and trace files |
 | `log.command.*` | Process specific logging files created by nextflow. |
 
@@ -101,7 +106,7 @@ A 2-3 sentence description of the test data set(s) used to validate and test thi
 
 ### Validation <version number\>
 
- Input/Output | Description | Result  
+ Input/Output | Description | Result
  | ------------ | ------------------------ | ------------------------ |
 | metric 1 | 1 - 2 sentence description of the metric | quantifiable result |
 | metric 2 | 1 - 2 sentence description of the metric | quantifiable result |
