@@ -6,23 +6,28 @@
 *   @output <name>  <type>  <description>
 */
 
-
 process run_BedToIntervalList_picard {
     container params.docker_image_picard
 
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
+    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}", //save intermediate files
         pattern: "*.interval_list",
         mode: "copy",
         enabled: params.save_intermediate_files
 
-    publishDir path: "${params.log_output_dir}",
+    publishDir path: "${params.log_output_dir}", //print log
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
 
-    input: 
+    publishDir path: "${params.output_dir}/", //print out and save generated interval list
+        pattern: "*.interval_list",
+        mode: "copy",
+        enabled: params.save_interval_list
+
+    input:
         path input_bed
         path reference_dict
+        val tag
 
     output:
         path "*.interval_list", emit: interval_list
@@ -35,11 +40,10 @@ process run_BedToIntervalList_picard {
     java -jar /usr/local/share/picard-slim-${params.picard_version}-0/picard.jar \
         BedToIntervalList \
         --INPUT $input_bed \
-        --OUTPUT ${params.sample_id}.target.interval_list \
+        --OUTPUT ${params.sample_id}.${tag}.interval_list \
         --SEQUENCE_DICTIONARY $reference_dict \
         --SORT false
     """
-
 }
 
 process run_CollectHsMetrics_picard {
@@ -54,8 +58,8 @@ process run_CollectHsMetrics_picard {
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
-    
-    input: 
+
+    input:
         path input_bam
         path target_interval_list, stageAs: 'target_intervals.interval_list'
         path bait_interval_list, stageAs: 'bait_intervals.interval_list'
