@@ -4,8 +4,8 @@ nextflow.enable.dsl=2
 
 // Include processes and workflows here  // './module/validation'
 include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main'
-include { run_depth_SAMtools } from './module/get_depth_samtools'
-include { convert_depth_to_bed } from './module/depth_to_bed'
+include { run_depth_SAMtools as run_depth_SAMtools_target; run_depth_SAMtools as run_depth_SAMtools_off_target} from './module/get_depth_samtools'
+include { convert_depth_to_bed as convert_depth_to_bed_target; convert_depth_to_bed as convert_depth_to_bed_off_target } from './module/depth_to_bed'
 include { run_merge_BEDtools } from './module/merge_intervals_bedtools'
 include { run_CollectHsMetrics_picard } from './module/run_HS_metrics.nf'
 include { run_BedToIntervalList_picard as run_BedToIntervalList_picard_target; run_BedToIntervalList_picard as run_BedToIntervalList_picard_bait } from './module/run_HS_metrics.nf'
@@ -115,17 +115,36 @@ workflow {
         )
 
     // Calculate Coverage
-    run_depth_SAMtools(
+    run_depth_SAMtools_target(
         input_ch_bam,
         params.target_bed,
+        'target'
         )
 
-    convert_depth_to_bed(
-        run_depth_SAMtools.out.tsv,
+    convert_depth_to_bed_target(
+        run_depth_SAMtools_target.out.tsv,
+        'target'
         )
 
     run_merge_BEDtools(
-        convert_depth_to_bed.out.bed,
+        convert_depth_to_bed_target.out.bed,
         )
+    
+    // Calculate Off-target Depth
+    if ( params.off_target_depth ) {
+
+        params.save_raw_bed = true
+
+        run_depth_SAMtools_off_target(
+            input_ch_bam,
+            params.reference_dbSNP,
+            'off-target'
+            )
+
+        convert_depth_to_bed_off_target(
+            run_depth_SAMtools_off_target.out.tsv,
+            'off-target'
+            )
+    }
 
 }

@@ -13,6 +13,11 @@ process convert_depth_to_bed {
         mode: "copy",
         enabled: params.save_intermediate_files
 
+    publishDir path: "${params.workflow_output_dir}/output/",
+        pattern: "*.bed",
+        mode: "copy",
+        enabled: params.save_raw_bed
+
     publishDir path: "${params.log_output_dir}/process-log/",
         pattern: ".command.*",
         mode: "copy",
@@ -20,6 +25,7 @@ process convert_depth_to_bed {
     
     input: 
         path input_tsv
+        val tag
 
     output:
         path "*.bed", emit: bed
@@ -32,6 +38,6 @@ process convert_depth_to_bed {
     cat $input_tsv | \
     awk 'BEGIN {OFS="\t"} {chr = \$1; start=\$2-1; stop=\$2; depth=\$3; print chr,start,stop,depth}' \
         | sort -k1,1 -k2,2n \
-        > ${params.sample_id}.depth_per_base.bed
+        > ${params.sample_id}.${tag}.depth_per_base.bed
     """
 }
