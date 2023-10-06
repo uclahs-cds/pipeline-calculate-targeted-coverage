@@ -10,6 +10,8 @@ include { convert_depth_to_bed as convert_depth_to_bed_target } from './module/d
 include { run_merge_BEDtools } from './module/merge_intervals_bedtools'
 include { run_CollectHsMetrics_picard } from './module/run_HS_metrics.nf'
 include { run_BedToIntervalList_picard as run_BedToIntervalList_picard_target; run_BedToIntervalList_picard as run_BedToIntervalList_picard_bait } from './module/run_HS_metrics.nf'
+include { run_slop_BEDtools } from './module/filter_off_target_depth.nf'
+include { run_intersect_BEDtools } from './module/filter_off_target_depth.nf'
 
 // Log info here
 log.info """\
@@ -142,13 +144,26 @@ workflow {
         run_depth_SAMtools_off_target(
             input_ch_bam,
             params.reference_dbSNP,
-            'off-target'
+            'genome-wide-filtered'
             )
 
         convert_depth_to_bed_off_target(
             run_depth_SAMtools_off_target.out.tsv,
-            'off-target'
+            'genome-wide-filtered'
             )
+        
+        // Remove targeted regions from off-target depth calculations
+        run_slop_BEDtools(
+            params.target_bed,
+            params.genome_sizes
+            )
+        
+        run_intersect_BEDtools(
+            run_slop_BEDtools.out.bed,
+            convert_depth_to_bed_off_target.out.bed
+            )
+
+
     }
 
 }
