@@ -20,6 +20,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add external script for joining single sample outputs
 - Add module process to generate interval list from bait bed
 - Add conditional logic to take target bed with bait bed and/or pre-built interval lists for targets and/or baits
+- Add workflow for calculating coverage at select off-target loci
 
 ### Changed
 - Update manifest

@@ -44,15 +44,19 @@ A directed acyclic graph of your pipeline.
 
 ### 1. Depth Calculation
 
-> Per-base depth is calculated from the input BAM file at coordinates specified by the input target BED file using `samtools depth`.
+> Per-base depth is calculated from the input BAM file at coordinates specified by the input target BED file using `samtools depth`. If `off_target_depth` is set to `true`, per-base read depth is also calculated genome-wide at dbSNP loci.
 
 ### 2. BED Formatting
 
 > TSV output from `samtools depth` is converted into BED format using `awk`.
 
-### 3. BED Merging
+### 3a. BED Merging
 
-> BED file of read depths is collapsed into intervals using `bedtools merge`.
+> BED file of target region read depths is collapsed into intervals using `bedtools merge`.
+
+### 3b. Off target depth filtering
+
+> BED file of genome-wide dbSNP read-depths is filtered to exclude loci that are within targeted regions and near-targeted regions (+/- 500bp of target file coordinates by default). Uses `bedtools slop` and `bedtools intersect`.
 
 ### 4. Metrics Reporting
 
@@ -73,6 +77,9 @@ A directed acyclic graph of your pipeline.
 | `save_intermediate_files` | yes | boolean | Whether to save intermediate files. |
 | `reference_dict` | yes | path | Human genome reference dictionary file for use in BED to INTERVAL_LIST conversion |
 | `bait_interval_list` | no | path | Bait file in INTERVAL_LIST format for CollectHsMetrics tool. By default the pipeline uses the target file as both interval and bait file. |
+| `off_target_depth` | yes | bool | Whether to perform off-target read depth calculation.|
+| `off_target_slop` | no | integer | Number of base pairs to add to either side of target file coordinates so that they may be excluded from off-target read depth. Default is 500.|
+| `genome.sizes` | no | path | Reference file consisting of chromosomes and their lengths used by `bedtools slop` in off-target read depth workflow. |
 | `coverage_cap` | no | integer | `COVERAGE_CAP` parameter for `CollectHsMetrics`, determines the coverage threshold at which to stop calculating coverage. |
 | `samtools_depth_extra_args` | no | string | Extra arguments for `samtools depth`. |
 | `picard_CollectHsMetrics_extra_args` | no | string | Extra arguments for `picard CollectHsMetrics`. |
@@ -89,7 +96,9 @@ A directed acyclic graph of your pipeline.
  Output and Output Parameter/Flag | Description |
 | ------------ | ------------------------ |
 | `output_dir` | Location where generated output should be saved. |
-| `.bed` | Coverage at specified merged target intervals in BED format. |
+| `.collapsed_coverage.bed` | Coverage at specified merged target intervals in BED format. |
+|`.genome-wide-dbSNP_depth-per-base.bed`| Per-base read depth at dbSNP loci. |
+|`.off-target-dbSNP_depth-per-base.bed`|Per-base read depth at dbSNP loci outside of targeted regions.|
 | `.HsMetrics.txt` | QC output from CollectHsMetrics()|
 | `.tsv`,`.bed` | Intermediate outputs of unformatted and unmerged depth files. (OPTIONAL) Set `save_intermediate_files` in config file. |
 | `.interval_list` | Intermediate output of target bed file converted to picard's interval list format. (OPTIONAL)  Set `save_interval_list` in config file. |

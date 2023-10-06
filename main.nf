@@ -144,12 +144,12 @@ workflow {
         run_depth_SAMtools_off_target(
             input_ch_bam,
             params.reference_dbSNP,
-            'genome-wide-filtered'
+            'genome-wide-dbSNP'
             )
 
         convert_depth_to_bed_off_target(
             run_depth_SAMtools_off_target.out.tsv,
-            'genome-wide-filtered'
+            'genome-wide-dbSNP'
             )
         
         // Remove targeted regions from off-target depth calculations

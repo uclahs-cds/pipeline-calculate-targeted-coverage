@@ -38,6 +38,6 @@ process convert_depth_to_bed {
     cat $input_tsv | \
     awk 'BEGIN {OFS="\t"} {chr = \$1; start=\$2-1; stop=\$2; depth=\$3; print chr,start,stop,depth}' \
         | sort -k1,1 -k2,2n \
-        > ${params.sample_id}.${tag}.depth_per_base.bed
+        > ${params.sample_id}.${tag}_depth-per-base.bed
     """
 }
