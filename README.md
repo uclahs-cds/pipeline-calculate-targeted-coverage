@@ -80,6 +80,7 @@ A directed acyclic graph of your pipeline.
 | `off_target_depth` | yes | bool | Whether to perform off-target read depth calculation.|
 | `off_target_slop` | no | integer | Number of base pairs to add to either side of target file coordinates so that they may be excluded from off-target read depth. Default is 500.|
 | `genome.sizes` | no | path | Reference file consisting of chromosomes and their lengths used by `bedtools slop` in off-target read depth workflow. |
+| `collect_metrics` | yes | bool | Whether to run `CollectHsMetrics`. |
 | `coverage_cap` | no | integer | `COVERAGE_CAP` parameter for `CollectHsMetrics`, determines the coverage threshold at which to stop calculating coverage. |
 | `samtools_depth_extra_args` | no | string | Extra arguments for `samtools depth`. |
 | `picard_CollectHsMetrics_extra_args` | no | string | Extra arguments for `picard CollectHsMetrics`. |

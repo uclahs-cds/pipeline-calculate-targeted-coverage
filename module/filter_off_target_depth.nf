@@ -78,6 +78,6 @@ process run_intersect_BEDtools {
         -a $off_target_bed \
         -b $target_bed \
         -v \
-        > ${params.sample_id}.off-target_depth-per-base.bed
+        > ${params.sample_id}.off-target-dbSNP_depth-per-base.bed
     """
 }
