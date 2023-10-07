@@ -139,8 +139,6 @@ workflow {
     // Calculate Off-target Depth
     if ( params.off_target_depth ) {
 
-        params.save_raw_bed = true
-
         run_depth_SAMtools_off_target(
             input_ch_bam,
             params.reference_dbSNP,
