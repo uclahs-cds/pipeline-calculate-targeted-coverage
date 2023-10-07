@@ -72,11 +72,11 @@ A directed acyclic graph of your pipeline.
 | `target_BED` | yes | path | BED file specifying target intervals at which to calculate coverage. |
 | `target_interval_list` | no | path | Interval list file specifying target intervals used to calculate coverage. If not provided, the target BED will be used to calculate the intervals. |
 | `bait_BED` | no | path | BED file with bait locations that can be used to generate a bait interval list to use to calculate coverage. If not provided, the target BED will be used. |
-| `bait_interval_list` | no | path | Interval list file specifying bait intervals used to calculate coverage. If not provided, the bait BED will be used to calculate the intervals. |
+| `bait_interval_list` | no | path | Interval list file specifying bait intervals used to calculate coverage by `CollectHsMetrics`. If not provided, the bait BED will be used to calculate the intervals.|
 | `save_interval_list` | yes | boolean | Whether to save a copy of any generated interval lists. Saves to the `output_dir`. |
 | `save_intermediate_files` | yes | boolean | Whether to save intermediate files. |
 | `reference_dict` | yes | path | Human genome reference dictionary file for use in BED to INTERVAL_LIST conversion |
-| `bait_interval_list` | no | path | Bait file in INTERVAL_LIST format for CollectHsMetrics tool. By default the pipeline uses the target file as both interval and bait file. |
+| `reference_dbSNP` | yes | path | dbSNP reference VCF file, with proper chromosome encoding and compression. See [discussion](https://github.com/uclahs-cds/pipeline-targeted-coverage/discussions/18#:~:text=Troubleshooting%20dbSNP%20reference%20file) |
 | `off_target_depth` | yes | bool | Whether to perform off-target read depth calculation.|
 | `off_target_slop` | no | integer | Number of base pairs to add to either side of target file coordinates so that they may be excluded from off-target read depth. Default is 500.|
 | `genome.sizes` | no | path | Reference file consisting of chromosomes and their lengths used by `bedtools slop` in off-target read depth workflow. |
