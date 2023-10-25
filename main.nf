@@ -4,11 +4,14 @@ nextflow.enable.dsl=2
 
 // Include processes and workflows here  // './module/validation'
 include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main'
-include { run_depth_SAMtools } from './module/get_depth_samtools'
-include { convert_depth_to_bed } from './module/depth_to_bed'
+include { run_depth_SAMtools as run_depth_SAMtools_target; run_depth_SAMtools as run_depth_SAMtools_off_target} from './module/get_depth_samtools'
+include { convert_depth_to_bed as convert_depth_to_bed_off_target } from './module/depth_to_bed' addParams(save_raw_bed: true)
+include { convert_depth_to_bed as convert_depth_to_bed_target } from './module/depth_to_bed' addParams(save_raw_bed: false)
 include { run_merge_BEDtools } from './module/merge_intervals_bedtools'
 include { run_CollectHsMetrics_picard } from './module/run_HS_metrics.nf'
 include { run_BedToIntervalList_picard as run_BedToIntervalList_picard_target; run_BedToIntervalList_picard as run_BedToIntervalList_picard_bait } from './module/run_HS_metrics.nf'
+include { run_slop_BEDtools } from './module/filter_off_target_depth.nf'
+include { run_intersect_BEDtools } from './module/filter_off_target_depth.nf'
 
 // Log info here
 log.info """\
@@ -108,24 +111,57 @@ workflow {
         }
 
     // Calculate Metrics
-    run_CollectHsMetrics_picard(
-        input_ch_bam,
-        input_ch_target_intervals,
-        input_ch_bait_intervals
-        )
+    if (params.collect_metrics) {
+        run_CollectHsMetrics_picard(
+            input_ch_bam,
+            input_ch_target_intervals,
+            input_ch_bait_intervals
+            )
+    }
+
 
     // Calculate Coverage
-    run_depth_SAMtools(
+    run_depth_SAMtools_target(
         input_ch_bam,
         params.target_bed,
+        'target'
         )
 
-    convert_depth_to_bed(
-        run_depth_SAMtools.out.tsv,
+    convert_depth_to_bed_target(
+        run_depth_SAMtools_target.out.tsv,
+        'target'
         )
 
     run_merge_BEDtools(
-        convert_depth_to_bed.out.bed,
+        convert_depth_to_bed_target.out.bed,
         )
+    
+    // Calculate Off-target Depth
+    if ( params.off_target_depth ) {
+
+        run_depth_SAMtools_off_target(
+            input_ch_bam,
+            params.reference_dbSNP,
+            'genome-wide-dbSNP'
+            )
+
+        convert_depth_to_bed_off_target(
+            run_depth_SAMtools_off_target.out.tsv,
+            'genome-wide-dbSNP'
+            )
+        
+        // Remove targeted regions from off-target depth calculations
+        run_slop_BEDtools(
+            params.target_bed,
+            params.genome_sizes
+            )
+        
+        run_intersect_BEDtools(
+            run_slop_BEDtools.out.bed,
+            convert_depth_to_bed_off_target.out.bed
+            )
+
+
+    }
 
 }

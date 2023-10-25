@@ -21,6 +21,7 @@ process run_depth_SAMtools {
     input: 
         path input_BAM
         path input_bed
+        val tag
 
     output:
         path "*.tsv", emit: tsv
@@ -36,7 +37,8 @@ process run_depth_SAMtools {
         -b $input_bed \
         -a \
         --min-BQ ${params.min_base_quality} \
-        -o ${params.sample_id}.depth_per_base.tsv \
+        --min-MQ ${params.min_mapping_quality} \
+        -o ${params.sample_id}.${tag}.depth_per_base.tsv \
         ${params.samtools_depth_extra_args}
     """
 }
