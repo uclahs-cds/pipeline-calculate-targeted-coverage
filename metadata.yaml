@@ -4,7 +4,7 @@ description: "A pipeline for calculating summary stats for targeted sequencing e
 maintainers: "Nicole Zeltser <nzeltser@mednet.ucla.edu>"
 languages: ["Nextflow", "Docker"]
 dependencies: ["Java", "Nextflow", "Docker"]
-references: "https://confluence.mednet.ucla.edu/display/BOUTROSLAB/Guide+to+Nextflow"
+references: "https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3189620/Guide+to+Nextflow"
 tools: ["SAMTools 1.15.1", "Picard Tools 2.27.4", BEDtools 2.29.2]
 Engineering_Owner: "Nicole Zeltser"
 Scientific_Owner: "Nicole Zeltser"
