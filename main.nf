@@ -12,6 +12,8 @@ include { run_CollectHsMetrics_picard } from './module/run_HS_metrics.nf'
 include { run_BedToIntervalList_picard as run_BedToIntervalList_picard_target; run_BedToIntervalList_picard as run_BedToIntervalList_picard_bait } from './module/run_HS_metrics.nf'
 include { run_slop_BEDtools } from './module/filter_off_target_depth.nf'
 include { run_intersect_BEDtools } from './module/filter_off_target_depth.nf'
+include { run_depth_filter } from './module/filter_off_target_depth.nf'
+include { run_merge_BEDops } from './module/merge_bedfiles_bedops.nf'
 
 // Log info here
 log.info """\
@@ -81,37 +83,40 @@ workflow {
         storeDir: "${params.workflow_output_dir}/validation"
         )
 
-    //Get intervalLists
-    //if you already have the interval list use that, otherwise, generate interval list from BedToIntervalList process
-    if ( params.target_interval_list ) {
-        input_ch_target_intervals = params.target_interval_list
-    }
-    else {
-        run_BedToIntervalList_picard_target(
-            params.target_bed,
-            params.reference_dict,
-            'target'
-            )
-        input_ch_target_intervals = run_BedToIntervalList_picard_target.out.interval_list
-        }
 
-    if ( params.bait_interval_list ) {
-        input_ch_bait_intervals = params.bait_interval_list
-        }
-    else if ( params.bait_bed ){
-        run_BedToIntervalList_picard_bait(
-            params.bait_bed,
-            params.reference_dict,
-            'bait'
-            )
-        input_ch_bait_intervals = run_BedToIntervalList_picard_bait.out.interval_list
-        }
-    else {
-        input_ch_bait_intervals = input_ch_target_intervals
-        }
+    // Calculate HsMetrics
+    if ( params.collect_metrics ) {
 
-    // Calculate Metrics
-    if (params.collect_metrics) {
+        //Get intervalLists (only needed for collectHsMetrics)
+        //if you already have the interval list use that, otherwise, generate interval list from BedToIntervalList process
+        if ( params.target_interval_list ) {
+            input_ch_target_intervals = params.target_interval_list
+        }
+        else {
+            run_BedToIntervalList_picard_target(
+                params.target_bed,
+                params.reference_dict,
+                'target'
+                )
+            input_ch_target_intervals = run_BedToIntervalList_picard_target.out.interval_list
+            }
+
+        if ( params.bait_interval_list ) {
+            input_ch_bait_intervals = params.bait_interval_list
+            }
+        else if ( params.bait_bed ){
+            run_BedToIntervalList_picard_bait(
+                params.bait_bed,
+                params.reference_dict,
+                'bait'
+                )
+            input_ch_bait_intervals = run_BedToIntervalList_picard_bait.out.interval_list
+            }
+        else {
+            input_ch_bait_intervals = input_ch_target_intervals
+            }
+
+
         run_CollectHsMetrics_picard(
             input_ch_bam,
             input_ch_target_intervals,
@@ -120,37 +125,45 @@ workflow {
     }
 
 
-    // Calculate Coverage
-    run_depth_SAMtools_target(
-        input_ch_bam,
-        params.target_bed,
-        'target'
-        )
+    // Calculate per-base read depth in targeted regions (optional)
 
-    convert_depth_to_bed_target(
-        run_depth_SAMtools_target.out.tsv,
-        'target'
-        )
+    if ( params.target_depth ) {
 
-    run_merge_BEDtools(
-        convert_depth_to_bed_target.out.bed,
-        )
+        run_depth_SAMtools_target(
+            input_ch_bam,
+            params.target_bed,
+            'target'
+            )
+
+        convert_depth_to_bed_target(
+            run_depth_SAMtools_target.out.tsv,
+            'target'
+            )
+
+        run_merge_BEDtools(
+            convert_depth_to_bed_target.out.bed,
+            )
+
+        }
+
+    
     
     // Calculate Off-target Depth
-    if ( params.off_target_depth ) {
+    if ( params.off_target_depth | params.output_enriched_target_file) {
 
+        // calculate depth at all dbSNP loci
         run_depth_SAMtools_off_target(
             input_ch_bam,
             params.reference_dbSNP,
             'genome-wide-dbSNP'
             )
-
+        
         convert_depth_to_bed_off_target(
             run_depth_SAMtools_off_target.out.tsv,
             'genome-wide-dbSNP'
             )
-        
-        // Remove targeted regions from off-target depth calculations
+
+        // Remove targeted regions from off-target depth calculations, taking into account slop if given
         run_slop_BEDtools(
             params.target_bed,
             params.genome_sizes
@@ -161,7 +174,25 @@ workflow {
             convert_depth_to_bed_off_target.out.bed
             )
 
+        // Combine target coordinates with enrighed off-target coordinates
+        if ( params.output_enriched_target_file ) {
 
+             // Apply minimum read-depth filter if one is provided
+            if ( params.min_read_depth > 0) {
+                run_depth_filter(
+                    convert_depth_to_bed_off_target.out.bed
+                    )
+                
+                // merge off-target coordinates with target coordinates
+                run_merge_BEDops(
+                    run_depth_filter.out.bed,
+                    params.target_bed
+                    )
+
+                }
+
+            }
+        
     }
 
 }
