@@ -11,12 +11,12 @@ process convert_depth_to_bed {
     publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
         pattern: "*.bed",
         mode: "copy",
-        enabled: !params.save_raw_bed && params.save_intermediate_files
+        enabled: params.save_intermediate_files
 
     publishDir path: "${params.workflow_output_dir}/output/",
         pattern: "*.bed",
         mode: "copy",
-        enabled: params.save_raw_bed
+        enabled: (params.save_raw_target_bed && tag == 'target') || (params.save_all_dbSNP && tag == 'genome-wide-dbSNP')
 
     publishDir path: "${params.log_output_dir}/process-log/",
         pattern: ".command.*",
