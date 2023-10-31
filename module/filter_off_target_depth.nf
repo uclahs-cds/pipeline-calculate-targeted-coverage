@@ -32,7 +32,7 @@ process run_depth_filter {
     set -euo pipefail
 
     awk \
-        -v min_depth="${params.min_depth}" \
+        -v min_depth="${params.min_read_depth}" \
         '\$4 >= min_depth' \
         $input \
         > ${params.sample_id}.depth-filtered.bed
@@ -65,6 +65,8 @@ process run_slop_BEDtools {
     input: 
         path target_bed
         path genome_sizes
+        val slop
+        val tag
 
     output:
         path "*.bed", emit: bed
@@ -78,8 +80,8 @@ process run_slop_BEDtools {
         slop \
         -i $target_bed \
         -g $genome_sizes \
-        -b ${params.off_target_slop} \
-        > ${params.sample_id}.expanded_target.bed
+        -b $slop \
+        > ${params.sample_id}.${tag}_slop-${slop}.bed
     """
 }
 

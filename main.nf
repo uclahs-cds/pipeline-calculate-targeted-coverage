@@ -10,10 +10,12 @@ include { convert_depth_to_bed as convert_depth_to_bed_target } from './module/d
 include { run_merge_BEDtools } from './module/merge_intervals_bedtools'
 include { run_CollectHsMetrics_picard } from './module/run_HS_metrics.nf'
 include { run_BedToIntervalList_picard as run_BedToIntervalList_picard_target; run_BedToIntervalList_picard as run_BedToIntervalList_picard_bait } from './module/run_HS_metrics.nf'
-include { run_slop_BEDtools } from './module/filter_off_target_depth.nf'
+include { run_slop_BEDtools as run_slop_BEDtools_expand_targets } from './module/filter_off_target_depth.nf'
+include { run_slop_BEDtools as run_slop_BEDtools_expand_dbSNP } from './module/filter_off_target_depth.nf'
 include { run_intersect_BEDtools } from './module/filter_off_target_depth.nf'
 include { run_depth_filter } from './module/filter_off_target_depth.nf'
-include { run_merge_BEDops } from './module/merge_bedfiles_bedops.nf'
+//include { run_merge_BEDops } from './module/merge_bedfiles_bedops.nf'
+include { run_merge_bedfiles } from './module/merge_bedfiles_bedtools.nf'
 
 // Log info here
 log.info """\
@@ -164,13 +166,15 @@ workflow {
             )
 
         // Remove targeted regions from off-target depth calculations, taking into account slop if given
-        run_slop_BEDtools(
+        run_slop_BEDtools_expand_targets(
             params.target_bed,
-            params.genome_sizes
+            params.genome_sizes,
+            params.off_target_slop,
+            'target'
             )
         
         run_intersect_BEDtools(
-            run_slop_BEDtools.out.bed,
+            run_slop_BEDtools_expand_targets.out.bed,
             convert_depth_to_bed_off_target.out.bed
             )
 
@@ -182,17 +186,32 @@ workflow {
                 run_depth_filter(
                     convert_depth_to_bed_off_target.out.bed
                     )
+
+                run_slop_BEDtools_expand_dbSNP(
+                    run_depth_filter.out.bed,
+                    params.genome_sizes,
+                    params.dbSNP_slop,
+                    'off-target-dbSNP'
+                    )
                 
                 // merge off-target coordinates with target coordinates
-                run_merge_BEDops(
-                    run_depth_filter.out.bed,
-                    params.target_bed
+
+                // This process oddly doesn't work properly, keep dropping intervals for no reason
+
+                // run_merge_BEDops(
+                //     run_slop_BEDtools_expand_dbSNP.out.bed,
+                //     params.target_bed
+                //     )
+
+                run_merge_bedfiles(
+                    params.target_bed,
+                    run_slop_BEDtools_expand_dbSNP.out.bed
                     )
+
+                }
 
                 }
 
             }
         
     }
-
-}
