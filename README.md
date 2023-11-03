@@ -17,7 +17,7 @@
   - [References](#references)
   - [License](#license) 
 ## Overview
-This pipeline extracts read depth calculations from a BAM file and generates outputs useful to the interpretation and downstream variant calling of a targeted sequencing experiment. Relevant datasets include targeted gene panels and whole exome sequencing (WXS) experiments. For in-depth downstream coverage QC, the pipeline can output per-base read depth at all targeted loci specified by a target BED file and read depth at genome-wide "off-target" well characterized polymorphic sites known to dbSNP. For a more general overview of targeted sequencing quality, the pipeline can output QC metrics produced by `picard CollectHsMetrics`. As a direct contribution to a DNA processing workflow, the pipeline can output a coordinate BED file containing target intervals merged with intervals encompassing off-target dbSNP sites enriched in coverage (as determined by a user-defined read-depth threshold). This new coordinate file can be used to indicate variant calling intervals to `gatk HaplotypeCaller`in [`pipeline-call-gSNP`](https://github.com/uclahs-cds/pipeline-call-gSNP/blob/43bf6bd2ccf2abce61701ac1d52105d408e934a4/config/template.config#L28) directly or through `metapipeline-DNA`.
+This pipeline extracts read depth calculations from a BAM file and generates outputs useful to the interpretation and downstream variant calling of a targeted sequencing experiment. Relevant datasets include targeted gene panels and whole exome sequencing (WXS) experiments. For in-depth downstream coverage QC, the pipeline can output per-base read depth at all targeted loci specified by a target BED file and read depth at genome-wide "off-target" well characterized polymorphic sites known to dbSNP. For a more general overview of targeted sequencing quality, the pipeline can output QC metrics produced by `picard CollectHsMetrics`. As a direct contribution to a DNA processing workflow, the pipeline can output a coordinate BED file containing target intervals merged with intervals encompassing off-target dbSNP sites enriched in coverage (as determined by a user-defined read-depth threshold). This new coordinate file can be used to indicate base quality recalibration and variant calling intervals to [`pipeline-recalibrate-BAM`](https://github.com/uclahs-cds/pipeline-recalibrate-BAM/blob/34e0e8ccc46eb406087baec1bb858fa9c2f4c4ad/config/template.config#L37) and `gatk HaplotypeCaller`in [`pipeline-call-gSNP`](https://github.com/uclahs-cds/pipeline-call-gSNP/blob/43bf6bd2ccf2abce61701ac1d52105d408e934a4/config/template.config#L28) directly or through `metapipeline-DNA`.
 
 calculates per-base read depth in a BAM file at "target" intervals specified by a target BED file and at "off-target" well characterized polymorphic loci 
 This pipeline performs coverage calculations from a BAM file at intervals specified by a target bed file and reports some basic coverage metrics. The SAMtools depth tool is used to calculate per-base coverage in specified regions. This intermediate output is converted into bed format using an awk script. Then the BEDtools merge tool is used to collapse consecutive coordinates into intervals, with a final output reporting a comma-separated list of per-base read depths for each coordinate in an interval. Picard's CollectHsMetrics is used to report various interval related metrics on the input BAM.
@@ -66,19 +66,11 @@ A directed acyclic graph of your pipeline.
 
 ### 6. On- + enriched off-target coordinate merging
 
-> Coverage enriched dbSNP intervals are merged with the original target intervals into one BED file using `bedops`.
+> Coverage enriched dbSNP intervals are merged with the original target intervals into one BED file using a series of bash commands that concatenate and sort the two files, then merge with `bedtools`.
 
-### 3a. BED Merging
+### 7. Metrics Reporting
 
-> BED file of target region read depths is collapsed into intervals using `bedtools merge`.
-
-### 3b. Off target depth filtering
-
-> BED file of genome-wide dbSNP read-depths is filtered to exclude loci that are within targeted regions and near-targeted regions (+/- 500bp of target file coordinates by default). Uses `bedtools slop` and `bedtools intersect`.
-
-### 4. Metrics Reporting
-
-> target BED file is converted to INTERVAL_LIST format using picard `BedToIntervalList` then used to report metrics on input BAM using picard `CollectHsMetrics`.
+> Target BED file and optional bait file are converted to INTERVAL_LIST format using picard `BedToIntervalList` then used to report metrics on input BAM with picard `CollectHsMetrics`.
 
 ---
 
