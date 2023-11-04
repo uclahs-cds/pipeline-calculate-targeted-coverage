@@ -5,8 +5,8 @@ nextflow.enable.dsl=2
 // Include processes and workflows here  // './module/validation'
 include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main'
 include { run_depth_SAMtools as run_depth_SAMtools_target; run_depth_SAMtools as run_depth_SAMtools_off_target} from './module/get_depth_samtools'
-include { convert_depth_to_bed as convert_depth_to_bed_off_target } from './module/depth_to_bed' addParams(save_raw_bed: true)
-include { convert_depth_to_bed as convert_depth_to_bed_target } from './module/depth_to_bed' addParams(save_raw_bed: false)
+include { convert_depth_to_bed as convert_depth_to_bed_off_target } from './module/depth_to_bed'
+include { convert_depth_to_bed as convert_depth_to_bed_target } from './module/depth_to_bed'
 include { run_merge_BEDtools } from './module/merge_intervals_bedtools'
 include { run_CollectHsMetrics_picard } from './module/run_HS_metrics.nf'
 include { run_BedToIntervalList_picard as run_BedToIntervalList_picard_target; run_BedToIntervalList_picard as run_BedToIntervalList_picard_bait } from './module/run_HS_metrics.nf'
