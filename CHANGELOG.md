@@ -21,6 +21,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add module process to generate interval list from bait bed
 - Add conditional logic to take target bed with bait bed and/or pre-built interval lists for targets and/or baits
 - Add workflow for calculating coverage at select off-target loci
+- Add workflow for creating a new interval file with target intervals merged with coverage-enriched off-target dbSNP sites.
+- Add flow diagram of pipeline steps.
 
 ### Changed
 - Update manifest
@@ -31,5 +33,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add coverage cap parameter to `CollectHsMetrics` command
 - Add default parameter definitions for coverage cap and external bait file
 - Update template.config for target bed +/- bait bed, bait interval list, or target interval list
+- Update default parameters.
 ---
 
