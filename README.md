@@ -104,6 +104,7 @@ A directed acyclic graph of your pipeline.
 | `off_target_slop` | no | integer | Number of base pairs to add to either side of target file coordinates so that they may be excluded from off-target read depth calculation. Default is 500.|
 | `dbSNP_slop` | no | integer | Number of base pairs to add to either side of off-target dbSNP loci to generate off-target intervals. The purpose is to merge adjacent dbSNP loci into single intervals prior to mergeing with target intervals. Default is 150.|
 | `coverage_cap` | no | integer | `COVERAGE_CAP` parameter for `CollectHsMetrics`, determines the coverage threshold at which to stop calculating coverage. |
+| `near_distance` | no | integer | `NEAR_DISTANCE` parameter for `CollectHsMetrics`, determines the maximum distance in bp of a read from the nearest probe (bait) for it to be counted as "near probe" in metrics calculations. Default 250. |
 | `samtools_depth_extra_args` | no | string | Extra arguments for `samtools depth`. |
 | `picard_CollectHsMetrics_extra_args` | no | string | Extra arguments for `picard CollectHsMetrics`. |
 | `merge_operation` | no | string | Operation performed on read depth column values when intervals are collapsed during `bedtools merge`. Defaults to 'collapse'. See [bedtools documentation](https://bedtools.readthedocs.io/en/latest/content/tools/merge.html#:~:text=%2Dc.-,Valid%20operations%3A,-sum%2C%20min%2C%20max) for other options. |

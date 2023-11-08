@@ -80,6 +80,7 @@ process run_CollectHsMetrics_picard {
         --OUTPUT ${params.sample_id}.HsMetrics.txt \
         --COVERAGE_CAP ${params.coverage_cap} \
         ${params.picard_CollectHsMetrics_extra_args} \
+        --NEAR_DISTANCE ${params.near_distance} \
         --TMP_DIR ${params.work_dir}
     """
 }
