@@ -196,7 +196,8 @@ workflow {
                 
                 // merge off-target coordinates with target coordinates
 
-                // This process oddly doesn't work properly, keep dropping intervals for no reason
+                // run_merge_BEDops produces unexpected results for some reason and is replaced by
+                // run_merge_bedfiles
 
                 // run_merge_BEDops(
                 //     run_slop_BEDtools_expand_dbSNP.out.bed,

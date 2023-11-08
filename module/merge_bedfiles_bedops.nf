@@ -5,6 +5,8 @@
 *   @params <name>  <type>  <description>
 *   @output <name>  <type>  <description>
 */
+// Note: bedops produces unexpected results and this process has been replaced by run_merge_bedfiles
+// from merge_bedfiles_bedtools.nf in the main workflow.
 process run_merge_BEDops {
     container params.docker_image_bedops
 
