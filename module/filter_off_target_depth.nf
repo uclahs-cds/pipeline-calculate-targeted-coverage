@@ -34,7 +34,7 @@ process run_depth_filter {
     awk \
         -v min_depth="${params.min_read_depth}" \
         '\$4 >= min_depth' \
-        $input \
+        ${input} \
         > ${params.sample_id}.depth-filtered.bed
         """
 }
@@ -78,9 +78,9 @@ process run_slop_BEDtools {
 
     bedtools \
         slop \
-        -i $target_bed \
-        -g $genome_sizes \
-        -b $slop \
+        -i ${target_bed} \
+        -g ${genome_sizes} \
+        -b ${slop} \
         > ${params.sample_id}.${tag}_slop-${slop}.bed
     """
 }
@@ -118,8 +118,8 @@ process run_intersect_BEDtools {
 
     bedtools \
         intersect \
-        -a $off_target_bed \
-        -b $target_bed \
+        -a ${off_target_bed} \
+        -b ${target_bed} \
         -v \
         > ${params.sample_id}.off-target-dbSNP_depth-per-base.bed
     """

@@ -5,7 +5,7 @@
 *   @params <name>  <type>  <description>
 *   @output <name>  <type>  <description>
 */
-process run_merge_bedfiles {
+process merge_bedfiles_BEDtools {
     container params.docker_image_bedtools
 
     publishDir path: "${params.workflow_output_dir}/output/",
@@ -29,7 +29,7 @@ process run_merge_bedfiles {
     """
     set -euo pipefail
 
-    cat $target_bed $off_target_bed | \
+    cat ${target_bed} ${off_target_bed} | \
         sort -k1,1 -k2,2n | \
         awk '{OFS = "\t"}{print \$1, \$2, \$3}' | \
         bedtools merge \

@@ -14,8 +14,7 @@ include { run_slop_BEDtools as run_slop_BEDtools_expand_targets } from './module
 include { run_slop_BEDtools as run_slop_BEDtools_expand_dbSNP } from './module/filter_off_target_depth.nf'
 include { run_intersect_BEDtools } from './module/filter_off_target_depth.nf'
 include { run_depth_filter } from './module/filter_off_target_depth.nf'
-//include { run_merge_BEDops } from './module/merge_bedfiles_bedops.nf'
-include { run_merge_bedfiles } from './module/merge_bedfiles_bedtools.nf'
+include { merge_bedfiles_BEDtools } from './module/merge_bedfiles_bedtools.nf'
 
 // Log info here
 log.info """\
@@ -151,7 +150,7 @@ workflow {
     
     
     // Calculate Off-target Depth
-    if ( params.off_target_depth | params.output_enriched_target_file) {
+    if ( params.off_target_depth || params.output_enriched_target_file) {
 
         // calculate depth at all dbSNP loci
         run_depth_SAMtools_off_target(
@@ -196,15 +195,9 @@ workflow {
                 
                 // merge off-target coordinates with target coordinates
 
-                // run_merge_BEDops produces unexpected results for some reason and is replaced by
-                // run_merge_bedfiles
+                // run_merge_BEDops is replaced by merge_bedfiles_BEDtools
 
-                // run_merge_BEDops(
-                //     run_slop_BEDtools_expand_dbSNP.out.bed,
-                //     params.target_bed
-                //     )
-
-                run_merge_bedfiles(
+                merge_bedfiles_BEDtools(
                     params.target_bed,
                     run_slop_BEDtools_expand_dbSNP.out.bed
                     )

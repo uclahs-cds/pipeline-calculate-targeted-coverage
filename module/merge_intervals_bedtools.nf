@@ -30,7 +30,7 @@ process run_merge_BEDtools {
 
     bedtools \
         merge \
-        -i $input_depth_bed \
+        -i ${input_depth_bed} \
         -c 4 \
         -o ${params.merge_operation} \
         > ${params.sample_id}.collapsed_coverage.bed
