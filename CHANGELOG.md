@@ -23,6 +23,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add workflow for calculating coverage at select off-target loci
 - Add workflow for creating a new interval file with target intervals merged with coverage-enriched off-target dbSNP sites.
 - Add flow diagram of pipeline steps.
+- Add checksum creation
 
 ### Changed
 - Update manifest
