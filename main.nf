@@ -16,6 +16,16 @@ include { run_intersect_BEDtools } from './module/filter_off_target_depth.nf'
 include { run_depth_filter } from './module/filter_off_target_depth.nf'
 include { merge_bedfiles_BEDtools } from './module/merge_bedfiles_bedtools.nf'
 
+include { generate_checksum_PipeVal as generate_sha512sum } from './external/pipeline-Nextflow-module/modules/PipeVal/generate-checksum/main.nf' addParams(
+   options: [
+      output_dir: "${params.workflow_output_dir}/output/",
+      log_output_dir: "${params.log_output_dir}/process-log/",
+      docker_image_version: params.pipeval_version,
+      main_process: "./",
+      checksum_alg: "sha512"
+      ]
+   )
+
 // Log info here
 log.info """\
         ======================================
@@ -64,19 +74,11 @@ log.info """\
 workflow {
     Channel
         .from( params.input.bam )
-        .multiMap { it ->
-            bam: it
-            }
             .set { input_ch_bam }
-
-        input_ch_bam.map{ it ->
-            ['file-input', it]
-            }
-            .set { input_ch_validate }
 
     // Validation process
     run_validate_PipeVal(
-        input_ch_validate
+        input_ch_bam
         )
 
     run_validate_PipeVal.out.validation_result.collectFile(
@@ -84,6 +86,7 @@ workflow {
         storeDir: "${params.workflow_output_dir}/validation"
         )
 
+    checksum_ch = Channel.empty()
 
     // Calculate HsMetrics
     if ( params.collect_metrics ) {
@@ -144,6 +147,8 @@ workflow {
         run_merge_BEDtools(
             convert_depth_to_bed_target.out.bed,
             )
+        
+        checksum_ch = checksum_ch.mix(run_merge_BEDtools.out.bed.flatten())
 
         }
 
@@ -176,6 +181,8 @@ workflow {
             run_slop_BEDtools_expand_targets.out.bed,
             convert_depth_to_bed_off_target.out.bed
             )
+        
+        checksum_ch = checksum_ch.mix(run_intersect_BEDtools.out.bed.flatten())
 
         // Combine target coordinates with enrighed off-target coordinates
         if ( params.output_enriched_target_file ) {
@@ -201,11 +208,16 @@ workflow {
                     params.target_bed,
                     run_slop_BEDtools_expand_dbSNP.out.bed
                     )
+                
+                checksum_ch = checksum_ch.mix(merge_bedfiles_BEDtools.out.bed.flatten())
 
                 }
 
                 }
 
             }
+        
+        //generate_sha512sum(checksum_ch, "${params.workflow_output_dir}/output/")
+        generate_sha512sum(checksum_ch)
         
     }
