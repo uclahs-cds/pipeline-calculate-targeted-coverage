@@ -217,7 +217,6 @@ workflow {
 
             }
         
-        //generate_sha512sum(checksum_ch, "${params.workflow_output_dir}/output/")
         generate_sha512sum(checksum_ch)
         
     }

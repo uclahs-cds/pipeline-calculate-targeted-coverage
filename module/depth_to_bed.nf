@@ -8,7 +8,7 @@
 process convert_depth_to_bed {
     container params.docker_image_validate
 
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
+    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}",
         pattern: "*.bed",
         mode: "copy",
         enabled: params.save_intermediate_files

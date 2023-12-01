@@ -8,7 +8,7 @@
 process run_depth_SAMtools {
     container params.docker_image_samtools
 
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
+    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}",
         pattern: "*.tsv",
         mode: "copy",
         enabled: params.save_intermediate_files

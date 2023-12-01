@@ -10,7 +10,7 @@
 
 
 process run_depth_filter {
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
+    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}",
         pattern: "*.bed",
         mode: "copy",
         enabled: params.save_intermediate_files
@@ -52,7 +52,7 @@ process run_depth_filter {
 process run_slop_BEDtools {
     container params.docker_image_bedtools
 
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}",
+    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}",
         pattern: "*.bed",
         mode: "copy",
         enabled: params.save_intermediate_files
