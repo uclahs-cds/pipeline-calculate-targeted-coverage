@@ -5,8 +5,10 @@
 *   @params <name>  <type>  <description>
 *   @output <name>  <type>  <description>
 */
-process run_merge_BEDtools {
-    container params.docker_image_bedtools
+// Note: bedops produces unexpected results and this process has been replaced by run_merge_bedfiles
+// from merge_bedfiles_bedtools.nf in the main workflow.
+process run_merge_BEDops {
+    container params.docker_image_bedops
 
     publishDir path: "${params.workflow_output_dir}/output/",
         pattern: "*.bed",
@@ -18,7 +20,8 @@ process run_merge_BEDtools {
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
     
     input: 
-        path input_depth_bed
+        path target_bed
+        path off_target_bed
 
     output:
         path "*.bed", emit: bed
@@ -28,11 +31,10 @@ process run_merge_BEDtools {
     """
     set -euo pipefail
 
-    bedtools \
-        merge \
-        -i ${input_depth_bed} \
-        -c 4 \
-        -o ${params.merge_operation} \
-        > ${params.sample_id}.collapsed_coverage.bed
+    bedops \
+        --merge \
+        $target_bed \
+        $off_target_bed \
+        > ${params.sample_id}.target_with_enriched_off-target_intervals.bed
     """
 }

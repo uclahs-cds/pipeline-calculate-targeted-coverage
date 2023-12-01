@@ -9,17 +9,17 @@
 process run_BedToIntervalList_picard {
     container params.docker_image_picard
 
-    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}-${task.index}", //save intermediate files
+    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}", //save intermediate files
         pattern: "*.interval_list",
         mode: "copy",
         enabled: params.save_intermediate_files
 
-    publishDir path: "${params.log_output_dir}", //print log
+    publishDir path: "${params.log_output_dir}/process-log/", //print log
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
 
-    publishDir path: "${params.output_dir}/", //print out and save generated interval list
+    publishDir path: "${params.workflow_output_dir}/output/", //print out and save generated interval list
         pattern: "*.interval_list",
         mode: "copy",
         enabled: params.save_interval_list
@@ -49,12 +49,12 @@ process run_BedToIntervalList_picard {
 process run_CollectHsMetrics_picard {
     container params.docker_image_picard
 
-    publishDir path: "${params.workflow_output_dir}/QC/${task.process.replace(':','/')}-${task.index}",
+    publishDir path: "${params.workflow_output_dir}/QC/${task.process.replace(':','/')}",
         pattern: "*.txt",
         mode: "copy",
         enabled: true
 
-    publishDir path: "${params.log_output_dir}",
+    publishDir path: "${params.log_output_dir}/process-log/",
         pattern: ".command.*",
         mode: "copy",
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
@@ -80,6 +80,7 @@ process run_CollectHsMetrics_picard {
         --OUTPUT ${params.sample_id}.HsMetrics.txt \
         --COVERAGE_CAP ${params.coverage_cap} \
         ${params.picard_CollectHsMetrics_extra_args} \
+        --NEAR_DISTANCE ${params.near_distance} \
         --TMP_DIR ${params.work_dir}
     """
 }

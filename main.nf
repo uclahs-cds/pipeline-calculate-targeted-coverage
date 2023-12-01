@@ -5,13 +5,26 @@ nextflow.enable.dsl=2
 // Include processes and workflows here  // './module/validation'
 include { run_validate_PipeVal } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main'
 include { run_depth_SAMtools as run_depth_SAMtools_target; run_depth_SAMtools as run_depth_SAMtools_off_target} from './module/get_depth_samtools'
-include { convert_depth_to_bed as convert_depth_to_bed_off_target } from './module/depth_to_bed' addParams(save_raw_bed: true)
-include { convert_depth_to_bed as convert_depth_to_bed_target } from './module/depth_to_bed' addParams(save_raw_bed: false)
+include { convert_depth_to_bed as convert_depth_to_bed_off_target } from './module/depth_to_bed'
+include { convert_depth_to_bed as convert_depth_to_bed_target } from './module/depth_to_bed'
 include { run_merge_BEDtools } from './module/merge_intervals_bedtools'
 include { run_CollectHsMetrics_picard } from './module/run_HS_metrics.nf'
 include { run_BedToIntervalList_picard as run_BedToIntervalList_picard_target; run_BedToIntervalList_picard as run_BedToIntervalList_picard_bait } from './module/run_HS_metrics.nf'
-include { run_slop_BEDtools } from './module/filter_off_target_depth.nf'
+include { run_slop_BEDtools as run_slop_BEDtools_expand_targets } from './module/filter_off_target_depth.nf'
+include { run_slop_BEDtools as run_slop_BEDtools_expand_dbSNP } from './module/filter_off_target_depth.nf'
 include { run_intersect_BEDtools } from './module/filter_off_target_depth.nf'
+include { run_depth_filter } from './module/filter_off_target_depth.nf'
+include { merge_bedfiles_BEDtools } from './module/merge_bedfiles_bedtools.nf'
+
+include { generate_checksum_PipeVal as generate_sha512sum } from './external/pipeline-Nextflow-module/modules/PipeVal/generate-checksum/main.nf' addParams(
+   options: [
+      output_dir: "${params.workflow_output_dir}/output/",
+      log_output_dir: "${params.log_output_dir}/process-log/",
+      docker_image_version: params.pipeval_version,
+      main_process: "./",
+      checksum_alg: "sha512"
+      ]
+   )
 
 // Log info here
 log.info """\
@@ -61,19 +74,11 @@ log.info """\
 workflow {
     Channel
         .from( params.input.bam )
-        .multiMap { it ->
-            bam: it
-            }
             .set { input_ch_bam }
-
-        input_ch_bam.map{ it ->
-            ['file-input', it]
-            }
-            .set { input_ch_validate }
 
     // Validation process
     run_validate_PipeVal(
-        input_ch_validate
+        input_ch_bam
         )
 
     run_validate_PipeVal.out.validation_result.collectFile(
@@ -81,37 +86,41 @@ workflow {
         storeDir: "${params.workflow_output_dir}/validation"
         )
 
-    //Get intervalLists
-    //if you already have the interval list use that, otherwise, generate interval list from BedToIntervalList process
-    if ( params.target_interval_list ) {
-        input_ch_target_intervals = params.target_interval_list
-    }
-    else {
-        run_BedToIntervalList_picard_target(
-            params.target_bed,
-            params.reference_dict,
-            'target'
-            )
-        input_ch_target_intervals = run_BedToIntervalList_picard_target.out.interval_list
-        }
+    checksum_ch = Channel.empty()
 
-    if ( params.bait_interval_list ) {
-        input_ch_bait_intervals = params.bait_interval_list
-        }
-    else if ( params.bait_bed ){
-        run_BedToIntervalList_picard_bait(
-            params.bait_bed,
-            params.reference_dict,
-            'bait'
-            )
-        input_ch_bait_intervals = run_BedToIntervalList_picard_bait.out.interval_list
-        }
-    else {
-        input_ch_bait_intervals = input_ch_target_intervals
-        }
+    // Calculate HsMetrics
+    if ( params.collect_metrics ) {
 
-    // Calculate Metrics
-    if (params.collect_metrics) {
+        //Get intervalLists (only needed for collectHsMetrics)
+        //if you already have the interval list use that, otherwise, generate interval list from BedToIntervalList process
+        if ( params.target_interval_list ) {
+            input_ch_target_intervals = params.target_interval_list
+        }
+        else {
+            run_BedToIntervalList_picard_target(
+                params.target_bed,
+                params.reference_dict,
+                'target'
+                )
+            input_ch_target_intervals = run_BedToIntervalList_picard_target.out.interval_list
+            }
+
+        if ( params.bait_interval_list ) {
+            input_ch_bait_intervals = params.bait_interval_list
+            }
+        else if ( params.bait_bed ){
+            run_BedToIntervalList_picard_bait(
+                params.bait_bed,
+                params.reference_dict,
+                'bait'
+                )
+            input_ch_bait_intervals = run_BedToIntervalList_picard_bait.out.interval_list
+            }
+        else {
+            input_ch_bait_intervals = input_ch_target_intervals
+            }
+
+
         run_CollectHsMetrics_picard(
             input_ch_bam,
             input_ch_target_intervals,
@@ -120,48 +129,94 @@ workflow {
     }
 
 
-    // Calculate Coverage
-    run_depth_SAMtools_target(
-        input_ch_bam,
-        params.target_bed,
-        'target'
-        )
+    // Calculate per-base read depth in targeted regions (optional)
 
-    convert_depth_to_bed_target(
-        run_depth_SAMtools_target.out.tsv,
-        'target'
-        )
+    if ( params.target_depth ) {
 
-    run_merge_BEDtools(
-        convert_depth_to_bed_target.out.bed,
-        )
+        run_depth_SAMtools_target(
+            input_ch_bam,
+            params.target_bed,
+            'target'
+            )
+
+        convert_depth_to_bed_target(
+            run_depth_SAMtools_target.out.tsv,
+            'target'
+            )
+
+        run_merge_BEDtools(
+            convert_depth_to_bed_target.out.bed,
+            )
+        
+        checksum_ch = checksum_ch.mix(run_merge_BEDtools.out.bed.flatten())
+
+        }
+
+    
     
     // Calculate Off-target Depth
-    if ( params.off_target_depth ) {
+    if ( params.off_target_depth || params.output_enriched_target_file) {
 
+        // calculate depth at all dbSNP loci
         run_depth_SAMtools_off_target(
             input_ch_bam,
             params.reference_dbSNP,
             'genome-wide-dbSNP'
             )
-
+        
         convert_depth_to_bed_off_target(
             run_depth_SAMtools_off_target.out.tsv,
             'genome-wide-dbSNP'
             )
-        
-        // Remove targeted regions from off-target depth calculations
-        run_slop_BEDtools(
+
+        // Remove targeted regions from off-target depth calculations, taking into account slop if given
+        run_slop_BEDtools_expand_targets(
             params.target_bed,
-            params.genome_sizes
+            params.genome_sizes,
+            params.off_target_slop,
+            'target'
             )
         
         run_intersect_BEDtools(
-            run_slop_BEDtools.out.bed,
+            run_slop_BEDtools_expand_targets.out.bed,
             convert_depth_to_bed_off_target.out.bed
             )
+        
+        checksum_ch = checksum_ch.mix(run_intersect_BEDtools.out.bed.flatten())
 
+        // Combine target coordinates with enrighed off-target coordinates
+        if ( params.output_enriched_target_file ) {
 
+             // Apply minimum read-depth filter if one is provided
+            if ( params.min_read_depth > 0) {
+                run_depth_filter(
+                    convert_depth_to_bed_off_target.out.bed
+                    )
+
+                run_slop_BEDtools_expand_dbSNP(
+                    run_depth_filter.out.bed,
+                    params.genome_sizes,
+                    params.dbSNP_slop,
+                    'off-target-dbSNP'
+                    )
+                
+                // merge off-target coordinates with target coordinates
+
+                // run_merge_BEDops is replaced by merge_bedfiles_BEDtools
+
+                merge_bedfiles_BEDtools(
+                    params.target_bed,
+                    run_slop_BEDtools_expand_dbSNP.out.bed
+                    )
+                
+                checksum_ch = checksum_ch.mix(merge_bedfiles_BEDtools.out.bed.flatten())
+
+                }
+
+                }
+
+            }
+        
+        generate_sha512sum(checksum_ch)
+        
     }
-
-}

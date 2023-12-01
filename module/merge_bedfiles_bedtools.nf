@@ -5,7 +5,7 @@
 *   @params <name>  <type>  <description>
 *   @output <name>  <type>  <description>
 */
-process run_merge_BEDtools {
+process merge_bedfiles_BEDtools {
     container params.docker_image_bedtools
 
     publishDir path: "${params.workflow_output_dir}/output/",
@@ -18,7 +18,8 @@ process run_merge_BEDtools {
         saveAs: { "${task.process.replace(':', '/')}/log${file(it).getName()}" }
     
     input: 
-        path input_depth_bed
+        path target_bed
+        path off_target_bed
 
     output:
         path "*.bed", emit: bed
@@ -28,11 +29,10 @@ process run_merge_BEDtools {
     """
     set -euo pipefail
 
-    bedtools \
-        merge \
-        -i ${input_depth_bed} \
-        -c 4 \
-        -o ${params.merge_operation} \
-        > ${params.sample_id}.collapsed_coverage.bed
+    cat ${target_bed} ${off_target_bed} | \
+        sort -k1,1 -k2,2n | \
+        awk '{OFS = "\t"}{print \$1, \$2, \$3}' | \
+        bedtools merge \
+        > ${params.sample_id}.target_with_enriched_off-target_intervals.bed
     """
 }
