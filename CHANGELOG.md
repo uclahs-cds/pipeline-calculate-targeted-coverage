@@ -35,5 +35,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add default parameter definitions for coverage cap and external bait file
 - Update template.config for target bed +/- bait bed, bait interval list, or target interval list
 - Update default parameters.
+- Update `methods.config` to match current template and use external module.
 ---
 
