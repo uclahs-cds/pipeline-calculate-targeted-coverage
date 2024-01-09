@@ -46,6 +46,8 @@ log.info """\
             target_interval_list: ${params.target_interval_list}
             bait_interval_list: ${params.bait_interval_list}
             reference_dict: ${params.reference_dict}
+            genome_sizes: ${params.genome_sizes}
+            reference_dbSNP: ${params.reference_dbSNP}
 
         - output:
             output_dir: ${params.output_dir}
@@ -53,6 +55,13 @@ log.info """\
 
         - options:
             save_intermediate_files: ${params.save_intermediate_files}
+            collect_metrics: ${params.collect_metrics}
+            target_depth: ${params.target_depth}
+            off_target_depth: ${params.off_target_depth}
+            output_enriched_target_file: ${params.output_enriched_target_file}
+            min_read_depth: ${params.min_read_depth}
+            dbSNP_slop: ${params.dbSNP_slop}
+            off_target_slop: ${params.off_target_slop}
 
         Tools Used:
             samtools: ${params.docker_image_samtools}

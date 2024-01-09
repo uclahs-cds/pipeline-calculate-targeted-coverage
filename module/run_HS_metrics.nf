@@ -37,7 +37,8 @@ process run_BedToIntervalList_picard {
     """
     set -euo pipefail
 
-    java -jar /usr/local/share/picard-slim-${params.picard_version}-0/picard.jar \
+    java \"-Xmx${(task.memory - params.gatk_command_mem_diff).getMega()}m\" \
+    -jar /usr/local/share/picard-slim-${params.picard_version}-0/picard.jar \
         BedToIntervalList \
         --INPUT $input_bed \
         --OUTPUT ${params.sample_id}.${tag}.interval_list \
@@ -72,7 +73,8 @@ process run_CollectHsMetrics_picard {
     """
     set -euo pipefail
 
-    java -jar /usr/local/share/picard-slim-${params.picard_version}-0/picard.jar \
+    java \"-Xmx${(task.memory - params.gatk_command_mem_diff).getMega()}m\" \
+    -jar /usr/local/share/picard-slim-${params.picard_version}-0/picard.jar \
         CollectHsMetrics \
         --BAIT_INTERVALS $bait_interval_list \
         --INPUT $input_bam \
