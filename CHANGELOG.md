@@ -27,6 +27,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add flow diagram of pipeline steps.
 - Add checksum creation
 - Add resource allocation for all processes in all partition types
+- Add pipeline release github workflow
 
 ### Changed
 - Update manifest
