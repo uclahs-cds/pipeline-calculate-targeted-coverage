@@ -87,7 +87,7 @@ A directed acyclic graph of your pipeline.
 | `save_intermediate_files` | yes | boolean | Whether to save intermediate files. |
 | `reference_dict` | yes | path | Human genome reference dictionary file for use in BED to INTERVAL_LIST conversion. Required if collecting metrics.|
 | `reference_dbSNP` | yes | path | dbSNP reference VCF file, with proper chromosome encoding and compression. See [discussion](https://github.com/uclahs-cds/pipeline-targeted-coverage/discussions/18#:~:text=Troubleshooting%20dbSNP%20reference%20file). Required if performing off-target read depth calculation. |
-| `genome.sizes` | yes | path | Reference file consisting of chromosomes and their lengths used by `bedtools slop`. Required for off-target read depth workflows. |
+| `genome_sizes` | yes | path | Reference file consisting of chromosomes and their lengths used by `bedtools slop`. Required for off-target read depth workflows. `.fai` files accepted. |
 | `target_depth` | no | bool | Whether to calculate per-base read depth in targeted regions. Default false.|
 | `off_target_depth` | no | bool | Whether to perform off-target read depth calculation at dbSNP loci. Default true.|
 | `output_enriched_target_file` | no | bool | Whether to output a new target file containing coverage-enriched off-target dbSNP loci. Default true.|
@@ -139,11 +139,13 @@ Testing was performed leveraging aligned and sorted BAMs from a targeted panel s
 
 Test runs were performed with the following reference files
 - **reference_dict:** '/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.dict'
-- **reference_dbSNP:** '/hot/user/nzeltser/pipeline-targeted-coverage/test/input/dbSNP-155_thinned_hg38.vcf.gz'
-- **genome_sizes:** '/hot/user/nzeltser/tools/bedtools2/genomes/human.hg38.genome'
+- **reference_dbSNP:** '/hot/ref/database/dbSNP-155/thinned/GRCh38/dbSNP-155_thinned_hg38.vcf.gz'
+- **genome_sizes:** '/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta.fai'
 
 
 ### Validation <version number\>
+
+See [here](https://github.com/uclahs-cds/pipeline-targeted-coverage/discussions/30) for benchmarking.
 
  Input/Output | Description | Result
  | ------------ | ------------------------ | ------------------------ |
