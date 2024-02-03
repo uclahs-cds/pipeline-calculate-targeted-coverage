@@ -64,6 +64,8 @@ process run_CollectHsMetrics_picard {
         path input_bam
         path target_interval_list, stageAs: 'target_intervals.interval_list'
         path bait_interval_list, stageAs: 'bait_intervals.interval_list'
+        path reference_fasta
+        path reference_dict
 
     output:
         path "*.txt", emit: txt
@@ -76,6 +78,7 @@ process run_CollectHsMetrics_picard {
     java \"-Xmx${(task.memory - params.gatk_command_mem_diff).getMega()}m\" \
     -jar /usr/local/share/picard-slim-${params.picard_version}-0/picard.jar \
         CollectHsMetrics \
+        --REFERENCE_SEQUENCE $reference_fasta \
         --BAIT_INTERVALS $bait_interval_list \
         --INPUT $input_bam \
         --TARGET_INTERVALS $target_interval_list \

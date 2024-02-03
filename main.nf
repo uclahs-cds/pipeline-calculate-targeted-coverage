@@ -133,7 +133,9 @@ workflow {
         run_CollectHsMetrics_picard(
             input_ch_bam,
             input_ch_target_intervals,
-            input_ch_bait_intervals
+            input_ch_bait_intervals,
+            params.reference_fasta,
+            params.genome_sizes
             )
     }
 
