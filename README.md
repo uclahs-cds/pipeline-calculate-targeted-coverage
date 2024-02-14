@@ -1,6 +1,6 @@
-# Compute Targeted Coverage
+# Calculate Targeted Coverage
 
-- [Compute Targeted Coverage](#pipeline-name)
+- [Calculate Targeted Coverage](#pipeline-name)
   - [Overview](#overview)
   - [How To Run](#how-to-run)
   - [Flow Diagram](#flow-diagram)
@@ -42,7 +42,7 @@ This pipeline performs coverage calculations from a BAM file at intervals specif
 
 A directed acyclic graph of your pipeline.
 
-![pipeline-compute-targeted-coverage graph](pipeline-compute-targeted-coverage.drawio.svg?raw=true)
+![pipeline-calculate-targeted-coverage graph](pipeline-calculate-targeted-coverage.drawio.svg?raw=true)
 
 ---
 
@@ -174,8 +174,8 @@ Included is a template for validating your input files. For more information on 
 ## Discussions
 
 - [Issue tracker](https://github.com/uclahs-cds/pipeline-targeted-coverage/issues) to report errors and enhancement ideas.
-- Discussions can take place in [pipeline-compute-targeted-coverage Discussions](https://github.com/uclahs-cds/pipeline-targeted-coverage/discussions)
-- [pipeline-compute-targeted-coverage pull requests](https://github.com/uclahs-cds/pipeline-targeted-coverage/pulls) are also open for discussion.
+- Discussions can take place in [pipeline-calculate-targeted-coverage Discussions](https://github.com/uclahs-cds/pipeline-targeted-coverage/discussions)
+- [pipeline-calculate-targeted-coverage pull requests](https://github.com/uclahs-cds/pipeline-targeted-coverage/pulls) are also open for discussion.
 
 ---
 
@@ -187,10 +187,10 @@ Please see list of [Contributors](https://github.com/uclahs-cds/pipeline-targete
 
 ## License
 
-pipeline-compute-targeted-coverage is licensed under the GNU General Public License version 2. See the file LICENSE for the terms of the GNU GPL license.
+pipeline-calculate-targeted-coverage is licensed under the GNU General Public License version 2. See the file LICENSE for the terms of the GNU GPL license.
 
 <one line to give the program's name and a brief idea of what it does.>
-pipeline-compute-targeted-coverage performs read-depth related calculations on BAMs from targeted sequencing experiments.
+pipeline-calculate-targeted-coverage performs read-depth related calculations on BAMs from targeted sequencing experiments.
 
 Copyright (C) 2022 University of California Los Angeles ("Boutros Lab") All rights reserved.
 

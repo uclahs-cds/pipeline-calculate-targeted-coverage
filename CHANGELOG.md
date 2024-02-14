@@ -1,5 +1,5 @@
 # Changelog
-All notable changes to the compute-targeted-coverage pipeline.
+All notable changes to the calculate-targeted-coverage pipeline.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
