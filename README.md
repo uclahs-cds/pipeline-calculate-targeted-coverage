@@ -42,7 +42,7 @@ This pipeline performs coverage calculations from a BAM file at intervals specif
 
 A directed acyclic graph of your pipeline.
 
-![pipeline-compute-targeted-coverage graph](pipeline-targeted-coverage.drawio.svg?raw=true)
+![pipeline-compute-targeted-coverage graph](pipeline-compute-targeted-coverage.drawio.svg?raw=true)
 
 ---
 
