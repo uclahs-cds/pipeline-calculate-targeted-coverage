@@ -8,10 +8,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 
 ## [Unreleased]
+
+## [v1.0.0-rc.2] - 2024-02-14
 ### Changed
 - Update pipeline name to match Boutros Lab standards
 
-## [v1.0.0-rc.1] - 2023-01-09
+## [v1.0.0-rc.1] - 2024-01-09
 ### Added
 - Add `get_depth_samtools.nf` module
 - Add `merge_intervals_bedtools.nf` module
