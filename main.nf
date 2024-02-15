@@ -29,7 +29,7 @@ include { generate_checksum_PipeVal as generate_sha512sum } from './external/pip
 // Log info here
 log.info """\
         ======================================
-        T A R G E T E D - C O V E R A G E
+        C A L C U L A T E - T A R G E T E D - C O V E R A G E
         ======================================
         Boutros Lab
 
