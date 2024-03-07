@@ -11,11 +11,20 @@
     }
   },
   {
-    "version": "v1.0.0-rc.1",
-    "title": "v1.0.0-rc.1",
+    "version": "v1.0.0-rc.2",
+    "title": "v1.0.0-rc.2",
     "aliases": [
       "release-candidate"
     ],
+    "properties": {
+      "commit": "3d3bb7f1848a1cfbe728af6379556de49abbccdb",
+      "date": "2024-02-14T19:15:20-08:00"
+    }
+  },
+  {
+    "version": "v1.0.0-rc.1",
+    "title": "v1.0.0-rc.1",
+    "aliases": [],
     "properties": {
       "commit": "f3a5959d24538b445f83b1438786a2b9e92f13b8",
       "date": "2024-01-09T19:21:27-08:00"
