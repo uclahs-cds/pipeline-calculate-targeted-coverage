@@ -1,4 +1,4 @@
 ---
-sample_id: 'A-mini-n1'
+sample_id: 'TWGSAMIN000001-T002-S02-F'
 input:
   bam: /hot/resource/SMC-HET/tumours/A-mini/bams/n1/output/S2.T-n1.bam
