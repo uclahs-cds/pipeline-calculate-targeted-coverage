@@ -1,0 +1,32 @@
+---
+global:
+  temp_dir: test/work
+  remove_temp: true
+  clean_logs: true
+  nf_config: test/nftest.config
+
+cases:
+  - name: A-mini-n2
+    nf_script: ./main.nf
+    params_file: ./test/single.yaml
+    skip: false
+    verbose: true
+    asserts:
+      - actual: calculate-targeted-coverage-1.0.0-rc.2/A-mini-n1/SAMtools-1.16.1/output/A-mini-n1.collapsed_coverage.bed
+        expect: /hot/software/pipeline/pipeline-calculate-targeted-coverage/Nextflow/development/output/A-mini-n1.collapsed_coverage.bed
+        method: md5
+      - actual: calculate-targeted-coverage-1.0.0-rc.2/A-mini-n1/SAMtools-1.16.1/output/A-mini-n1.collapsed_coverage.bed.sha512
+        expect: /hot/software/pipeline/pipeline-calculate-targeted-coverage/Nextflow/development/output/A-mini-n1.collapsed_coverage.bed.sha512
+        method: md5
+      - actual: calculate-targeted-coverage-1.0.0-rc.2/A-mini-n1/SAMtools-1.16.1/output/A-mini-n1.off-target-dbSNP_depth-per-base.bed
+        expect: /hot/software/pipeline/pipeline-calculate-targeted-coverage/Nextflow/development/output/A-mini-n1.off-target-dbSNP_depth-per-base.bed
+        method: md5
+      - actual: calculate-targeted-coverage-1.0.0-rc.2/A-mini-n1/SAMtools-1.16.1/output/A-mini-n1.off-target-dbSNP_depth-per-base.bed.sha512
+        expect: /hot/software/pipeline/pipeline-calculate-targeted-coverage/Nextflow/development/output/A-mini-n1.off-target-dbSNP_depth-per-base.bed.sha512
+        method: md5
+      - actual: calculate-targeted-coverage-1.0.0-rc.2/A-mini-n1/SAMtools-1.16.1/output/A-mini-n1.target_with_enriched_off-target_intervals.bed
+        expect: /hot/software/pipeline/pipeline-calculate-targeted-coverage/Nextflow/development/output/A-mini-n1.target_with_enriched_off-target_intervals.bed
+        method: md5
+      - actual: calculate-targeted-coverage-1.0.0-rc.2/A-mini-n1/SAMtools-1.16.1/output/A-mini-n1.target_with_enriched_off-target_intervals.bed.sha512
+        expect: /hot/software/pipeline/pipeline-calculate-targeted-coverage/Nextflow/development/output/A-mini-n1.target_with_enriched_off-target_intervals.bed.sha512
+        method: md5
