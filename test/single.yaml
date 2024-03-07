@@ -1,0 +1,4 @@
+---
+sample_id: 'A-mini-n1'
+input:
+  bam: /hot/resource/SMC-HET/tumours/A-mini/bams/n1/output/S2.T-n1.bam
