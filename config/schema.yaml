@@ -82,7 +82,7 @@ reference_dict:
   mode: 'r'
   required: true
   help: 'Absolute path to reference genome dictionary'
-reference_dbSNP::
+reference_dbSNP:
   type: 'Path'
   mode: 'r'
   required: true
