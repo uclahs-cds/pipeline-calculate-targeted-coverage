@@ -99,5 +99,6 @@ input:
   elements:
     bam:
       type: 'Path'
+      mode: 'r'
       required: true
       help: 'Input BAM for coverage analysis'
