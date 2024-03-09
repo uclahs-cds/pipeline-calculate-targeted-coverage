@@ -97,21 +97,7 @@ input:
   required: true
   help: 'Input samples'
   elements:
-    BAM:
-      type: 'InputBAMNamespace'
+    bam:
+      type: 'Path'
       required: true
-      help: 'Input BAMs for calling'
-      elements:
-        normal:
-          type: 'BAMEntryList'
-          required: false
-          help: 'Input normal BAMs'
-        tumor:
-          type: 'BAMEntryList'
-          required: false
-          help: 'Input tumor BAMs'
-    recalibration_table:
-      type: 'RecalibrationTableList'
-      required: false
-      allow_empty: false
-      help: 'List of any available recalibration tables'
+      help: 'Input BAM for coverage analysis'
