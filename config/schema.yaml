@@ -62,11 +62,6 @@ bait_interval_list:
   allow_empty: true
   required: true
   help: 'Target intervals to process for DNA panel/targeted sequencing samples; leave empty for WGS'
-scatter_count:
-  type: 'Integer'
-  required: true
-  default: 50
-  help: 'How many intervals to divide the genome into for parallelization'
 picard_CollectHsMetrics_extra_args:
   type: 'String'
   allow_empty: true
