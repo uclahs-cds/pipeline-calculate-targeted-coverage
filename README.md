@@ -1,25 +1,27 @@
 # Calculate Targeted Coverage
 
-- [Calculate Targeted Coverage](#pipeline-name)
+- [Calculate Targeted Coverage](#calculate-targeted-coverage)
   - [Overview](#overview)
   - [How To Run](#how-to-run)
   - [Flow Diagram](#flow-diagram)
   - [Pipeline Steps](#pipeline-steps)
-    - [1. Dpeth Calculation](#1-depth-calculation)
+    - [1. Depth Calculation](#1-depth-calculation)
     - [2. BED Formatting](#2-bed-formatting)
-    - [3. dbSNP Off-target Site Filtering](#3-dbsnp-off-target-site-filtering)
-    - [4. dbSNP Enriched Read Depth Filtering](#4-dbsnp-enriched-read-depth-filtering)
-    - [5. dbSNP Enriched Coverage Interval Expansion](#5-dbsnp-coverage-enriched-interval-expansion)
-    - [6. On-target and Enriched Off-target Interval Mergeing](#6-on-target-and-enriched-off-target-interval-merging)
+    - [3. dbSNP off-target site filtering](#3-dbsnp-off-target-site-filtering)
+    - [4. dbSNP enriched read depth filtering](#4-dbsnp-enriched-read-depth-filtering)
+    - [5. dbSNP coverage-enriched interval expansion](#5-dbsnp-coverage-enriched-interval-expansion)
+    - [6. On-target and enriched off-target interval merging](#6-on-target-and-enriched-off-target-interval-merging)
     - [7. Metrics Reporting](#7-metrics-reporting)
-  - [Inputs](#inputs)
+  - [Inputs and Configuration](#inputs-and-configuration)
   - [Outputs](#outputs)
   - [Testing and Validation](#testing-and-validation)
     - [Test Data Set](#test-data-set)
-    - [Validation <version number\>](#validation-version-number)
+    - [Validation \<version number\>](#validation-version-number)
     - [Validation Tool](#validation-tool)
   - [References](#references)
-  - [License](#license) 
+  - [Discussions](#discussions)
+  - [Contributors](#contributors)
+  - [License](#license)
 ## Overview
 This pipeline extracts read depth calculations from a BAM file and generates outputs that are useful to the interpretation and downstream variant calling of a targeted sequencing experiment. Relevant datasets include targeted gene panels and whole exome sequencing (WXS) experiments. For in-depth downstream coverage QC, the pipeline can output per-base read depth at all targeted loci specified by a target BED file and read depth at genome-wide "off-target" well characterized polymorphic sites known to dbSNP. For a more general overview of targeted sequencing quality, the pipeline can output QC metrics produced by `picard CollectHsMetrics`. As a direct contribution to a DNA processing workflow, the pipeline can output a coordinate BED file containing target intervals merged with intervals encompassing off-target dbSNP sites enriched in coverage (as determined by a user-defined read-depth threshold). This new coordinate file can be used to indicate base quality recalibration and variant calling intervals to [`pipeline-recalibrate-BAM`](https://github.com/uclahs-cds/pipeline-recalibrate-BAM/blob/34e0e8ccc46eb406087baec1bb858fa9c2f4c4ad/config/template.config#L37) and `gatk HaplotypeCaller`in [`pipeline-call-gSNP`](https://github.com/uclahs-cds/pipeline-call-gSNP/blob/43bf6bd2ccf2abce61701ac1d52105d408e934a4/config/template.config#L28) directly or through `metapipeline-DNA`.
 
@@ -42,7 +44,7 @@ This pipeline performs coverage calculations from a BAM file at intervals specif
 
 A directed acyclic graph of your pipeline.
 
-![pipeline-calculate-targeted-coverage graph](pipeline-calculate-targeted-coverage.drawio.svg?raw=true)
+![pipeline-calculate-targeted-coverage graph](./docs/calculate-targeted-coverage-flow.svg)
 
 ---
 
