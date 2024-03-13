@@ -16,18 +16,18 @@ rectangle "Target-Focused Workflow" {
     rectangle Input as Input1 <<transparent>> {
         rectangle "Target File" as TargetFile1 <<InputFile>>
         rectangle "Bait File" as BaitFile <<InputFile>>
-        rectangle "BAM" as BAM1 <<InputFile>>
     }
     ' process steps
+    rectangle "BAM" as BAM1 <<InputFile>>
     rectangle "Validate Inputs" as ValInputs1 <<ProcessStep>>
-    rectangle "Calculate Per-base Read Depth" as CalcReadDepth <<ProcessStep>>
+    rectangle "Calculate Per-Base Read Depth" as CalcReadDepth <<ProcessStep>>
     rectangle "Convert BED to interval.list" as ConvBEDtoIntervalList <<ProcessStep>>
     rectangle "Convert to BED" as ConvtoBED1 <<ProcessStep>>
     rectangle "Calculate Coverage Metrics" as CalcCovMetrics <<ProcessStep>>
     ' output files
-    rectangle "Target read depth BED" as TargetReadDepthBED <<OutputFile>>
+    rectangle ".target-depth-per-base.bed" as TargetReadDepthBED <<OutputFile>>
     ' QC files
-    rectangle "HS Metrics TXT" as HSMetrics <<QCFile>>
+    rectangle ".HSMetrics.txt" as HSMetrics <<QCFile>>
 }
 
 
@@ -41,56 +41,59 @@ rectangle "Off-Target Workflow" {
     }
     ' process steps
     rectangle "Validate Inputs" as ValInputs2 <<ProcessStep>>
-    rectangle "Cacluate Read Depth at dbSNP sites" as CalcReadDepthAtdbSNP <<ProcessStep>>
-    rectangle "Filter for minimum read depth" as FilterReadDepth <<ProcessStep>>
-    rectangle "Filter for off-target sites" as FilterOffTarget <<ProcessStep>>
+    rectangle "Cacluate Read Depth at dbSNP Sites" as CalcReadDepthAtdbSNP <<ProcessStep>>
+    rectangle "Filter for Minimum Read Depth" as FilterReadDepth <<ProcessStep>>
+    rectangle "Filter for Off-Target Sites" as FilterOffTarget <<ProcessStep>>
     rectangle "Convert to BED" as ConvtoBED2 <<ProcessStep>>
-    rectangle "Add Slop to off-target SNPs" as AddSlopOffTarget <<ProcessStep>>
-    rectangle "Merge with target file" as MergeWithTarget <<ProcessStep>>
+    rectangle "Add Slop to Off-Target SNPs" as AddSlopOffTarget <<ProcessStep>>
+    rectangle "Merge with Target File" as MergeWithTarget <<ProcessStep>>
     rectangle "Add Slop to Target Intervals" as AddSlopTarget <<ProcessStep>>
 
     ' output files
-    rectangle "Target + Enriched Off-target read depth BED" as TargetPlusOffTargetReadDepthBED <<OutputFile>>
-    rectangle "Off-target dbSNP read depth BED" as OffTargetReadDepth <<OutputFile>>
+    rectangle ".target-with-enriched-off-target-intervals.bed" as TargetPlusOffTargetReadDepthBED <<OutputFile>>
+    rectangle ".off-target-dbSNP_depth-per-base.bed" as OffTargetReadDepth <<OutputFile>>
 
     ' end node
     rectangle "recalibrate-BAM" as RecalBAM #White
 }
 
 
-
+' Target Focused Workflow
+' input
+BAM1 --> ValInputs1
+BaitFile --> ConvBEDtoIntervalList
 TargetFile1 -l-> BaitFile
 TargetFile1 --> ConvBEDtoIntervalList
-TargetFile2 --> AddSlopTarget
-TargetFile2 --> MergeWithTarget
+TargetFile1 --> CalcReadDepth
 
-BaitFile --> ConvBEDtoIntervalList
-
-BAM1 --> ValInputs1
-BAM2 --> ValInputs2
-
-dbSNP_VCF --> CalcReadDepthAtdbSNP
+ConvBEDtoIntervalList --> CalcCovMetrics
 
 ValInputs1 --> CalcReadDepth
 ValInputs1 --> CalcCovMetrics
-ValInputs2 --> CalcReadDepthAtdbSNP
 
-ConvBEDtoIntervalList --> CalcCovMetrics
 CalcCovMetrics --> HSMetrics
 
 CalcReadDepth --> ConvtoBED1
 ConvtoBED1 --> TargetReadDepthBED
 
-CalcReadDepthAtdbSNP --> FilterReadDepth
-CalcReadDepthAtdbSNP --> FilterOffTarget
 
+' Off-Target Workflow
+' input
+TargetFile2 ---> AddSlopTarget
+TargetFile2 ---> MergeWithTarget
+dbSNP_VCF --> CalcReadDepthAtdbSNP
+BAM2 --> ValInputs2
+
+ValInputs2 --> CalcReadDepthAtdbSNP
 AddSlopTarget --> FilterOffTarget
 
-FilterReadDepth --> ConvtoBED2
-FilterOffTarget --> ConvtoBED2
+CalcReadDepthAtdbSNP --> ConvtoBED2
 
-ConvtoBED2 --> OffTargetReadDepth
-ConvtoBED2 --> AddSlopOffTarget
+ConvtoBED2 --> FilterOffTarget
+ConvtoBED2 --> FilterReadDepth
+
+FilterReadDepth --> AddSlopOffTarget
+FilterOffTarget --> OffTargetReadDepth
 
 AddSlopOffTarget --> MergeWithTarget
 
