@@ -1,0 +1,99 @@
+---
+sample_id:
+  type: 'String'
+  required: true
+  help: 'Sample ID'
+dataset_id:
+  type: 'String'
+  required: true
+  help: 'Dataset ID'
+output_dir:
+  type: 'Path'
+  mode: 'w'
+  required: true
+  help: 'Absolute path to output directory'
+save_intermediate_files:
+  type: 'Bool'
+  required: true
+  default: false
+  help: 'Whether to save intermediate files'
+save_interval_list:
+  type: 'Bool'
+  required: true
+  default: false
+  help: 'Whether to save a copy of the interval list generated for picard CollectHsMetrics'
+collect_metrics:
+  type: 'Bool'
+  required: true
+  default: true
+  help: 'Whether to run picard CollectHsMetrics'
+off_target_depth:
+  type: 'Bool'
+  required: true
+  default: true
+  help: 'Whether to calculate depth at off-target dbSNP loci'
+output_enriched_target_file:
+  type: 'Bool'
+  required: true
+  default: true
+  help: 'Whether or not to output a new target file containing high-coverage off-target dbSNP loci'
+target_depth:
+  type: 'Bool'
+  required: true
+  default: false
+  help: 'Whether or not to output a new target file containing high-coverage off-target dbSNP loci'
+target_bed:
+  type: 'String'
+  allow_empty: true
+  required: true
+  help: 'Target intervals to process for DNA panel/targeted sequencing samples; leave empty for WGS'
+bait_bed:
+  type: 'String'
+  allow_empty: true
+  required: true
+  help: 'Target intervals to process for DNA panel/targeted sequencing samples; leave empty for WGS'
+target_interval_list:
+  type: 'String'
+  allow_empty: true
+  required: true
+  help: 'Target intervals to process for DNA panel/targeted sequencing samples; leave empty for WGS'
+bait_interval_list:
+  type: 'String'
+  allow_empty: true
+  required: true
+  help: 'Target intervals to process for DNA panel/targeted sequencing samples; leave empty for WGS'
+picard_CollectHsMetrics_extra_args:
+  type: 'String'
+  allow_empty: true
+  required: true
+  help: 'Extra arguments for CollectHsMetrics'
+samtools_depth_extra_args:
+  type: 'String'
+  allow_empty: true
+  required: true
+  help: 'Extra arguments for samtools depth'
+reference_dict:
+  type: 'Path'
+  mode: 'r'
+  required: true
+  help: 'Absolute path to reference genome dictionary'
+reference_dbSNP:
+  type: 'Path'
+  mode: 'r'
+  required: true
+  help: 'Absolute path to thinned dbSNP VCF'
+genome_sizes:
+  type: 'Path'
+  mode: 'r'
+  required: true
+  help: 'Absolute path to table of chromosome lengths, can be fasta index'
+input:
+  type: 'InputNamespace'
+  required: true
+  help: 'Input samples'
+  elements:
+    bam:
+      type: 'Path'
+      mode: 'r'
+      required: true
+      help: 'Input BAM for coverage analysis'

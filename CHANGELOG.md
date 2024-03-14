@@ -14,6 +14,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add workflow to run Nextflow configuration regression tests
 - Add NFTest infrastructure and test cases
 - Add one Nextflow regression test
+- Add parameter validation schema
 
 ### Changed
 - Update CI/CD workflow to use current image
