@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="892px" preserveAspectRatio="none" style="width:1353px;height:892px;background:#FFFFFF;" version="1.1" viewBox="0 0 1353 892" width="1353px" zoomAndPan="magnify"><defs/><g><!--MD5=[5793b8a6652117c897ab2de440c96a33]
+cluster Target-Focused Workflow--><g id="cluster_Target-Focused Workflow"><rect height="495" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;fill:none;" width="512" x="7" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="205" x="160.5" y="21.9951">Target-Focused Workflow</text></g><!--MD5=[d541b56f1a19ef419b51f0e2d36e069b]
+cluster Input1--><g id="cluster_Input1"><rect height="68" rx="2.5" ry="2.5" style="stroke:#00000000;stroke-width:1.0;fill:none;" width="233" x="77" y="50"/><text fill="#000000" font-family="sans-serif" font-size="0" font-weight="bold" lengthAdjust="spacing" textLength="0" x="193.5" y="52">Input</text></g><!--MD5=[fdf0c65af9cafec17be4ce373e959a1e]
+cluster Off-Target Workflow--><g id="cluster_Off-Target Workflow"><rect height="879" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;fill:none;" width="600" x="543" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="162" x="762" y="21.9951">Off-Target Workflow</text></g><!--MD5=[fcfe6af240cbb9de2e31d0010bc81b0a]
+cluster Input2--><g id="cluster_Input2"><rect height="68" rx="2.5" ry="2.5" style="stroke:#00000000;stroke-width:1.0;fill:none;" width="343" x="663" y="50"/><text fill="#000000" font-family="sans-serif" font-size="0" font-weight="bold" lengthAdjust="spacing" textLength="0" x="834.5" y="52">Input</text></g><!--MD5=[f7217341b3bb6bbf768c7f0e049f8d09]
+cluster Legend--><g id="cluster_Legend"><rect height="375" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:1.0;fill:none;" width="180" x="1167" y="31"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="59" x="1227.5" y="45.9951">Legend</text></g><!--MD5=[a83f4c4b109093b6df97f2e5475fbb6d]
+entity BAM1--><g id="elem_BAM1"><rect fill="#ADD8E6" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="51" x="355.5" y="66"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="31" x="365.5" y="88.9951">BAM</text></g><!--MD5=[afbb0db1cbcdc0e923b4432d737361e0]
+entity ValInputs1--><g id="elem_ValInputs1"><rect fill="#D3D3D3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="121" x="320.5" y="162"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101" x="330.5" y="184.9951">Validate Inputs</text></g><!--MD5=[b3fc1d5769c32d62159879ccf9acacb3]
+entity CalcReadDepth--><g id="elem_CalcReadDepth"><rect fill="#D3D3D3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="237" x="265.5" y="258"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="217" x="275.5" y="280.9951">Calculate Per-Base Read Depth</text></g><!--MD5=[bd6c7db5d87a2d4a9d8c6ffd88a5bcea]
+entity ConvBEDtoIntervalList--><g id="elem_ConvBEDtoIntervalList"><rect fill="#D3D3D3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="202" x="29" y="162"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="182" x="39" y="184.9951">Convert BED to interval.list</text></g><!--MD5=[2c5b443c033a35a14a0a2ae3c89dfd10]
+entity ConvtoBED1--><g id="elem_ConvtoBED1"><rect fill="#D3D3D3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="126" x="321" y="354"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="106" x="331" y="376.9951">Convert to BED</text></g><!--MD5=[b356e89eaf00e777fdf024a4814b8e18]
+entity CalcCovMetrics--><g id="elem_CalcCovMetrics"><rect fill="#D3D3D3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="207" x="23.5" y="258"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="187" x="33.5" y="280.9951">Calculate Coverage Metrics</text></g><!--MD5=[dcd1f042f3b348163f3493299ca35159]
+entity TargetReadDepthBED--><g id="elem_TargetReadDepthBED"><rect fill="#98FB98" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="209" x="279.5" y="450"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="189" x="289.5" y="472.9951">.target-depth-per-base.bed</text></g><!--MD5=[360be6d182cb7145dcbdee0021c8ccd3]
+entity HSMetrics--><g id="elem_HSMetrics"><rect fill="#F5DEB3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="114" x="70" y="354"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="94" x="80" y="376.9951">.HSMetrics.txt</text></g><!--MD5=[07ce715d8952035f1c648a97cce063ab]
+entity TargetFile1--><g id="elem_TargetFile1"><rect fill="#ADD8E6" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="92" x="202" y="66"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="72" x="212" y="88.9951">Target File</text></g><!--MD5=[bb2b4fcf43ed25e0ab855486922ad703]
+entity BaitFile--><g id="elem_BaitFile"><rect fill="#ADD8E6" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="73" x="93.5" y="66"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="53" x="103.5" y="88.9951">Bait File</text></g><!--MD5=[3711304ccc2c64bce48f9718f643142e]
+entity ValInputs2--><g id="elem_ValInputs2"><rect fill="#D3D3D3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="121" x="912.5" y="162"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="101" x="922.5" y="184.9951">Validate Inputs</text></g><!--MD5=[b6607c3669bb86c4076734be7bd06d49]
+entity CalcReadDepthAtdbSNP--><g id="elem_CalcReadDepthAtdbSNP"><rect fill="#D3D3D3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="272" x="842" y="258"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="252" x="852" y="280.9951">Cacluate Read Depth at dbSNP Sites</text></g><!--MD5=[5bda774f1e672053773e83dd05eacaed]
+entity FilterReadDepth--><g id="elem_FilterReadDepth"><rect fill="#D3D3D3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="228" x="882" y="450"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="208" x="892" y="472.9951">Filter for Minimum Read Depth</text></g><!--MD5=[cd6e518d9ba44279cfc888103d8aa6a4]
+entity FilterOffTarget--><g id="elem_FilterOffTarget"><rect fill="#D3D3D3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="186" x="645" y="450"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="166" x="655" y="472.9951">Filter for Off-Target Sites</text></g><!--MD5=[715b69296de685ae7f1f45cea8134010]
+entity ConvtoBED2--><g id="elem_ConvtoBED2"><rect fill="#D3D3D3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="126" x="915" y="354"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="106" x="925" y="376.9951">Convert to BED</text></g><!--MD5=[0c145ebd8b2b512a07df55d1a2465d38]
+entity AddSlopOffTarget--><g id="elem_AddSlopOffTarget"><rect fill="#D3D3D3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="212" x="915" y="546"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="192" x="925" y="568.9951">Add Slop to Off-Target SNPs</text></g><!--MD5=[f50d1513eea2cf224a813b3b0f46f551]
+entity MergeWithTarget--><g id="elem_MergeWithTarget"><rect fill="#D3D3D3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="172" x="757" y="642"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="152" x="767" y="664.9951">Merge with Target File</text></g><!--MD5=[6b0d55934776f8df877a4aa9a84c95b4]
+entity AddSlopTarget--><g id="elem_AddSlopTarget"><rect fill="#D3D3D3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="209" x="597.5" y="258"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="189" x="607.5" y="280.9951">Add Slop to Target Intervals</text></g><!--MD5=[97b99327512678a3edfd748478556652]
+entity TargetPlusOffTargetReadDepthBED--><g id="elem_TargetPlusOffTargetReadDepthBED"><rect fill="#98FB98" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="325" x="680.5" y="738"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="305" x="690.5" y="760.9951">.target-with-enriched-off-target-intervals.bed</text></g><!--MD5=[7f5ec864b4cb369ae6c755b0ecd8ff52]
+entity OffTargetReadDepth--><g id="elem_OffTargetReadDepth"><rect fill="#98FB98" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="284" x="596" y="546"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="264" x="606" y="568.9951">.off-target-dbSNP_depth-per-base.bed</text></g><!--MD5=[e94e62f06dcbdb4a6e54560988436e02]
+entity RecalBAM--><g id="elem_RecalBAM"><rect fill="#FFFFFF" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="128" x="779" y="834"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="108" x="789" y="856.9951">recalibrate-BAM</text></g><!--MD5=[d240438f19e54a6f2cb3889e6527a070]
+entity TargetFile2--><g id="elem_TargetFile2"><rect fill="#ADD8E6" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="92" x="679" y="66"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="72" x="689" y="88.9951">Target File</text></g><!--MD5=[7b92cfaf277f583add5cf6dde83011d4]
+entity dbSNP_VCF--><g id="elem_dbSNP_VCF"><rect fill="#ADD8E6" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="97" x="806.5" y="66"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="77" x="816.5" y="88.9951">dbSNP VCF</text></g><!--MD5=[0b8015d1c6b7568455913bd022baae3a]
+entity BAM2--><g id="elem_BAM2"><rect fill="#ADD8E6" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="51" x="938.5" y="66"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="31" x="948.5" y="88.9951">BAM</text></g><!--MD5=[486a548dd2b54905abbe5c1ab7fa9983]
+entity IF--><g id="elem_IF"><rect fill="#ADD8E6" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="82" x="1216" y="66"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="62" x="1226" y="88.9951">Input File</text></g><!--MD5=[d3ef473a5067122b9254af2bc2f25065]
+entity QC--><g id="elem_QC"><rect fill="#F5DEB3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="147" x="1183.5" y="162"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="127" x="1193.5" y="184.9951">Quality Control File</text></g><!--MD5=[633fdf3c843eeff0d0fbc3bde364bced]
+entity OF--><g id="elem_OF"><rect fill="#98FB98" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="95" x="1209.5" y="258"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="75" x="1219.5" y="280.9951">Output File</text></g><!--MD5=[7842cb4300efb401920d8f72ebe921e6]
+entity PS--><g id="elem_PS"><rect fill="#D3D3D3" height="36.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="112" x="1201" y="354"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="92" x="1211" y="376.9951">Process Step</text></g><!--MD5=[4ebbafa84b39c454a0f1728fb61efbcb]
+link BAM1 to ValInputs1--><g id="link_BAM1_ValInputs1"><path d="M381,102.24 C381,117.48 381,139.81 381,156.46 " fill="none" id="BAM1-to-ValInputs1" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="381,161.87,385,152.87,381,156.87,377,152.87,381,161.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[0b188298c9b1afe471d4865e17af690e]
+link BaitFile to ConvBEDtoIntervalList--><g id="link_BaitFile_ConvBEDtoIntervalList"><path d="M130,102.24 C130,117.48 130,139.81 130,156.46 " fill="none" id="BaitFile-to-ConvBEDtoIntervalList" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="130,161.87,134,152.87,130,156.87,126,152.87,130,161.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[a98f2fcb5fff3f38e9b30ea7ce7944cc]
+reverse link BaitFile to TargetFile1--><g id="link_BaitFile_TargetFile1"><path d="M172.05,84 C181.94,84 191.84,84 201.73,84 " fill="none" id="BaitFile-backto-TargetFile1" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="166.88,84,175.8914,87.9743,171.88,83.9857,175.8685,79.9743,166.88,84" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[8613a7106181726335c268ad9afcbade]
+link TargetFile1 to ConvBEDtoIntervalList--><g id="link_TargetFile1_ConvBEDtoIntervalList"><path d="M226.63,102.02 C206.71,117.89 176.96,141.59 155.73,158.5 " fill="none" id="TargetFile1-to-ConvBEDtoIntervalList" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="151.61,161.79,161.1433,159.3167,155.5227,158.677,156.1624,153.0564,151.61,161.79" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[1ebea33f9c8662e739debdf82176c56c]
+link TargetFile1 to CalcReadDepth--><g id="link_TargetFile1_CalcReadDepth"><path d="M254.11,102.13 C262.83,125.22 280.32,167.01 303,198 C318.64,219.36 340.61,239.83 357.73,254.28 " fill="none" id="TargetFile1-to-CalcReadDepth" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="361.97,257.82,357.6329,248.9775,358.1347,254.6121,352.5002,255.1139,361.97,257.82" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[f308aad7a2b7b7a038ef70c2e5184697]
+link ConvBEDtoIntervalList to CalcCovMetrics--><g id="link_ConvBEDtoIntervalList_CalcCovMetrics"><path d="M129.45,198.24 C128.96,213.48 128.25,235.81 127.72,252.46 " fill="none" id="ConvBEDtoIntervalList-to-CalcCovMetrics" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="127.55,257.87,131.856,249.0123,127.7213,252.8729,123.8607,248.7382,127.55,257.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[ea8d0339758d2104072632f00f4bc0a1]
+link ValInputs1 to CalcReadDepth--><g id="link_ValInputs1_CalcReadDepth"><path d="M381.55,198.24 C382.04,213.48 382.75,235.81 383.28,252.46 " fill="none" id="ValInputs1-to-CalcReadDepth" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="383.45,257.87,387.1393,248.7382,383.2787,252.8729,379.144,249.0123,383.45,257.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[8836070171cd6f0734a3a2db1cce46c0]
+link ValInputs1 to CalcCovMetrics--><g id="link_ValInputs1_CalcCovMetrics"><path d="M335,198.02 C290.73,214.41 223.9,239.14 178.01,256.12 " fill="none" id="ValInputs1-to-CalcCovMetrics" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="173.08,257.95,182.9082,258.5879,177.771,256.2195,180.1394,251.0823,173.08,257.95" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[d676bc7e0090eb72ce6e5be50a2e077f]
+link CalcCovMetrics to HSMetrics--><g id="link_CalcCovMetrics_HSMetrics"><path d="M127,294.24 C127,309.48 127,331.81 127,348.46 " fill="none" id="CalcCovMetrics-to-HSMetrics" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="127,353.87,131,344.87,127,348.87,123,344.87,127,353.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[01f923ac9ec9e6500d1bb9fa79e1697e]
+link CalcReadDepth to ConvtoBED1--><g id="link_CalcReadDepth_ConvtoBED1"><path d="M384,294.24 C384,309.48 384,331.81 384,348.46 " fill="none" id="CalcReadDepth-to-ConvtoBED1" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="384,353.87,388,344.87,384,348.87,380,344.87,384,353.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[af6509568e048ae4cd4a149100a354eb]
+link ConvtoBED1 to TargetReadDepthBED--><g id="link_ConvtoBED1_TargetReadDepthBED"><path d="M384,390.24 C384,405.48 384,427.81 384,444.46 " fill="none" id="ConvtoBED1-to-TargetReadDepthBED" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="384,449.87,388,440.87,384,444.87,380,440.87,384,449.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[ad70a8f2d24c7fbe93a363248ba8fd89]
+link TargetFile2 to AddSlopTarget--><g id="link_TargetFile2_AddSlopTarget"><path d="M722.92,102.2 C718.74,136.67 709.36,214.23 704.71,252.61 " fill="none" id="TargetFile2-to-AddSlopTarget" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="704.06,257.98,709.1096,249.5241,704.6591,253.016,701.1672,248.5656,704.06,257.98" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[bb9b1f52b6b7f984ba4d3d204d33fcda]
+link TargetFile2 to MergeWithTarget--><g id="link_TargetFile2_MergeWithTarget"><path d="M693.96,102.09 C646.17,130.94 560,194.18 560,275 C560,275 560,275 560,469 C560,519.86 544.35,543.87 578,582 C621.15,630.91 693.36,649.57 751.5,656.33 " fill="none" id="TargetFile2-to-MergeWithTarget" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="756.73,656.91,748.2174,651.9567,751.7595,656.3672,747.349,659.9094,756.73,656.91" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[0f5f9f541059e0d392cad8edec1088b0]
+link dbSNP_VCF to CalcReadDepthAtdbSNP--><g id="link_dbSNP_VCF_CalcReadDepthAtdbSNP"><path d="M858.38,102.24 C863.52,125.46 874.88,167.39 895,198 C909.66,220.29 932.1,240.59 949.96,254.75 " fill="none" id="dbSNP_VCF-to-CalcReadDepthAtdbSNP" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="953.93,257.85,949.3077,249.1532,949.9925,254.7685,944.3772,255.4532,953.93,257.85" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[1085dcdb1e044111634ab5f4c085fbb6]
+link BAM2 to ValInputs2--><g id="link_BAM2_ValInputs2"><path d="M965.65,102.24 C967.12,117.61 969.28,140.2 970.88,156.89 " fill="none" id="BAM2-to-ValInputs2" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="971.36,161.87,974.4685,152.5246,970.8752,156.8936,966.5062,153.3003,971.36,161.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[26102ab38cefa976c6f11175f31d78b3]
+link ValInputs2 to CalcReadDepthAtdbSNP--><g id="link_ValInputs2_CalcReadDepthAtdbSNP"><path d="M973.92,198.24 C974.73,213.48 975.92,235.81 976.8,252.46 " fill="none" id="ValInputs2-to-CalcReadDepthAtdbSNP" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="977.09,257.87,980.5948,248.6659,976.8182,252.8774,972.6067,249.1008,977.09,257.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[bc906825f7e1d5b70f40674632bccb60]
+link AddSlopTarget to FilterOffTarget--><g id="link_AddSlopTarget_FilterOffTarget"><path d="M705.26,294.2 C711.79,328.67 726.49,406.23 733.76,444.61 " fill="none" id="AddSlopTarget-to-FilterOffTarget" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="734.78,449.98,737.0394,440.3938,733.8517,445.0669,729.1785,441.8792,734.78,449.98" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[e6ec3830f61b2fc00c1f964c6c082250]
+link CalcReadDepthAtdbSNP to ConvtoBED2--><g id="link_CalcReadDepthAtdbSNP_ConvtoBED2"><path d="M978,294.24 C978,309.48 978,331.81 978,348.46 " fill="none" id="CalcReadDepthAtdbSNP-to-ConvtoBED2" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="978,353.87,982,344.87,978,348.87,974,344.87,978,353.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[312c39a7f5e428ae64e27424907166bd]
+link ConvtoBED2 to FilterOffTarget--><g id="link_ConvtoBED2_FilterOffTarget"><path d="M934.54,390.02 C892.7,406.41 829.56,431.14 786.2,448.12 " fill="none" id="ConvtoBED2-to-FilterOffTarget" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="781.54,449.95,791.3793,450.384,786.1941,448.1226,788.4555,442.9374,781.54,449.95" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[ea959455ce9951d3e4721f89ee60932b]
+link ConvtoBED2 to FilterReadDepth--><g id="link_ConvtoBED2_FilterReadDepth"><path d="M981.3,390.24 C984.24,405.61 988.57,428.2 991.77,444.89 " fill="none" id="ConvtoBED2-to-FilterReadDepth" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="992.72,449.87,994.9525,440.2775,991.7779,444.9596,987.0958,441.7849,992.72,449.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[0e0a99d1d7bc0797a534b161d1c3fca8]
+link FilterReadDepth to AddSlopOffTarget--><g id="link_FilterReadDepth_AddSlopOffTarget"><path d="M1000.59,486.24 C1004.67,501.61 1010.68,524.2 1015.12,540.89 " fill="none" id="FilterReadDepth-to-AddSlopOffTarget" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="1016.44,545.87,1017.9896,536.1438,1015.1535,541.0384,1010.2589,538.2023,1016.44,545.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[1fe930d4fe042d6de6dd8d043965d9f2]
+link FilterOffTarget to OffTargetReadDepth--><g id="link_FilterOffTarget_OffTargetReadDepth"><path d="M738,486.24 C738,501.48 738,523.81 738,540.46 " fill="none" id="FilterOffTarget-to-OffTargetReadDepth" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="738,545.87,742,536.87,738,540.87,734,536.87,738,545.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[be633c3fef0ea7de7d91abfc3ce66e7d]
+link AddSlopOffTarget to MergeWithTarget--><g id="link_AddSlopOffTarget_MergeWithTarget"><path d="M988.77,582.02 C958.11,598.21 912.04,622.54 879.93,639.5 " fill="none" id="AddSlopOffTarget-to-MergeWithTarget" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="875.29,641.95,885.1175,641.3019,879.7155,639.623,881.3944,634.221,875.29,641.95" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[0fa50402f24eb397243c00d2dc3ff62f]
+link MergeWithTarget to TargetPlusOffTargetReadDepthBED--><g id="link_MergeWithTarget_TargetPlusOffTargetReadDepthBED"><path d="M843,678.24 C843,693.48 843,715.81 843,732.46 " fill="none" id="MergeWithTarget-to-TargetPlusOffTargetReadDepthBED" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="843,737.87,847,728.87,843,732.87,839,728.87,843,737.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[4737fbc0abd4b31898a08a11d07ff5b8]
+link TargetPlusOffTargetReadDepthBED to RecalBAM--><g id="link_TargetPlusOffTargetReadDepthBED_RecalBAM"><path d="M843,774.24 C843,789.48 843,811.81 843,828.46 " fill="none" id="TargetPlusOffTargetReadDepthBED-to-RecalBAM" style="stroke:#181818;stroke-width:1.0;"/><polygon fill="#181818" points="843,833.87,847,824.87,843,828.87,839,824.87,843,833.87" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[1d4d0dbdd50de0a0980321eccab73fac]
+link IF to QC--><!--MD5=[03c241bed99ac1776e7d8c4bd4f5cca5]
+link QC to OF--><!--MD5=[35700df3515afd241139af4c0386ffe2]
+link OF to PS--><!--MD5=[92f34df3065afc79e8f831e044f7297a]
+@startuml
+hide stereotype
+
+skinparam rectangle {
+    BackgroundColor<<InputFile>> #LightBlue
+    BackgroundColor<<QCFile>> #Wheat
+    BackgroundColor<<OutputFile>> #PaleGreen
+    BackgroundColor<<ProcessStep>> #LightGray
+    BorderColor<<transparent>> transparent
+    FontSize<<transparent>> 0
+}
+
+' target workflow
+rectangle "Target-Focused Workflow" {
+    ' input
+    rectangle Input as Input1 <<transparent>> {
+        rectangle "Target File" as TargetFile1 <<InputFile>>
+        rectangle "Bait File" as BaitFile <<InputFile>>
+    }
+    ' process steps
+    rectangle "BAM" as BAM1 <<InputFile>>
+    rectangle "Validate Inputs" as ValInputs1 <<ProcessStep>>
+    rectangle "Calculate Per-Base Read Depth" as CalcReadDepth <<ProcessStep>>
+    rectangle "Convert BED to interval.list" as ConvBEDtoIntervalList <<ProcessStep>>
+    rectangle "Convert to BED" as ConvtoBED1 <<ProcessStep>>
+    rectangle "Calculate Coverage Metrics" as CalcCovMetrics <<ProcessStep>>
+    ' output files
+    rectangle ".target-depth-per-base.bed" as TargetReadDepthBED <<OutputFile>>
+    ' QC files
+    rectangle ".HSMetrics.txt" as HSMetrics <<QCFile>>
+}
+
+
+' off target workflow
+rectangle "Off-Target Workflow" {
+    ' input
+    rectangle Input as Input2 <<transparent>> {
+        rectangle "Target File" as TargetFile2 <<InputFile>>
+        rectangle "dbSNP VCF" as dbSNP_VCF <<InputFile>>
+        rectangle "BAM" as BAM2 <<InputFile>>
+    }
+    ' process steps
+    rectangle "Validate Inputs" as ValInputs2 <<ProcessStep>>
+    rectangle "Cacluate Read Depth at dbSNP Sites" as CalcReadDepthAtdbSNP <<ProcessStep>>
+    rectangle "Filter for Minimum Read Depth" as FilterReadDepth <<ProcessStep>>
+    rectangle "Filter for Off-Target Sites" as FilterOffTarget <<ProcessStep>>
+    rectangle "Convert to BED" as ConvtoBED2 <<ProcessStep>>
+    rectangle "Add Slop to Off-Target SNPs" as AddSlopOffTarget <<ProcessStep>>
+    rectangle "Merge with Target File" as MergeWithTarget <<ProcessStep>>
+    rectangle "Add Slop to Target Intervals" as AddSlopTarget <<ProcessStep>>
+
+    ' output files
+    rectangle ".target-with-enriched-off-target-intervals.bed" as TargetPlusOffTargetReadDepthBED <<OutputFile>>
+    rectangle ".off-target-dbSNP_depth-per-base.bed" as OffTargetReadDepth <<OutputFile>>
+
+    ' end node
+    rectangle "recalibrate-BAM" as RecalBAM #White
+}
+
+
+' Target Focused Workflow
+' input
+BAM1 - -> ValInputs1
+BaitFile - -> ConvBEDtoIntervalList
+TargetFile1 -l-> BaitFile
+TargetFile1 - -> ConvBEDtoIntervalList
+TargetFile1 - -> CalcReadDepth
+
+ConvBEDtoIntervalList - -> CalcCovMetrics
+
+ValInputs1 - -> CalcReadDepth
+ValInputs1 - -> CalcCovMetrics
+
+CalcCovMetrics - -> HSMetrics
+
+CalcReadDepth - -> ConvtoBED1
+ConvtoBED1 - -> TargetReadDepthBED
+
+
+' Off-Target Workflow
+' input
+TargetFile2 - - -> AddSlopTarget
+TargetFile2 - - -> MergeWithTarget
+dbSNP_VCF - -> CalcReadDepthAtdbSNP
+BAM2 - -> ValInputs2
+
+ValInputs2 - -> CalcReadDepthAtdbSNP
+AddSlopTarget - -> FilterOffTarget
+
+CalcReadDepthAtdbSNP - -> ConvtoBED2
+
+ConvtoBED2 - -> FilterOffTarget
+ConvtoBED2 - -> FilterReadDepth
+
+FilterReadDepth - -> AddSlopOffTarget
+FilterOffTarget - -> OffTargetReadDepth
+
+AddSlopOffTarget - -> MergeWithTarget
+
+MergeWithTarget - -> TargetPlusOffTargetReadDepthBED
+
+TargetPlusOffTargetReadDepthBED - -> RecalBAM
+
+
+' Legend
+rectangle Legend {
+    rectangle "Input File" as IF <<InputFile>>
+    rectangle "Quality Control File" as QC <<QCFile>>
+    rectangle "Output File" as OF <<OutputFile>>
+    rectangle "Process Step" as PS <<ProcessStep>>
+}
+
+IF -[hidden]-> QC
+QC -[hidden]-> OF
+OF -[hidden]-> PS
+
+@enduml
+
+@startuml
+hide stereotype
+
+skinparam rectangle {
+    BackgroundColor<<InputFile>> #LightBlue
+    BackgroundColor<<QCFile>> #Wheat
+    BackgroundColor<<OutputFile>> #PaleGreen
+    BackgroundColor<<ProcessStep>> #LightGray
+    BorderColor<<transparent>> transparent
+    FontSize<<transparent>> 0
+}
+
+rectangle "Target-Focused Workflow" {
+    rectangle Input as Input1 <<transparent>> {
+        rectangle "Target File" as TargetFile1 <<InputFile>>
+        rectangle "Bait File" as BaitFile <<InputFile>>
+    }
+    rectangle "BAM" as BAM1 <<InputFile>>
+    rectangle "Validate Inputs" as ValInputs1 <<ProcessStep>>
+    rectangle "Calculate Per-Base Read Depth" as CalcReadDepth <<ProcessStep>>
+    rectangle "Convert BED to interval.list" as ConvBEDtoIntervalList <<ProcessStep>>
+    rectangle "Convert to BED" as ConvtoBED1 <<ProcessStep>>
+    rectangle "Calculate Coverage Metrics" as CalcCovMetrics <<ProcessStep>>
+    rectangle ".target-depth-per-base.bed" as TargetReadDepthBED <<OutputFile>>
+    rectangle ".HSMetrics.txt" as HSMetrics <<QCFile>>
+}
+
+
+rectangle "Off-Target Workflow" {
+    rectangle Input as Input2 <<transparent>> {
+        rectangle "Target File" as TargetFile2 <<InputFile>>
+        rectangle "dbSNP VCF" as dbSNP_VCF <<InputFile>>
+        rectangle "BAM" as BAM2 <<InputFile>>
+    }
+    rectangle "Validate Inputs" as ValInputs2 <<ProcessStep>>
+    rectangle "Cacluate Read Depth at dbSNP Sites" as CalcReadDepthAtdbSNP <<ProcessStep>>
+    rectangle "Filter for Minimum Read Depth" as FilterReadDepth <<ProcessStep>>
+    rectangle "Filter for Off-Target Sites" as FilterOffTarget <<ProcessStep>>
+    rectangle "Convert to BED" as ConvtoBED2 <<ProcessStep>>
+    rectangle "Add Slop to Off-Target SNPs" as AddSlopOffTarget <<ProcessStep>>
+    rectangle "Merge with Target File" as MergeWithTarget <<ProcessStep>>
+    rectangle "Add Slop to Target Intervals" as AddSlopTarget <<ProcessStep>>
+
+    rectangle ".target-with-enriched-off-target-intervals.bed" as TargetPlusOffTargetReadDepthBED <<OutputFile>>
+    rectangle ".off-target-dbSNP_depth-per-base.bed" as OffTargetReadDepth <<OutputFile>>
+
+    rectangle "recalibrate-BAM" as RecalBAM #White
+}
+
+
+BAM1 - -> ValInputs1
+BaitFile - -> ConvBEDtoIntervalList
+TargetFile1 -l-> BaitFile
+TargetFile1 - -> ConvBEDtoIntervalList
+TargetFile1 - -> CalcReadDepth
+
+ConvBEDtoIntervalList - -> CalcCovMetrics
+
+ValInputs1 - -> CalcReadDepth
+ValInputs1 - -> CalcCovMetrics
+
+CalcCovMetrics - -> HSMetrics
+
+CalcReadDepth - -> ConvtoBED1
+ConvtoBED1 - -> TargetReadDepthBED
+
+
+TargetFile2 - - -> AddSlopTarget
+TargetFile2 - - -> MergeWithTarget
+dbSNP_VCF - -> CalcReadDepthAtdbSNP
+BAM2 - -> ValInputs2
+
+ValInputs2 - -> CalcReadDepthAtdbSNP
+AddSlopTarget - -> FilterOffTarget
+
+CalcReadDepthAtdbSNP - -> ConvtoBED2
+
+ConvtoBED2 - -> FilterOffTarget
+ConvtoBED2 - -> FilterReadDepth
+
+FilterReadDepth - -> AddSlopOffTarget
+FilterOffTarget - -> OffTargetReadDepth
+
+AddSlopOffTarget - -> MergeWithTarget
+
+MergeWithTarget - -> TargetPlusOffTargetReadDepthBED
+
+TargetPlusOffTargetReadDepthBED - -> RecalBAM
+
+
+rectangle Legend {
+    rectangle "Input File" as IF <<InputFile>>
+    rectangle "Quality Control File" as QC <<QCFile>>
+    rectangle "Output File" as OF <<OutputFile>>
+    rectangle "Process Step" as PS <<ProcessStep>>
+}
+
+IF -[hidden]-> QC
+QC -[hidden]-> OF
+OF -[hidden]-> PS
+
+@enduml
+
+PlantUML version 1.2022.6(Tue Jun 21 17:34:49 GMT 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
