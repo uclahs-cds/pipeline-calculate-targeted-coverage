@@ -1,458 +1,215 @@
 {
-    "nextflow_version": "23.10.0",
-    "config": [
-        "test/nftest.config"
-    ],
-    "params_file": "test/single.yaml",
-    "cpus": 16,
-    "memory_gb": 31,
-    "nf_params": {
-        "output_dir": "/tmp/nf-config-test-outputs"
+  "nextflow_version": "23.10.0",
+  "config": [
+    "test/nftest.config"
+  ],
+  "params_file": "test/single.yaml",
+  "cpus": 16,
+  "memory_gb": 31,
+  "nf_params": {
+    "output_dir": "/tmp/nf-config-test-outputs"
+  },
+  "envvars": {
+    "SLURM_JOB_ID": "4674821"
+  },
+  "mocks": {
+    "check_path": ""
+  },
+  "dated_fields": [
+    "params.log_output_dir",
+    "report.file",
+    "timeline.file",
+    "trace.file",
+    "params.date"
+  ],
+  "expected_result": {
+    "docker": {
+      "all_group_ids": "$(for i in `id --real --groups`; do echo -n \"--group-add=$i \"; done)",
+      "enabled": true,
+      "runOptions": "-u $(id -u):$(id -g) $(for i in `id --real --groups`; do echo -n \"--group-add=$i \"; done)",
+      "uid_and_gid": "-u $(id -u):$(id -g)"
     },
-    "envvars": {
-        "SLURM_JOB_ID": "4674821"
+    "manifest": {
+      "author": "Nicole Zeltser",
+      "description": "Nextflow pipeline for calculating read-depth related statistics for targeted sequencing experiments",
+      "name": "calculate-targeted-coverage",
+      "version": "1.0.0-rc.2"
     },
-    "mocks": {
-        "check_path": ""
-    },
-    "dated_fields": [
-        "params.log_output_dir",
-        "report.file",
-        "timeline.file",
-        "trace.file",
-        "params.date"
-    ],
-    "expected_result": {
-        "docker": {
-        "all_group_ids": "$(for i in `id --real --groups`; do echo -n \"--group-add=$i \"; done)",
-        "enabled": true,
-        "runOptions": "-u $(id -u):$(id -g) $(for i in `id --real --groups`; do echo -n \"--group-add=$i \"; done)",
-        "uid_and_gid": "-u $(id -u):$(id -g)"
-        },
-        "manifest": {
-        "author": "Nicole Zeltser",
-        "description": "Nextflow pipeline for calculating read-depth related statistics for targeted sequencing experiments",
-        "name": "calculate-targeted-coverage",
-        "version": "1.0.0-rc.2"
-        },
-        "params": {
-        "bait_bed": "",
-        "bait_interval_list": "",
-        "bedr_version": "1.1.0",
-        "bedtools_version": "2.29.2",
-        "blcds_registered_dataset": false,
-        "collect_metrics": true,
-        "coverage_cap": "3000",
-        "dataset_id": "TWGSAMIN000001-T002-S02-F",
-        "dataset_registry_prefix": "/hot/data",
-        "date": "19970704T165655Z",
-        "dbSNP_slop": "150",
-        "docker_container_registry": "ghcr.io/uclahs-cds",
-        "docker_image_bedops": "ghcr.io/uclahs-cds/bedr:1.1.0",
-        "docker_image_bedtools": "ghcr.io/uclahs-cds/bedtools:2.29.2",
-        "docker_image_picard": "ghcr.io/uclahs-cds/picard:3.0.0",
-        "docker_image_samtools": "ghcr.io/uclahs-cds/samtools:1.16.1",
-        "docker_image_validate": "ghcr.io/uclahs-cds/pipeval:4.0.0-rc.2",
-        "gatk_command_mem_diff": "2 GB",
-        "genome_sizes": "/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta.fai",
-        "input": {
-            "bam": "/hot/resource/SMC-HET/tumours/A-mini/bams/n1/output/S2.T-n1.bam"
-        },
-        "log_output_dir": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0-rc.2/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.0.0-rc.2-19970704T165655Z",
-        "max_cpus": "16",
-        "max_memory": "31 GB",
-        "merge_operation": "collapse",
-        "min_base_quality": "20",
-        "min_cpus": "1",
-        "min_mapping_quality": "20",
-        "min_memory": "1 MB",
-        "min_read_depth": "30",
-        "near_distance": "250",
-        "off_target_depth": true,
-        "off_target_slop": "500",
-        "output_dir": "/tmp/nf-config-test-outputs",
-        "output_dir_base": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0-rc.2/TWGSAMIN000001-T002-S02-F",
-        "output_enriched_target_file": true,
-        "patient": "null",
-        "picard_CollectHsMetrics_extra_args": "",
-        "picard_version": "3.0.0",
-        "pipeval_version": "4.0.0-rc.2",
-        "reference_dbSNP": "/hot/ref/database/dbSNP-155/thinned/GRCh38/dbSNP-155_thinned_hg38.vcf.gz",
-        "reference_dict": "/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.dict",
-        "sample": "null",
-        "sample_id": "TWGSAMIN000001-T002-S02-F",
-        "samtools_depth_extra_args": "",
-        "samtools_version": "1.16.1",
-        "save_all_dbSNP": false,
-        "save_intermediate_files": false,
-        "save_interval_list": false,
-        "save_raw_target_bed": false,
-        "target_bed": "/hot/software/pipeline/pipeline-calculate-targeted-coverage/Nextflow/development/input/GRch38-small.bed",
-        "target_depth": true,
-        "target_interval_list": "",
-        "ucla_cds": true,
-        "work_dir": "/scratch/4674821",
-        "workflow_output_dir": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0-rc.2/TWGSAMIN000001-T002-S02-F/SAMtools-1.16.1"
-        },
-      "params_schema": {
-        "bait_bed": {
-          "allow_empty": true,
-          "help": "Target intervals to process for DNA panel/targeted sequencing samples; leave empty for WGS",
-          "required": true,
-          "type": "String"
-        },
-        "bait_interval_list": {
-          "allow_empty": true,
-          "help": "Target intervals to process for DNA panel/targeted sequencing samples; leave empty for WGS",
-          "required": true,
-          "type": "String"
-        },
-        "collect_metrics": {
-          "default": true,
-          "help": "Whether to run picard CollectHsMetrics",
-          "required": true,
-          "type": "Bool"
-        },
-        "dataset_id": {
-          "help": "Dataset ID",
-          "required": true,
-          "type": "String"
-        },
-        "genome_sizes": {
-          "help": "Absolute path to table of chromosome lengths, can be fasta index",
-          "mode": "r",
-          "required": true,
-          "type": "Path"
-        },
-        "input": {
-          "elements": {
-            "bam": {
-              "help": "Input BAM for coverage analysis",
-              "mode": "r",
-              "required": true,
-              "type": "Path"
-            }
-          },
-          "help": "Input samples",
-          "required": true,
-          "type": "InputNamespace"
-        },
-        "off_target_depth": {
-          "default": true,
-          "help": "Whether to calculate depth at off-target dbSNP loci",
-          "required": true,
-          "type": "Bool"
-        },
-        "output_dir": {
-          "help": "Absolute path to output directory",
-          "mode": "w",
-          "required": true,
-          "type": "Path"
-        },
-        "output_enriched_target_file": {
-          "default": true,
-          "help": "Whether or not to output a new target file containing high-coverage off-target dbSNP loci",
-          "required": true,
-          "type": "Bool"
-        },
-        "picard_CollectHsMetrics_extra_args": {
-          "allow_empty": true,
-          "help": "Extra arguments for CollectHsMetrics",
-          "required": true,
-          "type": "String"
-        },
-        "reference_dbSNP": {
-          "help": "Absolute path to thinned dbSNP VCF",
-          "mode": "r",
-          "required": true,
-          "type": "Path"
-        },
-        "reference_dict": {
-          "help": "Absolute path to reference genome dictionary",
-          "mode": "r",
-          "required": true,
-          "type": "Path"
-        },
-        "sample_id": {
-          "help": "Sample ID",
-          "required": true,
-          "type": "String"
-        },
-        "samtools_depth_extra_args": {
-          "allow_empty": true,
-          "help": "Extra arguments for samtools depth",
-          "required": true,
-          "type": "String"
-        },
-        "save_intermediate_files": {
-          "default": false,
-          "help": "Whether to save intermediate files",
-          "required": true,
-          "type": "Bool"
-        },
-        "save_interval_list": {
-          "default": false,
-          "help": "Whether to save a copy of the interval list generated for picard CollectHsMetrics",
-          "required": true,
-          "type": "Bool"
-        },
-        "target_bed": {
-          "allow_empty": true,
-          "help": "Target intervals to process for DNA panel/targeted sequencing samples; leave empty for WGS",
-          "required": true,
-          "type": "String"
-        },
-        "target_depth": {
-          "default": false,
-          "help": "Whether or not to output a new target file containing high-coverage off-target dbSNP loci",
-          "required": true,
-          "type": "Bool"
-        },
-        "target_interval_list": {
-          "allow_empty": true,
-          "help": "Target intervals to process for DNA panel/targeted sequencing samples; leave empty for WGS",
-          "required": true,
-          "type": "String"
-        }
+    "params": {
+      "bait_bed": "",
+      "bait_interval_list": "",
+      "bedr_version": "1.1.0",
+      "bedtools_version": "2.29.2",
+      "blcds_registered_dataset": false,
+      "collect_metrics": true,
+      "coverage_cap": "3000",
+      "dataset_id": "TWGSAMIN000001-T002-S02-F",
+      "dataset_registry_prefix": "/hot/data",
+      "date": "19970704T165655Z",
+      "dbSNP_slop": "150",
+      "docker_container_registry": "ghcr.io/uclahs-cds",
+      "docker_image_bedops": "ghcr.io/uclahs-cds/bedr:1.1.0",
+      "docker_image_bedtools": "ghcr.io/uclahs-cds/bedtools:2.29.2",
+      "docker_image_picard": "ghcr.io/uclahs-cds/picard:3.0.0",
+      "docker_image_samtools": "ghcr.io/uclahs-cds/samtools:1.16.1",
+      "docker_image_validate": "ghcr.io/uclahs-cds/pipeval:4.0.0-rc.2",
+      "gatk_command_mem_diff": "2 GB",
+      "genome_sizes": "/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta.fai",
+      "input": {
+        "bam": "/hot/resource/SMC-HET/tumours/A-mini/bams/n1/output/S2.T-n1.bam"
       },
-      "process": {
-        "cache": true,
-        "containerOptions": {
-          "1": "--cpu-shares 1024 --cpus $task.cpus",
-          "2": "--cpu-shares 1024 --cpus $task.cpus",
-          "3": "--cpu-shares 1024 --cpus $task.cpus",
-          "closure": "--cpu-shares 1024 --cpus $task.cpus"
-        },
+      "log_output_dir": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0-rc.2/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.0.0-rc.2-19970704T165655Z",
+      "max_cpus": "16",
+      "max_memory": "31 GB",
+      "merge_operation": "collapse",
+      "min_base_quality": "20",
+      "min_cpus": "1",
+      "min_mapping_quality": "20",
+      "min_memory": "1 MB",
+      "min_read_depth": "30",
+      "near_distance": "250",
+      "off_target_depth": true,
+      "off_target_slop": "500",
+      "output_dir": "/tmp/nf-config-test-outputs",
+      "output_dir_base": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0-rc.2/TWGSAMIN000001-T002-S02-F",
+      "output_enriched_target_file": true,
+      "patient": "null",
+      "picard_CollectHsMetrics_extra_args": "",
+      "picard_version": "3.0.0",
+      "pipeval_version": "4.0.0-rc.2",
+      "reference_dbSNP": "/hot/ref/database/dbSNP-155/thinned/GRCh38/dbSNP-155_thinned_hg38.vcf.gz",
+      "reference_dict": "/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.dict",
+      "sample": "null",
+      "sample_id": "TWGSAMIN000001-T002-S02-F",
+      "samtools_depth_extra_args": "",
+      "samtools_version": "1.16.1",
+      "save_all_dbSNP": false,
+      "save_intermediate_files": false,
+      "save_interval_list": false,
+      "save_raw_target_bed": false,
+      "target_bed": "/hot/software/pipeline/pipeline-calculate-targeted-coverage/Nextflow/development/input/GRch38-small.bed",
+      "target_depth": true,
+      "target_interval_list": "",
+      "ucla_cds": true,
+      "work_dir": "/scratch/4674821",
+      "workflow_output_dir": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0-rc.2/TWGSAMIN000001-T002-S02-F/SAMtools-1.16.1"
+    },
+    "process": {
+      "cache": true,
+      "containerOptions": {
+        "1": "--cpu-shares 1024 --cpus $task.cpus",
+        "2": "--cpu-shares 1024 --cpus $task.cpus",
+        "3": "--cpu-shares 1024 --cpus $task.cpus",
+        "closure": "--cpu-shares 1024 --cpus $task.cpus"
+      },
+      "cpus": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "closure": "closure()"
+      },
+      "echo": true,
+      "errorStrategy": {
+        "1": "finish",
+        "2": "finish",
+        "3": "finish",
+        "closure": "finish"
+      },
+      "executor": "local",
+      "maxRetries": "1",
+      "memory": "31 GB",
+      "withLabel:process_high": {
         "cpus": {
-          "1": "1",
-          "2": "2",
-          "3": "3",
+          "1": "12",
+          "2": "16",
+          "3": "16",
           "closure": "closure()"
         },
-        "echo": true,
-        "errorStrategy": {
-          "1": "finish",
-          "2": "finish",
-          "3": "finish",
-          "closure": "finish"
-        },
-        "executor": "local",
-        "maxRetries": "1",
-        "memory": "31 GB",
-        "withLabel:process_high": {
-          "cpus": {
-            "1": "12",
-            "2": "16",
-            "3": "16",
-            "closure": "closure()"
-          },
-          "memory": {
-            "1": "31 GB",
-            "2": "31 GB",
-            "3": "31 GB",
-            "closure": "closure()"
-          }
-        },
-        "withLabel:process_low": {
-          "cpus": {
-            "1": "2",
-            "2": "4",
-            "3": "6",
-            "closure": "closure()"
-          },
-          "memory": {
-            "1": "3 GB",
-            "2": "6 GB",
-            "3": "9 GB",
-            "closure": "closure()"
-          }
-        },
-        "withLabel:process_medium": {
-          "cpus": {
-            "1": "6",
-            "2": "12",
-            "3": "16",
-            "closure": "closure()"
-          },
-          "memory": {
-            "1": "31 GB",
-            "2": "31 GB",
-            "3": "31 GB",
-            "closure": "closure()"
-          }
-        },
-        "withName:convert_depth_to_bed": {
-          "cpus": "1",
-          "memory": "1 GB"
-        },
-        "withName:merge_bedfiles_BEDtools": {
-          "cpus": "1",
-          "memory": "1 GB"
-        },
-        "withName:run_BedToIntervalList_picard": {
-          "cpus": "1",
-          "memory": "3 GB"
-        },
-        "withName:run_CollectHsMetrics_picard": {
-          "cpus": "1",
-          "memory": "25 GB"
-        },
-        "withName:run_depth_SAMtools": {
-          "cpus": "1",
-          "memory": "1 GB"
-        },
-        "withName:run_depth_filter": {
-          "cpus": "1",
-          "memory": "1 GB"
-        },
-        "withName:run_intersect_BEDtools": {
-          "cpus": "1",
-          "memory": "1 GB"
-        },
-        "withName:run_merge_BEDtools": {
-          "cpus": "1",
-          "memory": "1 GB"
-        },
-        "withName:run_slop_BEDtools": {
-          "cpus": "1",
-          "memory": "1 GB"
+        "memory": {
+          "1": "31 GB",
+          "2": "31 GB",
+          "3": "31 GB",
+          "closure": "closure()"
         }
       },
-      "report": {
-        "enabled": true,
-        "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0-rc.2/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.0.0-rc.2-19970704T165655Z/nextflow-log/report.html"
-      },
-      "timeline": {
-        "enabled": true,
-        "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0-rc.2/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.0.0-rc.2-19970704T165655Z/nextflow-log/timeline.html"
-      },
-      "trace": {
-        "enabled": true,
-        "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0-rc.2/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.0.0-rc.2-19970704T165655Z/nextflow-log/trace.txt"
-      },
-      "tz": "sun.util.calendar.ZoneInfo[id=\"UTC\",offset=0,dstSavings=0,useDaylight=false,transitions=0,lastRule=null]",
-      "workDir": "/scratch/4674821",
-      "yaml": {
-        "bait_bed": {
-          "allow_empty": true,
-          "help": "Target intervals to process for DNA panel/targeted sequencing samples; leave empty for WGS",
-          "required": true,
-          "type": "String"
+      "withLabel:process_low": {
+        "cpus": {
+          "1": "2",
+          "2": "4",
+          "3": "6",
+          "closure": "closure()"
         },
-        "bait_interval_list": {
-          "allow_empty": true,
-          "help": "Target intervals to process for DNA panel/targeted sequencing samples; leave empty for WGS",
-          "required": true,
-          "type": "String"
-        },
-        "collect_metrics": {
-          "default": true,
-          "help": "Whether to run picard CollectHsMetrics",
-          "required": true,
-          "type": "Bool"
-        },
-        "dataset_id": {
-          "help": "Dataset ID",
-          "required": true,
-          "type": "String"
-        },
-        "genome_sizes": {
-          "help": "Absolute path to table of chromosome lengths, can be fasta index",
-          "mode": "r",
-          "required": true,
-          "type": "Path"
-        },
-        "input": {
-          "elements": {
-            "bam": {
-              "help": "Input BAM for coverage analysis",
-              "mode": "r",
-              "required": true,
-              "type": "Path"
-            }
-          },
-          "help": "Input samples",
-          "required": true,
-          "type": "InputNamespace"
-        },
-        "off_target_depth": {
-          "default": true,
-          "help": "Whether to calculate depth at off-target dbSNP loci",
-          "required": true,
-          "type": "Bool"
-        },
-        "output_dir": {
-          "help": "Absolute path to output directory",
-          "mode": "w",
-          "required": true,
-          "type": "Path"
-        },
-        "output_enriched_target_file": {
-          "default": true,
-          "help": "Whether or not to output a new target file containing high-coverage off-target dbSNP loci",
-          "required": true,
-          "type": "Bool"
-        },
-        "picard_CollectHsMetrics_extra_args": {
-          "allow_empty": true,
-          "help": "Extra arguments for CollectHsMetrics",
-          "required": true,
-          "type": "String"
-        },
-        "reference_dbSNP": {
-          "help": "Absolute path to thinned dbSNP VCF",
-          "mode": "r",
-          "required": true,
-          "type": "Path"
-        },
-        "reference_dict": {
-          "help": "Absolute path to reference genome dictionary",
-          "mode": "r",
-          "required": true,
-          "type": "Path"
-        },
-        "sample_id": {
-          "help": "Sample ID",
-          "required": true,
-          "type": "String"
-        },
-        "samtools_depth_extra_args": {
-          "allow_empty": true,
-          "help": "Extra arguments for samtools depth",
-          "required": true,
-          "type": "String"
-        },
-        "save_intermediate_files": {
-          "default": false,
-          "help": "Whether to save intermediate files",
-          "required": true,
-          "type": "Bool"
-        },
-        "save_interval_list": {
-          "default": false,
-          "help": "Whether to save a copy of the interval list generated for picard CollectHsMetrics",
-          "required": true,
-          "type": "Bool"
-        },
-        "target_bed": {
-          "allow_empty": true,
-          "help": "Target intervals to process for DNA panel/targeted sequencing samples; leave empty for WGS",
-          "required": true,
-          "type": "String"
-        },
-        "target_depth": {
-          "default": false,
-          "help": "Whether or not to output a new target file containing high-coverage off-target dbSNP loci",
-          "required": true,
-          "type": "Bool"
-        },
-        "target_interval_list": {
-          "allow_empty": true,
-          "help": "Target intervals to process for DNA panel/targeted sequencing samples; leave empty for WGS",
-          "required": true,
-          "type": "String"
+        "memory": {
+          "1": "3 GB",
+          "2": "6 GB",
+          "3": "9 GB",
+          "closure": "closure()"
         }
+      },
+      "withLabel:process_medium": {
+        "cpus": {
+          "1": "6",
+          "2": "12",
+          "3": "16",
+          "closure": "closure()"
+        },
+        "memory": {
+          "1": "31 GB",
+          "2": "31 GB",
+          "3": "31 GB",
+          "closure": "closure()"
+        }
+      },
+      "withName:convert_depth_to_bed": {
+        "cpus": "1",
+        "memory": "1 GB"
+      },
+      "withName:merge_bedfiles_BEDtools": {
+        "cpus": "1",
+        "memory": "1 GB"
+      },
+      "withName:run_BedToIntervalList_picard": {
+        "cpus": "1",
+        "memory": "3 GB"
+      },
+      "withName:run_CollectHsMetrics_picard": {
+        "cpus": "1",
+        "memory": "25 GB"
+      },
+      "withName:run_depth_SAMtools": {
+        "cpus": "1",
+        "memory": "1 GB"
+      },
+      "withName:run_depth_filter": {
+        "cpus": "1",
+        "memory": "1 GB"
+      },
+      "withName:run_intersect_BEDtools": {
+        "cpus": "1",
+        "memory": "1 GB"
+      },
+      "withName:run_merge_BEDtools": {
+        "cpus": "1",
+        "memory": "1 GB"
+      },
+      "withName:run_slop_BEDtools": {
+        "cpus": "1",
+        "memory": "1 GB"
       }
-    }
+    },
+    "report": {
+      "enabled": true,
+      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0-rc.2/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.0.0-rc.2-19970704T165655Z/nextflow-log/report.html"
+    },
+    "timeline": {
+      "enabled": true,
+      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0-rc.2/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.0.0-rc.2-19970704T165655Z/nextflow-log/timeline.html"
+    },
+    "trace": {
+      "enabled": true,
+      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0-rc.2/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.0.0-rc.2-19970704T165655Z/nextflow-log/trace.txt"
+    },
+    "tz": "sun.util.calendar.ZoneInfo[id=\"UTC\",offset=0,dstSavings=0,useDaylight=false,transitions=0,lastRule=null]",
+    "workDir": "/scratch/4674821"
   }
-  
+}
