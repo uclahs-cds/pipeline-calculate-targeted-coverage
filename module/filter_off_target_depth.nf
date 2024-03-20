@@ -1,4 +1,4 @@
-
+include { generate_standard_filename } from '../external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf'
 /*
 *   Filter for sites with read depth above a minimum threshold.
 *   Important for excluding near-target regions from off-target calculations.
@@ -28,6 +28,16 @@ process run_depth_filter {
         path ".command.*"
 
     script:
+
+    output_filename = generate_standard_filename(
+        "SAMtools-${params.samtools_version}",
+        params.dataset_id,
+        params.sample_id,
+        [
+            'additional_information': "depth-filtered.bed"
+        ]
+    )
+
     """
     set -euo pipefail
 
@@ -35,7 +45,7 @@ process run_depth_filter {
         -v min_depth="${params.min_read_depth}" \
         '\$4 >= min_depth' \
         ${input} \
-        > ${params.sample_id}.depth-filtered.bed
+        > ${output_filename}
         """
 }
 
@@ -73,6 +83,16 @@ process run_slop_BEDtools {
         path ".command.*"
 
     script:
+
+    output_filename = generate_standard_filename(
+        "BEDtools-${params.bedtools_version}",
+        params.dataset_id,
+        params.sample_id,
+        [
+            'additional_information': "${tag}_slop-${slop}.bed"
+        ]
+    )
+
     """
     set -euo pipefail
 
@@ -81,7 +101,7 @@ process run_slop_BEDtools {
         -i ${target_bed} \
         -g ${genome_sizes} \
         -b ${slop} \
-        > ${params.sample_id}.${tag}_slop-${slop}.bed
+        > ${output_filename}
     """
 }
 
@@ -113,6 +133,16 @@ process run_intersect_BEDtools {
         path ".command.*"
 
     script:
+
+    output_filename = generate_standard_filename(
+        "BEDtools-${params.bedtools_version}",
+        params.dataset_id,
+        params.sample_id,
+        [
+            'additional_information': "off-target-dbSNP_depth-per-base.bed"
+        ]
+    )
+
     """
     set -euo pipefail
 
@@ -121,6 +151,6 @@ process run_intersect_BEDtools {
         -a ${off_target_bed} \
         -b ${target_bed} \
         -v \
-        > ${params.sample_id}.off-target-dbSNP_depth-per-base.bed
+        > ${output_filename}
     """
 }

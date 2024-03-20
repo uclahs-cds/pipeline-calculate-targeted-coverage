@@ -1,3 +1,4 @@
+include { generate_standard_filename } from '../external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf'
 /*
 *   Module/process description here
 *
@@ -34,6 +35,16 @@ process run_BedToIntervalList_picard {
         path ".command.*"
 
     script:
+
+    output_filename = generate_standard_filename(
+        "Picard-${params.picard_version}",
+        params.dataset_id,
+        params.sample_id,
+        [
+            'additional_information': "${tag}.interval_list"
+        ]
+    )
+
     """
     set -euo pipefail
 
@@ -41,7 +52,7 @@ process run_BedToIntervalList_picard {
     -jar /usr/local/share/picard-slim-${params.picard_version}-0/picard.jar \
         BedToIntervalList \
         --INPUT $input_bed \
-        --OUTPUT ${params.sample_id}.${tag}.interval_list \
+        --OUTPUT ${output_filename} \
         --SEQUENCE_DICTIONARY $reference_dict \
         --SORT false
     """
@@ -70,6 +81,16 @@ process run_CollectHsMetrics_picard {
         path ".command.*"
 
     script:
+
+    output_filename = generate_standard_filename(
+        "Picard-${params.picard_version}",
+        params.dataset_id,
+        params.sample_id,
+        [
+            'additional_information': ["${tag}.HsMetrics.txt"]
+        ]
+    )
+
     """
     set -euo pipefail
 
@@ -79,7 +100,7 @@ process run_CollectHsMetrics_picard {
         --BAIT_INTERVALS $bait_interval_list \
         --INPUT $input_bam \
         --TARGET_INTERVALS $target_interval_list \
-        --OUTPUT ${params.sample_id}.HsMetrics.txt \
+        --OUTPUT ${output_filename} \
         --COVERAGE_CAP ${params.coverage_cap} \
         ${params.picard_CollectHsMetrics_extra_args} \
         --NEAR_DISTANCE ${params.near_distance} \
