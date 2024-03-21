@@ -36,14 +36,16 @@ process run_BedToIntervalList_picard {
 
     script:
 
-    output_filename = generate_standard_filename(
+    output_filename_base = generate_standard_filename(
         "Picard-${params.picard_version}",
         params.dataset_id,
         params.sample_id,
         [
-            'additional_information': "${tag}.interval_list"
+            'additional_information': "${tag}"
         ]
     )
+
+    output_filename = "${output_filename_base}.interval_list"
 
     """
     set -euo pipefail
@@ -87,7 +89,7 @@ process run_CollectHsMetrics_picard {
         params.dataset_id,
         params.sample_id,
         [
-            'additional_information': ["${tag}.HsMetrics.txt"]
+            'additional_information': ".HsMetrics.txt"
         ]
     )
 
