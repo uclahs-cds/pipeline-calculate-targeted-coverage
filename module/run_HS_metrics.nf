@@ -89,7 +89,7 @@ process run_CollectHsMetrics_picard {
         params.dataset_id,
         params.sample_id,
         [
-            'additional_information': ".HsMetrics.txt"
+            'additional_information': "HsMetrics.txt"
         ]
     )
 
