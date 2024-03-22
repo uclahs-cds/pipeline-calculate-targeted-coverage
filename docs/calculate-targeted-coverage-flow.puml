@@ -25,9 +25,9 @@ rectangle "Target-Focused Workflow" {
     rectangle "Convert to BED" as ConvtoBED1 <<ProcessStep>>
     rectangle "Calculate Coverage Metrics" as CalcCovMetrics <<ProcessStep>>
     ' output files
-    rectangle "*target-depth-per-base.bed" as TargetReadDepthBED <<OutputFile>>
+    rectangle "~*target-depth-per-base.bed" as TargetReadDepthBED <<OutputFile>>
     ' QC files
-    rectangle "*HSMetrics.txt" as HSMetrics <<QCFile>>
+    rectangle "~*HSMetrics.txt" as HSMetrics <<QCFile>>
 }
 
 
@@ -50,8 +50,8 @@ rectangle "Off-Target Workflow" {
     rectangle "Add Slop to Target Intervals" as AddSlopTarget <<ProcessStep>>
 
     ' output files
-    rectangle "*target-with-enriched-off-target-intervals.bed" as TargetPlusOffTargetReadDepthBED <<OutputFile>>
-    rectangle "*off-target-dbSNP-depth-per-base.bed" as OffTargetReadDepth <<OutputFile>>
+    rectangle "~*target-with-enriched-off-target-intervals.bed" as TargetPlusOffTargetReadDepthBED <<OutputFile>>
+    rectangle "~*off-target-dbSNP-depth-per-base.bed" as OffTargetReadDepth <<OutputFile>>
 
     ' end node
     rectangle "recalibrate-BAM" as RecalBAM #White
