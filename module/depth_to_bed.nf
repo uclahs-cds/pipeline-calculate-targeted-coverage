@@ -1,3 +1,4 @@
+include { generate_standard_filename } from '../external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf'
 /*
 *   Module/process description here
 *
@@ -32,12 +33,22 @@ process convert_depth_to_bed {
         path ".command.*"
 
     script:
+
+    output_filename = generate_standard_filename(
+        "SAMtools-${params.samtools_version}",
+        params.dataset_id,
+        params.sample_id,
+        [
+            'additional_information': "${tag}-depth-per-base.bed"
+        ]
+    )
+
     """
     set -euo pipefail
 
     cat ${input_tsv} | \
     awk 'BEGIN {OFS="\t"} {chr = \$1; start=\$2-1; stop=\$2; depth=\$3; print chr,start,stop,depth}' \
         | sort -k1,1 -k2,2n \
-        > ${params.sample_id}.${tag}_depth-per-base.bed
+        > ${output_filename}
     """
 }

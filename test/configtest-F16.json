@@ -43,7 +43,7 @@
         "blcds_registered_dataset": false,
         "collect_metrics": true,
         "coverage_cap": "3000",
-        "dataset_id": "TWGSAMIN000001-T002-S02-F",
+        "dataset_id": "TWGSAMIN000001",
         "dataset_registry_prefix": "/hot/data",
         "date": "19970704T165655Z",
         "dbSNP_slop": "150",
