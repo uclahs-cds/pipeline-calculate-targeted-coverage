@@ -102,7 +102,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Outputs</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/uclahs-cds/pipeline-calculate-targeted-coverage/blob/39486419493e84ae82202b7979a93fd384ad5eff/README.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/uclahs-cds/pipeline-calculate-targeted-coverage/blob/34d075c80a9cc65adf52155fd201cfb030120951/README.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -124,27 +124,27 @@
 <td>Location where generated output should be saved.</td>
 </tr>
 <tr>
-<td><code>.target-with-enriched-off-target-intervals.bed</code></td>
+<td><code>*target-with-enriched-off-target-intervals.bed</code></td>
 <td>New target file including original target intervals and intervals encompassing coverage-enriched off-target dbSNP sites.</td>
 </tr>
 <tr>
-<td><code>.off-target-dbSNP_depth-per-base.bed</code></td>
+<td><code>*off-target-dbSNP-depth-per-base.bed</code></td>
 <td>Per-base read depth at dbSNP loci outside of targeted regions.</td>
 </tr>
 <tr>
-<td><code>.collapsed_coverage.bed</code></td>
+<td><code>*collapsed_coverage.bed</code></td>
 <td>Per-base read depth at specified target intervals, collapsed by interval. (OPTIONAL) Set <code>target_depth</code> in config file.</td>
 </tr>
 <tr>
-<td><code>.target-depth-per-base.bed</code></td>
+<td><code>*target-depth-per-base.bed</code></td>
 <td>Per-base read depth at target intervals (not collapsed). (OPTIONAL) set <code>save_raw_target_bed</code> in config file.</td>
 </tr>
 <tr>
-<td><code>.genome-wide-dbSNP_depth-per-base.bed</code></td>
+<td><code>*genome-wide-dbSNP-depth-per-base.bed</code></td>
 <td>Per-base read depth at all dbSNP loci. (OPTIONAL) Set <code>save_all_dbSNP</code> in config file.</td>
 </tr>
 <tr>
-<td><code>.HsMetrics.txt</code></td>
+<td><code>*HsMetrics.txt</code></td>
 <td>QC output from CollectHsMetrics()</td>
 </tr>
 <tr>
