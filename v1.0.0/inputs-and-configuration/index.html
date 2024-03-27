@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Inputs and Configuration - pipeline-calculate-targeted-coverage</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Inputs and Configuration";
+        var mkdocs_page_input_path = "inputs-and-configuration.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> pipeline-calculate-targeted-coverage
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../overview/">Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../how-to-run/">How To Run</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../flow-diagram/">Flow Diagram</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../pipeline-steps/">Pipeline Steps</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Inputs and Configuration</a>
+    <ul class="current">
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../testing-and-validation/">Testing and Validation</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../references/">References</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../discussions/">Discussions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../contributors/">Contributors</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../license/">License</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">pipeline-calculate-targeted-coverage</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Inputs and Configuration</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/uclahs-cds/pipeline-calculate-targeted-coverage/blob/v1.0.0/README.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="inputs-and-configuration">Inputs and Configuration</h2>
+<table>
+<thead>
+<tr>
+<th>Input and Input Parameter/Flag</th>
+<th>Required</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>input.BAM</code></td>
+<td>yes</td>
+<td>path</td>
+<td>BAM file for which to calculate coverage, path provided in input yaml.</td>
+</tr>
+<tr>
+<td><code>target_BED</code></td>
+<td>yes</td>
+<td>path</td>
+<td>BED file specifying target intervals (defines regions for target and off-target coverage operations).</td>
+</tr>
+<tr>
+<td><code>save_intermediate_files</code></td>
+<td>yes</td>
+<td>boolean</td>
+<td>Whether to save intermediate files.</td>
+</tr>
+<tr>
+<td><code>reference_dict</code></td>
+<td>yes</td>
+<td>path</td>
+<td>Human genome reference dictionary file for use in BED to INTERVAL_LIST conversion. Required if collecting metrics.</td>
+</tr>
+<tr>
+<td><code>reference_dbSNP</code></td>
+<td>yes</td>
+<td>path</td>
+<td>dbSNP reference VCF file, with proper chromosome encoding and compression. See <a href="https://github.com/uclahs-cds/pipeline-targeted-coverage/discussions/18#:~:text=Troubleshooting%20dbSNP%20reference%20file">discussion</a>. Required if performing off-target read depth calculation.</td>
+</tr>
+<tr>
+<td><code>genome_sizes</code></td>
+<td>yes</td>
+<td>path</td>
+<td>Reference file consisting of chromosomes and their lengths used by <code>bedtools slop</code>. Required for off-target read depth workflows. <code>.fai</code> files accepted.</td>
+</tr>
+<tr>
+<td><code>target_depth</code></td>
+<td>no</td>
+<td>bool</td>
+<td>Whether to calculate per-base read depth in targeted regions. Default false.</td>
+</tr>
+<tr>
+<td><code>off_target_depth</code></td>
+<td>no</td>
+<td>bool</td>
+<td>Whether to perform off-target read depth calculation at dbSNP loci. Default true.</td>
+</tr>
+<tr>
+<td><code>output_enriched_target_file</code></td>
+<td>no</td>
+<td>bool</td>
+<td>Whether to output a new target file containing coverage-enriched off-target dbSNP loci. Default true.</td>
+</tr>
+<tr>
+<td><code>min_read_depth</code></td>
+<td>no</td>
+<td>bool</td>
+<td>Minimum read depth threshold for an off-target locus to be considered enriched and be included in the new target file. Default 30.</td>
+</tr>
+<tr>
+<td><code>min_base_quality</code></td>
+<td>no</td>
+<td>integer</td>
+<td>Minimum base quality for a read to be counted in depth calculation by <code>samtools depth</code>. Applies to both off- and on-target calculations. Defaults to 20.</td>
+</tr>
+<tr>
+<td><code>min_mapping_quality</code></td>
+<td>no</td>
+<td>integer</td>
+<td>Minimum mapping quality for a read to be counted in depth calculation by <code>samtools depth</code>. Applies to both off- and on-target calculations. Defaults to 20.</td>
+</tr>
+<tr>
+<td><code>collect_metrics</code></td>
+<td>no</td>
+<td>bool</td>
+<td>Whether to run <code>CollectHsMetrics</code>. Default true.</td>
+</tr>
+<tr>
+<td><code>target_interval_list</code></td>
+<td>no</td>
+<td>path</td>
+<td>Interval list file specifying target intervals used to calculate coverage by <code>collecHsMetrics</code>. If not provided, the target BED will be used to calculate the intervals.</td>
+</tr>
+<tr>
+<td><code>bait_BED</code></td>
+<td>no</td>
+<td>path</td>
+<td>BED file with bait locations that can be used to generate a bait interval list used by <code>CollecHsMetrics</code>. If not provided, the target BED will be used.</td>
+</tr>
+<tr>
+<td><code>bait_interval_list</code></td>
+<td>no</td>
+<td>path</td>
+<td>Interval list file specifying bait intervals used by <code>CollectHsMetrics</code>. If not provided, the bait BED will be used to calculate the intervals.</td>
+</tr>
+<tr>
+<td><code>save_interval_list</code></td>
+<td>yes</td>
+<td>boolean</td>
+<td>Whether to save a copy of any generated interval lists. Saves to the <code>output_dir</code>.</td>
+</tr>
+<tr>
+<td><code>save_all_dbSNP</code></td>
+<td>no</td>
+<td>boolean</td>
+<td>Whether to save a copy of the read depth BED file for all dbSNP loci generated by the off-target workflows. Default false.</td>
+</tr>
+<tr>
+<td><code>save_raw_target_bed</code></td>
+<td>no</td>
+<td>boolean</td>
+<td>Whether to save a copy of the per-base, target read depth BED with uncollapsed intervals. Default false.</td>
+</tr>
+<tr>
+<td><code>off_target_slop</code></td>
+<td>no</td>
+<td>integer</td>
+<td>Number of base pairs to add to either side of target file coordinates so that they may be excluded from off-target read depth calculation. Default is 500.</td>
+</tr>
+<tr>
+<td><code>dbSNP_slop</code></td>
+<td>no</td>
+<td>integer</td>
+<td>Number of base pairs to add to either side of off-target dbSNP loci to generate off-target intervals. The purpose is to merge adjacent dbSNP loci into single intervals prior to mergeing with target intervals. Default is 150.</td>
+</tr>
+<tr>
+<td><code>coverage_cap</code></td>
+<td>no</td>
+<td>integer</td>
+<td><code>COVERAGE_CAP</code> parameter for <code>CollectHsMetrics</code>, determines the coverage threshold at which to stop calculating coverage.</td>
+</tr>
+<tr>
+<td><code>near_distance</code></td>
+<td>no</td>
+<td>integer</td>
+<td><code>NEAR_DISTANCE</code> parameter for <code>CollectHsMetrics</code>, determines the maximum distance in bp of a read from the nearest probe (bait) for it to be counted as "near probe" in metrics calculations. Default 250.</td>
+</tr>
+<tr>
+<td><code>samtools_depth_extra_args</code></td>
+<td>no</td>
+<td>string</td>
+<td>Extra arguments for <code>samtools depth</code>.</td>
+</tr>
+<tr>
+<td><code>picard_CollectHsMetrics_extra_args</code></td>
+<td>no</td>
+<td>string</td>
+<td>Extra arguments for <code>picard CollectHsMetrics</code>.</td>
+</tr>
+<tr>
+<td><code>merge_operation</code></td>
+<td>no</td>
+<td>string</td>
+<td>Operation performed on read depth column values when intervals are collapsed during <code>bedtools merge</code>. Defaults to 'collapse'. See <a href="https://bedtools.readthedocs.io/en/latest/content/tools/merge.html#:~:text=%2Dc.-,Valid%20operations%3A,-sum%2C%20min%2C%20max">bedtools documentation</a> for other options.</td>
+</tr>
+<tr>
+<td><code>work_dir</code></td>
+<td>no</td>
+<td>path</td>
+<td>Path of working directory for Nextflow. When included in the sample config file, Nextflow intermediate files and logs will be saved to this directory. With ucla_cds, the default is <code>/scratch</code> and should only be changed for testing/development. Changing this directory to <code>/hot</code> or <code>/tmp</code> can lead to high server latency and potential disk space limitations, respectively.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../pipeline-steps/" class="btn btn-neutral float-left" title="Pipeline Steps"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../outputs/" class="btn btn-neutral float-right" title="Outputs">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/uclahs-cds/pipeline-calculate-targeted-coverage/tree/v1.0.0" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../pipeline-steps/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../outputs/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

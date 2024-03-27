@@ -2,8 +2,18 @@
   {
     "version": "development",
     "title": "development",
+    "aliases": [],
+    "properties": {
+      "commit": "628b9e15016a7b29f7d7d097298f4fc920361bb6",
+      "date": "2024-03-27T13:53:11-07:00"
+    }
+  },
+  {
+    "version": "v1.0.0",
+    "title": "v1.0.0",
     "aliases": [
-      "latest"
+      "latest",
+      "release-candidate"
     ],
     "properties": {
       "commit": "628b9e15016a7b29f7d7d097298f4fc920361bb6",
@@ -13,9 +23,7 @@
   {
     "version": "v1.0.0-rc.2",
     "title": "v1.0.0-rc.2",
-    "aliases": [
-      "release-candidate"
-    ],
+    "aliases": [],
     "properties": {
       "commit": "3d3bb7f1848a1cfbe728af6379556de49abbccdb",
       "date": "2024-02-14T19:15:20-08:00"
