@@ -8,6 +8,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 
 ## [Unreleased]
+
+---
+
+## [v1.0.0] - 2024-03-27
 ### Added
 - Add workflow to generate SVG images from embedded PlantUML source
 - Add workflow to build and deploy documentation to GitHub Pages
@@ -22,9 +26,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Update samtools depth default output options
 - Update filenames to standardized format
 
+---
+
 ## [v1.0.0-rc.2] - 2024-02-14
 ### Changed
 - Update pipeline name to match Boutros Lab standards
+
+---
 
 ## [v1.0.0-rc.1] - 2024-01-09
 ### Added
