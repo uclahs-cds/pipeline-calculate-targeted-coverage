@@ -11,6 +11,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
+## [v1.1.0] - 2024-03-28
+### Added
+- Compressed output for the expanded set of target intervals
+
+---
+
 ## [v1.0.0] - 2024-03-27
 ### Added
 - Add workflow to generate SVG images from embedded PlantUML source
