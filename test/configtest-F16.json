@@ -33,7 +33,7 @@
       "author": "Nicole Zeltser",
       "description": "Nextflow pipeline for calculating read-depth related statistics for targeted sequencing experiments",
       "name": "calculate-targeted-coverage",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "params": {
       "bait_bed": "",
