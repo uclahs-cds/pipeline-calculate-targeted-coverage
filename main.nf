@@ -227,7 +227,6 @@ workflow {
                         .map{ it -> [params.sample_id, it] }
                 )
 
-                checksum_ch = checksum_ch.mix(merge_bedfiles_BEDtools.out.bed.flatten())
                 checksum_ch = checksum_ch.mix(compress_index_BED.out.index_out.map{ it -> [it[1], it[2]]})
                 }
 
