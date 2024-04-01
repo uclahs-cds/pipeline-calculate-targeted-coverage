@@ -120,6 +120,7 @@ A directed acyclic graph of your pipeline.
 | ------------ | ------------------------ |
 | `output_dir` | Location where generated output should be saved. |
 | `*target-with-enriched-off-target-intervals.bed` | New target file including original target intervals and intervals encompassing coverage-enriched off-target dbSNP sites. |
+| `*target-with-enriched-off-target-intervals.bed.gz` | New compressed target file including original target intervals and intervals encompassing coverage-enriched off-target dbSNP sites. |
 |`*off-target-dbSNP-depth-per-base.bed`|Per-base read depth at dbSNP loci outside of targeted regions.|
 | `*collapsed_coverage.bed` | Per-base read depth at specified target intervals, collapsed by interval. (OPTIONAL) Set `target_depth` in config file. |
 |`*target-depth-per-base.bed`|Per-base read depth at target intervals (not collapsed). (OPTIONAL) set `save_raw_target_bed` in config file.|

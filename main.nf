@@ -17,14 +17,18 @@ include { run_depth_filter } from './module/filter_off_target_depth.nf'
 include { merge_bedfiles_BEDtools } from './module/merge_bedfiles_bedtools.nf'
 
 include { generate_checksum_PipeVal as generate_sha512sum } from './external/pipeline-Nextflow-module/modules/PipeVal/generate-checksum/main.nf' addParams(
-   options: [
-      output_dir: "${params.workflow_output_dir}/output/",
-      log_output_dir: "${params.log_output_dir}/process-log/",
-      docker_image_version: params.pipeval_version,
-      main_process: "./",
-      checksum_alg: "sha512"
-      ]
-   )
+    options: [
+        output_dir: "${params.workflow_output_dir}/output/",
+        log_output_dir: "${params.log_output_dir}/process-log/",
+        docker_image_version: params.pipeval_version,
+        main_process: "./",
+        checksum_alg: "sha512"
+    ])
+include { compress_index_VCF as compress_index_BED } from './external/pipeline-Nextflow-module/modules/common/index_VCF_tabix/main.nf' addParams(
+    options: [
+        output_dir: "${params.workflow_output_dir}/",
+        log_output_dir: "${params.log_output_dir}/process-log/"
+    ])
 
 // Log info here
 log.info """\
@@ -217,9 +221,13 @@ workflow {
                     params.target_bed,
                     run_slop_BEDtools_expand_dbSNP.out.bed
                     )
-                
-                checksum_ch = checksum_ch.mix(merge_bedfiles_BEDtools.out.bed.flatten())
 
+                compress_index_BED(
+                    merge_bedfiles_BEDtools.out.bed
+                        .map{ it -> [params.sample_id, it] }
+                )
+
+                checksum_ch = checksum_ch.mix(compress_index_BED.out.index_out.map{ it -> [it[1], it[2]]})
                 }
 
                 }

@@ -33,7 +33,7 @@
       "author": "Nicole Zeltser",
       "description": "Nextflow pipeline for calculating read-depth related statistics for targeted sequencing experiments",
       "name": "calculate-targeted-coverage",
-      "version": "1.0.0"
+      "version": "1.1.0"
     },
     "params": {
       "bait_bed": "",
@@ -58,7 +58,7 @@
       "input": {
         "bam": "/hot/resource/SMC-HET/tumours/A-mini/bams/n1/output/S2.T-n1.bam"
       },
-      "log_output_dir": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.0.0-19970704T165655Z",
+      "log_output_dir": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.1.0/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.1.0-19970704T165655Z",
       "max_cpus": "16",
       "max_memory": "31 GB",
       "merge_operation": "collapse",
@@ -71,7 +71,7 @@
       "off_target_depth": true,
       "off_target_slop": "500",
       "output_dir": "/tmp/nf-config-test-outputs",
-      "output_dir_base": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0/TWGSAMIN000001-T002-S02-F",
+      "output_dir_base": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.1.0/TWGSAMIN000001-T002-S02-F",
       "output_enriched_target_file": true,
       "patient": "null",
       "picard_CollectHsMetrics_extra_args": "",
@@ -92,7 +92,7 @@
       "target_interval_list": "",
       "ucla_cds": true,
       "work_dir": "/scratch/4674821",
-      "workflow_output_dir": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0/TWGSAMIN000001-T002-S02-F/SAMtools-1.16.1"
+      "workflow_output_dir": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.1.0/TWGSAMIN000001-T002-S02-F/SAMtools-1.16.1"
     },
     "params_schema": {
       "bait_bed": {
@@ -320,15 +320,15 @@
     },
     "report": {
       "enabled": true,
-      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.0.0-19970704T165655Z/nextflow-log/report.html"
+      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.1.0/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.1.0-19970704T165655Z/nextflow-log/report.html"
     },
     "timeline": {
       "enabled": true,
-      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.0.0-19970704T165655Z/nextflow-log/timeline.html"
+      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.1.0/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.1.0-19970704T165655Z/nextflow-log/timeline.html"
     },
     "trace": {
       "enabled": true,
-      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.0.0/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.0.0-19970704T165655Z/nextflow-log/trace.txt"
+      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-1.1.0/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-1.1.0-19970704T165655Z/nextflow-log/trace.txt"
     },
     "tz": "sun.util.calendar.ZoneInfo[id=\"UTC\",offset=0,dstSavings=0,useDaylight=false,transitions=0,lastRule=null]",
     "workDir": "/scratch/4674821",

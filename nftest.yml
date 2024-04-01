@@ -18,6 +18,9 @@ cases:
       - actual: calculate-targeted-coverage-*/TWGSAMIN000001-T002-S02-F/SAMtools-*/output/BEDtools-*_TWGSAMIN000001_TWGSAMIN000001-T002-S02-F_off-target-dbSNP-depth-per-base.bed
         expect: /hot/software/pipeline/pipeline-calculate-targeted-coverage/Nextflow/development/output/TWGSAMIN000001-T002-S02-F.off-target-dbSNP_depth-per-base.bed
         method: md5
-      - actual: calculate-targeted-coverage-*/TWGSAMIN000001-T002-S02-F/SAMtools-*/output/BEDtools-*_TWGSAMIN000001_TWGSAMIN000001-T002-S02-F_target-with-enriched-off-target-intervals.bed
-        expect: /hot/software/pipeline/pipeline-calculate-targeted-coverage/Nextflow/development/output/TWGSAMIN000001-T002-S02-F.target_with_enriched_off-target_intervals.bed
+      - actual: calculate-targeted-coverage-*/TWGSAMIN000001-T002-S02-F/SAMtools-*/output/BEDtools-*_TWGSAMIN000001_TWGSAMIN000001-T002-S02-F_target-with-enriched-off-target-intervals.bed.gz
+        expect: /hot/software/pipeline/pipeline-calculate-targeted-coverage/Nextflow/development/output/TWGSAMIN000001-T002-S02-F.target_with_enriched_off-target_intervals.bed.gz
+        method: md5
+      - actual: calculate-targeted-coverage-*/TWGSAMIN000001-T002-S02-F/SAMtools-*/output/BEDtools-*_TWGSAMIN000001_TWGSAMIN000001-T002-S02-F_target-with-enriched-off-target-intervals.bed.gz.tbi
+        expect: /hot/software/pipeline/pipeline-calculate-targeted-coverage/Nextflow/development/output/TWGSAMIN000001-T002-S02-F.target_with_enriched_off-target_intervals.bed.gz.tbi
         method: md5

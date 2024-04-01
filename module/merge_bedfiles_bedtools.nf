@@ -9,9 +9,10 @@ include { generate_standard_filename } from '../external/pipeline-Nextflow-modul
 process merge_bedfiles_BEDtools {
     container params.docker_image_bedtools
 
-    publishDir path: "${params.workflow_output_dir}/output/",
+    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}",
         pattern: "*.bed",
-        mode: "copy"
+        mode: "copy",
+        enabled: params.save_intermediate_files
 
     publishDir path: "${params.log_output_dir}/process-log/",
         pattern: ".command.*",
