@@ -214,9 +214,6 @@ workflow {
                     )
                 
                 // merge off-target coordinates with target coordinates
-
-                // run_merge_BEDops is replaced by merge_bedfiles_BEDtools
-
                 merge_bedfiles_BEDtools(
                     params.target_bed,
                     run_slop_BEDtools_expand_dbSNP.out.bed
