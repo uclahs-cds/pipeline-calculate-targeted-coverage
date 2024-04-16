@@ -38,6 +38,9 @@ This pipeline performs coverage calculations from a BAM file at intervals specif
 
 3. See the submission script, [here](https://github.com/uclahs-cds/tool-submit-nf), to submit your pipeline
 
+### Requirements
+Currently supported Nextflow versions: `v23.04.2`
+
 ---
 
 ## Flow Diagram
