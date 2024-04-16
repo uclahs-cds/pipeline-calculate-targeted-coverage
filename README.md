@@ -135,7 +135,7 @@ A directed acyclic graph of your pipeline.
 
 ## Performance Validation
 
-Testing was performed in the Boutros Lab SLURM Development cluster. Metrics below will be updated where relevant with additional testing and tuning outputs. Pipeline version used here is 
+Testing was performed in the Boutros Lab SLURM Development cluster. Pipeline version used here is v1.0.0-rc.1
 
 ## Targeted Panels
 
