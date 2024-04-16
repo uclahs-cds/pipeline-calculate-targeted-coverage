@@ -14,10 +14,7 @@
     - [7. Metrics Reporting](#7-metrics-reporting)
   - [Inputs and Configuration](#inputs-and-configuration)
   - [Outputs](#outputs)
-  - [Testing and Validation](#testing-and-validation)
-    - [Test Data Set](#test-data-set)
-    - [Validation \<version number\>](#validation-version-number)
-    - [Validation Tool](#validation-tool)
+  - [Performance Validation](#performance-validation)
   - [References](#references)
   - [Discussions](#discussions)
   - [Contributors](#contributors)
@@ -136,44 +133,25 @@ A directed acyclic graph of your pipeline.
 
 ---
 
-## Testing and Validation
+## Performance Validation
 
-### Test Data Set
+Testing was performed in the Boutros Lab SLURM Development cluster. Metrics below will be updated where relevant with additional testing and tuning outputs. Pipeline version used here is 
 
-Testing was performed leveraging aligned and sorted BAMs from a targeted panel sequencing experiment generated using bwa-mem2-2.1 against reference GRCh38.
-- **BZPRGPT2:** BZPRGPT1000001-N001-B01-F.bam
+## Targeted Panels
 
-Test runs were performed with the following reference files
-- **reference_dict:** '/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.dict'
-- **reference_dbSNP:** '/hot/ref/database/dbSNP-155/thinned/GRCh38/dbSNP-155_thinned_hg38.vcf.gz'
-- **genome_sizes:** '/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta.fai'
+General estimates, with wide variations, are that smaller gene panel experiments require 16 cpus and 32GB of memory to run all processes efficiently in parallel. However each individual process requires much fewer resources, and 1CPU and 1GB is frequently sufficient for most component tools. Larger numbers of targets may increase memory requirements, particularly for interval merging steps.
 
+## Whole Exomes
 
-### Validation <version number\>
-
-See [here](https://github.com/uclahs-cds/pipeline-targeted-coverage/discussions/30) for benchmarking.
-
- Input/Output | Description | Result
- | ------------ | ------------------------ | ------------------------ |
-| metric 1 | 1 - 2 sentence description of the metric | quantifiable result |
-| metric 2 | 1 - 2 sentence description of the metric | quantifiable result |
-| metric n | 1 - 2 sentence description of the metric | quantifiable result |
-
-- [Reference/External Link/Path 1 to any files/plots or other validation results](<link>)
-- [Reference/External Link/Path 2 to any files/plots or other validation results](<link>)
-- [Reference/External Link/Path n to any files/plots or other validation results](<link>)
-
-### Validation Tool
-
-Included is a template for validating your input files. For more information on the tool check out: https://github.com/uclahs-cds/tool-validate-nf
+General estimates, with wide variations, are that whole exome experiments require 16 CPUs and 32GB of memory to run all processes efficiently in parallel. However each individual process requires much fewer resources, and 1CPU and 1GB is frequently sufficient for most component tools.
 
 ---
 
 ## References
 
-1. [Reference 1](<links-to-papers/external-code/documentation/metadata/other-repos/or-anything-else>)
-2. [Reference 2](<links-to-papers/external-code/documentation/metadata/other-repos/or-anything-else>)
-3. [Reference n](<links-to-papers/external-code/documentation/metadata/other-repos/or-anything-else>)
+1. [SAMtools](https://doi.org/10.1093/gigascience/giab008)
+2. [Picard](https://broadinstitute.github.io/picard/)
+3. [BEDtools](https://pubmed.ncbi.nlm.nih.gov/20110278/)
 
 ---
 
