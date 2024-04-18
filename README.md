@@ -137,11 +137,11 @@ A directed acyclic graph of your pipeline.
 
 Testing was performed in the Boutros Lab SLURM Development cluster. Pipeline version used here is v1.0.0-rc.1
 
-## Targeted Panels
+### Targeted Panels
 
 General estimates, with wide variations, are that smaller gene panel experiments require 16 cpus and 32GB of memory to run all processes efficiently in parallel. However each individual process requires much fewer resources, and 1CPU and 1GB is frequently sufficient for most component tools. Larger numbers of targets may increase memory requirements, particularly for interval merging steps.
 
-## Whole Exomes
+### Whole Exomes
 
 General estimates, with wide variations, are that whole exome experiments require 16 CPUs and 32GB of memory to run all processes efficiently in parallel. However each individual process requires much fewer resources, and 1CPU and 1GB is frequently sufficient for most component tools.
 
