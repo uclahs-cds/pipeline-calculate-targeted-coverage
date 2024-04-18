@@ -11,6 +11,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Changed
 - Update Nextflow configuration test workflows
+- Update README Performance Validation and References section
+- Remove unused docker image for bedr
+- Update metadata description to match repo description
+- Update documentation of utility script for joining per-sample outputs
 
 ---
 

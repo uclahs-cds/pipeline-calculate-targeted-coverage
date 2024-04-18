@@ -38,7 +38,6 @@
     "params": {
       "bait_bed": "",
       "bait_interval_list": "",
-      "bedr_version": "1.1.0",
       "bedtools_version": "2.29.2",
       "blcds_registered_dataset": false,
       "collect_metrics": true,
@@ -48,7 +47,6 @@
       "date": "19970704T165655Z",
       "dbSNP_slop": "150",
       "docker_container_registry": "ghcr.io/uclahs-cds",
-      "docker_image_bedops": "ghcr.io/uclahs-cds/bedr:1.1.0",
       "docker_image_bedtools": "ghcr.io/uclahs-cds/bedtools:2.29.2",
       "docker_image_picard": "ghcr.io/uclahs-cds/picard:3.0.0",
       "docker_image_samtools": "ghcr.io/uclahs-cds/samtools:1.16.1",

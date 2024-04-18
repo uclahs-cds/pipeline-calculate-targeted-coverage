@@ -1,6 +1,6 @@
 ---
 category: "pipeline"
-description: "A pipeline for calculating read-depth related stats for targeted sequencing experiments"
+description: "Nextflow pipeline to calculate read-depth related stats for targeted sequencing experiments"
 maintainers: "Nicole Zeltser <nzeltser@mednet.ucla.edu>"
 languages: ["Nextflow", "Docker"]
 dependencies: ["Java", "Nextflow", "Docker"]
