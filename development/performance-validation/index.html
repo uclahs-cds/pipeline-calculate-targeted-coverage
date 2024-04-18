@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Testing and Validation - pipeline-calculate-targeted-coverage</title>
+    <title>Performance Validation - pipeline-calculate-targeted-coverage</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,8 +13,8 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Testing and Validation";
-        var mkdocs_page_input_path = "testing-and-validation.md";
+        var mkdocs_page_name = "Performance Validation";
+        var mkdocs_page_input_path = "performance-validation.md";
         var mkdocs_page_url = null;
       </script>
     
@@ -65,13 +65,11 @@
                 </li>
               </ul>
               <ul class="current">
-                <li class="toctree-l1 current"><a class="reference internal current" href="./">Testing and Validation</a>
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Performance Validation</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#test-data-set">Test Data Set</a>
+    <li class="toctree-l2"><a class="reference internal" href="#targeted-panels">Targeted Panels</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#validation">Validation \</a>
-    </li>
-    <li class="toctree-l2"><a class="reference internal" href="#validation-tool">Validation Tool</a>
+    <li class="toctree-l2"><a class="reference internal" href="#whole-exomes">Whole Exomes</a>
     </li>
     </ul>
                 </li>
@@ -106,9 +104,9 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Testing and Validation</li>
+      <li class="breadcrumb-item active">Performance Validation</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/uclahs-cds/pipeline-calculate-targeted-coverage/blob/2b07a0ceb3690538072e21e224a2dac5a97b15dd/README.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/uclahs-cds/pipeline-calculate-targeted-coverage/blob/a45579ef9732d7b94387be33faf769ed2b9d53c6/README.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -116,53 +114,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h2 id="testing-and-validation">Testing and Validation</h2>
-<h3 id="test-data-set">Test Data Set</h3>
-<p>Testing was performed leveraging aligned and sorted BAMs from a targeted panel sequencing experiment generated using bwa-mem2-2.1 against reference GRCh38.</p>
-<ul>
-<li><strong>BZPRGPT2:</strong> BZPRGPT1000001-N001-B01-F.bam</li>
-</ul>
-<p>Test runs were performed with the following reference files</p>
-<ul>
-<li><strong>reference_dict:</strong> '/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.dict'</li>
-<li><strong>reference_dbSNP:</strong> '/hot/ref/database/dbSNP-155/thinned/GRCh38/dbSNP-155_thinned_hg38.vcf.gz'</li>
-<li><strong>genome_sizes:</strong> '/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta.fai'</li>
-</ul>
-<h3 id="validation">Validation \<version number></h3>
-<p>See <a href="https://github.com/uclahs-cds/pipeline-targeted-coverage/discussions/30">here</a> for benchmarking.</p>
-<table>
-<thead>
-<tr>
-<th>Input/Output</th>
-<th>Description</th>
-<th>Result</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>metric 1</td>
-<td>1 - 2 sentence description of the metric</td>
-<td>quantifiable result</td>
-</tr>
-<tr>
-<td>metric 2</td>
-<td>1 - 2 sentence description of the metric</td>
-<td>quantifiable result</td>
-</tr>
-<tr>
-<td>metric n</td>
-<td>1 - 2 sentence description of the metric</td>
-<td>quantifiable result</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><a href="https://github.com/uclahs-cds/pipeline-calculate-targeted-coverage/blob/2b07a0ceb3690538072e21e224a2dac5a97b15dd/link">Reference/External Link/Path 1 to any files/plots or other validation results</a></li>
-<li><a href="https://github.com/uclahs-cds/pipeline-calculate-targeted-coverage/blob/2b07a0ceb3690538072e21e224a2dac5a97b15dd/link">Reference/External Link/Path 2 to any files/plots or other validation results</a></li>
-<li><a href="https://github.com/uclahs-cds/pipeline-calculate-targeted-coverage/blob/2b07a0ceb3690538072e21e224a2dac5a97b15dd/link">Reference/External Link/Path n to any files/plots or other validation results</a></li>
-</ul>
-<h3 id="validation-tool">Validation Tool</h3>
-<p>Included is a template for validating your input files. For more information on the tool check out: https://github.com/uclahs-cds/tool-validate-nf</p>
+                <h2 id="performance-validation">Performance Validation</h2>
+<p>Testing was performed in the Boutros Lab SLURM Development cluster. Pipeline version used here is v1.0.0-rc.1</p>
+<h3 id="targeted-panels">Targeted Panels</h3>
+<p>General estimates, with wide variations, are that smaller gene panel experiments require 16 cpus and 32GB of memory to run all processes efficiently in parallel. However each individual process requires much fewer resources, and 1CPU and 1GB is frequently sufficient for most component tools. Larger numbers of targets may increase memory requirements, particularly for interval merging steps.</p>
+<h3 id="whole-exomes">Whole Exomes</h3>
+<p>General estimates, with wide variations, are that whole exome experiments require 16 CPUs and 32GB of memory to run all processes efficiently in parallel. However each individual process requires much fewer resources, and 1CPU and 1GB is frequently sufficient for most component tools.</p>
 <hr />
               
             </div>
