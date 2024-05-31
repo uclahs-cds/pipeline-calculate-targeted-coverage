@@ -1,3 +1,4 @@
+include { generate_standard_filename } from '../external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf'
 /*
 *   Module/process description here
 *
@@ -8,9 +9,10 @@
 process merge_bedfiles_BEDtools {
     container params.docker_image_bedtools
 
-    publishDir path: "${params.workflow_output_dir}/output/",
+    publishDir path: "${params.workflow_output_dir}/intermediate/${task.process.replace(':','/')}",
         pattern: "*.bed",
-        mode: "copy"
+        mode: "copy",
+        enabled: params.save_intermediate_files
 
     publishDir path: "${params.log_output_dir}/process-log/",
         pattern: ".command.*",
@@ -26,6 +28,16 @@ process merge_bedfiles_BEDtools {
         path ".command.*"
 
     script:
+
+    output_filename = generate_standard_filename(
+        "BEDtools-${params.bedtools_version}",
+        params.dataset_id,
+        params.sample_id,
+        [
+            'additional_information': "target-with-enriched-off-target-intervals.bed"
+        ]
+    )
+
     """
     set -euo pipefail
 
@@ -33,6 +45,6 @@ process merge_bedfiles_BEDtools {
         sort -k1,1 -k2,2n | \
         awk '{OFS = "\t"}{print \$1, \$2, \$3}' | \
         bedtools merge \
-        > ${params.sample_id}.target_with_enriched_off-target_intervals.bed
+        > ${output_filename}
     """
 }

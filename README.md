@@ -1,25 +1,24 @@
 # Calculate Targeted Coverage
 
-- [Calculate Targeted Coverage](#pipeline-name)
+- [Calculate Targeted Coverage](#calculate-targeted-coverage)
   - [Overview](#overview)
   - [How To Run](#how-to-run)
   - [Flow Diagram](#flow-diagram)
   - [Pipeline Steps](#pipeline-steps)
-    - [1. Dpeth Calculation](#1-depth-calculation)
+    - [1. Depth Calculation](#1-depth-calculation)
     - [2. BED Formatting](#2-bed-formatting)
-    - [3. dbSNP Off-target Site Filtering](#3-dbsnp-off-target-site-filtering)
-    - [4. dbSNP Enriched Read Depth Filtering](#4-dbsnp-enriched-read-depth-filtering)
-    - [5. dbSNP Enriched Coverage Interval Expansion](#5-dbsnp-coverage-enriched-interval-expansion)
-    - [6. On-target and Enriched Off-target Interval Mergeing](#6-on-target-and-enriched-off-target-interval-merging)
+    - [3. dbSNP off-target site filtering](#3-dbsnp-off-target-site-filtering)
+    - [4. dbSNP enriched read depth filtering](#4-dbsnp-enriched-read-depth-filtering)
+    - [5. dbSNP coverage-enriched interval expansion](#5-dbsnp-coverage-enriched-interval-expansion)
+    - [6. On-target and enriched off-target interval merging](#6-on-target-and-enriched-off-target-interval-merging)
     - [7. Metrics Reporting](#7-metrics-reporting)
-  - [Inputs](#inputs)
+  - [Inputs and Configuration](#inputs-and-configuration)
   - [Outputs](#outputs)
-  - [Testing and Validation](#testing-and-validation)
-    - [Test Data Set](#test-data-set)
-    - [Validation <version number\>](#validation-version-number)
-    - [Validation Tool](#validation-tool)
+  - [Performance Validation](#performance-validation)
   - [References](#references)
-  - [License](#license) 
+  - [Discussions](#discussions)
+  - [Contributors](#contributors)
+  - [License](#license)
 ## Overview
 This pipeline extracts read depth calculations from a BAM file and generates outputs that are useful to the interpretation and downstream variant calling of a targeted sequencing experiment. Relevant datasets include targeted gene panels and whole exome sequencing (WXS) experiments. For in-depth downstream coverage QC, the pipeline can output per-base read depth at all targeted loci specified by a target BED file and read depth at genome-wide "off-target" well characterized polymorphic sites known to dbSNP. For a more general overview of targeted sequencing quality, the pipeline can output QC metrics produced by `picard CollectHsMetrics`. As a direct contribution to a DNA processing workflow, the pipeline can output a coordinate BED file containing target intervals merged with intervals encompassing off-target dbSNP sites enriched in coverage (as determined by a user-defined read-depth threshold). This new coordinate file can be used to indicate base quality recalibration and variant calling intervals to [`pipeline-recalibrate-BAM`](https://github.com/uclahs-cds/pipeline-recalibrate-BAM/blob/34e0e8ccc46eb406087baec1bb858fa9c2f4c4ad/config/template.config#L37) and `gatk HaplotypeCaller`in [`pipeline-call-gSNP`](https://github.com/uclahs-cds/pipeline-call-gSNP/blob/43bf6bd2ccf2abce61701ac1d52105d408e934a4/config/template.config#L28) directly or through `metapipeline-DNA`.
 
@@ -36,13 +35,16 @@ This pipeline performs coverage calculations from a BAM file at intervals specif
 
 3. See the submission script, [here](https://github.com/uclahs-cds/tool-submit-nf), to submit your pipeline
 
+### Requirements
+Currently supported Nextflow versions: `v23.04.2`
+
 ---
 
 ## Flow Diagram
 
 A directed acyclic graph of your pipeline.
 
-![pipeline-calculate-targeted-coverage graph](pipeline-calculate-targeted-coverage.drawio.svg?raw=true)
+![pipeline-calculate-targeted-coverage graph](./docs/calculate-targeted-coverage-flow.svg)
 
 ---
 
@@ -117,12 +119,13 @@ A directed acyclic graph of your pipeline.
  Output and Output Parameter/Flag | Description |
 | ------------ | ------------------------ |
 | `output_dir` | Location where generated output should be saved. |
-| `.target-with-enriched-off-target-intervals.bed` | New target file including original target intervals and intervals encompassing coverage-enriched off-target dbSNP sites. |
-|`.off-target-dbSNP_depth-per-base.bed`|Per-base read depth at dbSNP loci outside of targeted regions.|
-| `.collapsed_coverage.bed` | Per-base read depth at specified target intervals, collapsed by interval. (OPTIONAL) Set `target_depth` in config file. |
-|`.target-depth-per-base.bed`|Per-base read depth at target intervals (not collapsed). (OPTIONAL) set `save_raw_target_bed` in config file.|
-|`.genome-wide-dbSNP_depth-per-base.bed`| Per-base read depth at all dbSNP loci. (OPTIONAL) Set `save_all_dbSNP` in config file.|
-| `.HsMetrics.txt` | QC output from CollectHsMetrics()|
+| `*target-with-enriched-off-target-intervals.bed` | New target file including original target intervals and intervals encompassing coverage-enriched off-target dbSNP sites. |
+| `*target-with-enriched-off-target-intervals.bed.gz` | New compressed target file including original target intervals and intervals encompassing coverage-enriched off-target dbSNP sites. |
+|`*off-target-dbSNP-depth-per-base.bed`|Per-base read depth at dbSNP loci outside of targeted regions.|
+| `*collapsed_coverage.bed` | Per-base read depth at specified target intervals, collapsed by interval. (OPTIONAL) Set `target_depth` in config file. |
+|`*target-depth-per-base.bed`|Per-base read depth at target intervals (not collapsed). (OPTIONAL) set `save_raw_target_bed` in config file.|
+|`*genome-wide-dbSNP-depth-per-base.bed`| Per-base read depth at all dbSNP loci. (OPTIONAL) Set `save_all_dbSNP` in config file.|
+| `*HsMetrics.txt` | QC output from CollectHsMetrics()|
 | `.tsv`,`.bed` | Intermediate outputs of unformatted and unmerged depth files. (OPTIONAL) Set `save_intermediate_files` in config file. |
 | `.interval_list` | Intermediate output of target bed file converted to picard's interval list format. (OPTIONAL)  Set `save_interval_list` in config file. |
 | `report.html`, `timeline.html` and `trace.txt` | A Nextflowreport, timeline and trace files |
@@ -130,44 +133,25 @@ A directed acyclic graph of your pipeline.
 
 ---
 
-## Testing and Validation
+## Performance Validation
 
-### Test Data Set
+Testing was performed in the Boutros Lab SLURM Development cluster. Pipeline version used here is v1.0.0-rc.1
 
-Testing was performed leveraging aligned and sorted BAMs from a targeted panel sequencing experiment generated using bwa-mem2-2.1 against reference GRCh38.
-- **BZPRGPT2:** BZPRGPT1000001-N001-B01-F.bam
+### Targeted Panels
 
-Test runs were performed with the following reference files
-- **reference_dict:** '/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.dict'
-- **reference_dbSNP:** '/hot/ref/database/dbSNP-155/thinned/GRCh38/dbSNP-155_thinned_hg38.vcf.gz'
-- **genome_sizes:** '/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta.fai'
+General estimates, with wide variations, are that smaller gene panel experiments require 16 cpus and 32GB of memory to run all processes efficiently in parallel. However each individual process requires much fewer resources, and 1CPU and 1GB is frequently sufficient for most component tools. Larger numbers of targets may increase memory requirements, particularly for interval merging steps.
 
+### Whole Exomes
 
-### Validation <version number\>
-
-See [here](https://github.com/uclahs-cds/pipeline-targeted-coverage/discussions/30) for benchmarking.
-
- Input/Output | Description | Result
- | ------------ | ------------------------ | ------------------------ |
-| metric 1 | 1 - 2 sentence description of the metric | quantifiable result |
-| metric 2 | 1 - 2 sentence description of the metric | quantifiable result |
-| metric n | 1 - 2 sentence description of the metric | quantifiable result |
-
-- [Reference/External Link/Path 1 to any files/plots or other validation results](<link>)
-- [Reference/External Link/Path 2 to any files/plots or other validation results](<link>)
-- [Reference/External Link/Path n to any files/plots or other validation results](<link>)
-
-### Validation Tool
-
-Included is a template for validating your input files. For more information on the tool check out: https://github.com/uclahs-cds/tool-validate-nf
+General estimates, with wide variations, are that whole exome experiments require 16 CPUs and 32GB of memory to run all processes efficiently in parallel. However each individual process requires much fewer resources, and 1CPU and 1GB is frequently sufficient for most component tools.
 
 ---
 
 ## References
 
-1. [Reference 1](<links-to-papers/external-code/documentation/metadata/other-repos/or-anything-else>)
-2. [Reference 2](<links-to-papers/external-code/documentation/metadata/other-repos/or-anything-else>)
-3. [Reference n](<links-to-papers/external-code/documentation/metadata/other-repos/or-anything-else>)
+1. [SAMtools](https://doi.org/10.1093/gigascience/giab008)
+2. [Picard](https://broadinstitute.github.io/picard/)
+3. [BEDtools](https://pubmed.ncbi.nlm.nih.gov/20110278/)
 
 ---
 
@@ -189,10 +173,9 @@ Please see list of [Contributors](https://github.com/uclahs-cds/pipeline-targete
 
 pipeline-calculate-targeted-coverage is licensed under the GNU General Public License version 2. See the file LICENSE for the terms of the GNU GPL license.
 
-<one line to give the program's name and a brief idea of what it does.>
 pipeline-calculate-targeted-coverage performs read-depth related calculations on BAMs from targeted sequencing experiments.
 
-Copyright (C) 2022 University of California Los Angeles ("Boutros Lab") All rights reserved.
+Copyright (C) 2022-2024 University of California Los Angeles ("Boutros Lab") All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 

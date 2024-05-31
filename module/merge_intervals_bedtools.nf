@@ -1,3 +1,4 @@
+include { generate_standard_filename } from '../external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf'
 /*
 *   Module/process description here
 *
@@ -25,6 +26,16 @@ process run_merge_BEDtools {
         path ".command.*"
 
     script:
+
+    output_filename = generate_standard_filename(
+        "BEDtools-${params.bedtools_version}",
+        params.dataset_id,
+        params.sample_id,
+        [
+            'additional_information': "collapsed-coverage.bed"
+        ]
+    )
+
     """
     set -euo pipefail
 
@@ -33,6 +44,6 @@ process run_merge_BEDtools {
         -i ${input_depth_bed} \
         -c 4 \
         -o ${params.merge_operation} \
-        > ${params.sample_id}.collapsed_coverage.bed
+        > ${output_filename}
     """
 }

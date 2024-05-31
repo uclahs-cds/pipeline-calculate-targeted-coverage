@@ -1,0 +1,117 @@
+@startuml
+hide stereotype
+
+skinparam rectangle {
+    BackgroundColor<<InputFile>> #LightBlue
+    BackgroundColor<<QCFile>> #Wheat
+    BackgroundColor<<OutputFile>> #PaleGreen
+    BackgroundColor<<ProcessStep>> #LightGray
+    BorderColor<<transparent>> transparent
+    FontSize<<transparent>> 0
+}
+
+' target workflow
+rectangle "Target-Focused Workflow" {
+    ' input
+    rectangle Input as Input1 <<transparent>> {
+        rectangle "Target File" as TargetFile1 <<InputFile>>
+        rectangle "Bait File" as BaitFile <<InputFile>>
+    }
+    ' process steps
+    rectangle "BAM" as BAM1 <<InputFile>>
+    rectangle "Validate Inputs" as ValInputs1 <<ProcessStep>>
+    rectangle "Calculate Per-Base Read Depth" as CalcReadDepth <<ProcessStep>>
+    rectangle "Convert BED to interval.list" as ConvBEDtoIntervalList <<ProcessStep>>
+    rectangle "Convert to BED" as ConvtoBED1 <<ProcessStep>>
+    rectangle "Calculate Coverage Metrics" as CalcCovMetrics <<ProcessStep>>
+    ' output files
+    rectangle "~*target-depth-per-base.bed" as TargetReadDepthBED <<OutputFile>>
+    ' QC files
+    rectangle "~*HSMetrics.txt" as HSMetrics <<QCFile>>
+}
+
+
+' off target workflow
+rectangle "Off-Target Workflow" {
+    ' input
+    rectangle Input as Input2 <<transparent>> {
+        rectangle "Target File" as TargetFile2 <<InputFile>>
+        rectangle "dbSNP VCF" as dbSNP_VCF <<InputFile>>
+        rectangle "BAM" as BAM2 <<InputFile>>
+    }
+    ' process steps
+    rectangle "Validate Inputs" as ValInputs2 <<ProcessStep>>
+    rectangle "Cacluate Read Depth at dbSNP Sites" as CalcReadDepthAtdbSNP <<ProcessStep>>
+    rectangle "Filter for Minimum Read Depth" as FilterReadDepth <<ProcessStep>>
+    rectangle "Filter for Off-Target Sites" as FilterOffTarget <<ProcessStep>>
+    rectangle "Convert to BED" as ConvtoBED2 <<ProcessStep>>
+    rectangle "Add Slop to Off-Target SNPs" as AddSlopOffTarget <<ProcessStep>>
+    rectangle "Merge with Target File" as MergeWithTarget <<ProcessStep>>
+    rectangle "Add Slop to Target Intervals" as AddSlopTarget <<ProcessStep>>
+
+    ' output files
+    rectangle "~*target-with-enriched-off-target-intervals.bed" as TargetPlusOffTargetReadDepthBED <<OutputFile>>
+    rectangle "~*off-target-dbSNP-depth-per-base.bed" as OffTargetReadDepth <<OutputFile>>
+
+    ' end node
+    rectangle "recalibrate-BAM" as RecalBAM #White
+}
+
+
+' Target Focused Workflow
+' input
+BAM1 --> ValInputs1
+BaitFile --> ConvBEDtoIntervalList
+TargetFile1 -l-> BaitFile
+TargetFile1 --> ConvBEDtoIntervalList
+TargetFile1 --> CalcReadDepth
+
+ConvBEDtoIntervalList --> CalcCovMetrics
+
+ValInputs1 --> CalcReadDepth
+ValInputs1 --> CalcCovMetrics
+
+CalcCovMetrics --> HSMetrics
+
+CalcReadDepth --> ConvtoBED1
+ConvtoBED1 --> TargetReadDepthBED
+
+
+' Off-Target Workflow
+' input
+TargetFile2 ---> AddSlopTarget
+TargetFile2 ---> MergeWithTarget
+dbSNP_VCF --> CalcReadDepthAtdbSNP
+BAM2 --> ValInputs2
+
+ValInputs2 --> CalcReadDepthAtdbSNP
+AddSlopTarget --> FilterOffTarget
+
+CalcReadDepthAtdbSNP --> ConvtoBED2
+
+ConvtoBED2 --> FilterOffTarget
+ConvtoBED2 --> FilterReadDepth
+
+FilterReadDepth --> AddSlopOffTarget
+FilterOffTarget --> OffTargetReadDepth
+
+AddSlopOffTarget --> MergeWithTarget
+
+MergeWithTarget --> TargetPlusOffTargetReadDepthBED
+
+TargetPlusOffTargetReadDepthBED --> RecalBAM
+
+
+' Legend
+rectangle Legend {
+    rectangle "Input File" as IF <<InputFile>>
+    rectangle "Quality Control File" as QC <<QCFile>>
+    rectangle "Output File" as OF <<OutputFile>>
+    rectangle "Process Step" as PS <<ProcessStep>>
+}
+
+IF -[hidden]-> QC
+QC -[hidden]-> OF
+OF -[hidden]-> PS
+
+@enduml

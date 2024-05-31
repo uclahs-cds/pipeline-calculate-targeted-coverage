@@ -1,3 +1,4 @@
+include { generate_standard_filename } from '../external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf'
 /*
 *   Module/process description here
 *
@@ -28,6 +29,14 @@ process run_depth_SAMtools {
         path ".command.*"
 
     script:
+    output_filename = generate_standard_filename(
+        "SAMtools-${params.samtools_version}",
+        params.dataset_id,
+        params.sample_id,
+        [
+            'additional_information': "${tag}-depth-per-base.tsv"
+        ]
+    )
     """
     set -euo pipefail
 
@@ -38,7 +47,7 @@ process run_depth_SAMtools {
         -aa \
         --min-BQ ${params.min_base_quality} \
         --min-MQ ${params.min_mapping_quality} \
-        -o ${params.sample_id}.${tag}.depth_per_base.tsv \
+        -o ${output_filename} \
         ${params.samtools_depth_extra_args}
     """
 }
