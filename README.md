@@ -1,5 +1,7 @@
 # Calculate Targeted Coverage
 
+[![GitHub release](https://img.shields.io/github/v/release/uclahs-cds/pipeline-calculate-targeted-coverage)](https://github.com/uclahs-cds/pipeline-calculate-targeted-coverage/actions/workflows/prepare-release.yaml)
+
 - [Calculate Targeted Coverage](#calculate-targeted-coverage)
   - [Overview](#overview)
   - [How To Run](#how-to-run)
