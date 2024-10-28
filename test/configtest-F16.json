@@ -61,9 +61,9 @@
       "docker_image_samtools": "ghcr.io/uclahs-cds/samtools:1.16.1",
       "docker_image_validate": "ghcr.io/uclahs-cds/pipeval:4.0.0-rc.2",
       "gatk_command_mem_diff": "2 GB",
-      "genome_sizes": "/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta.fai",
+      "genome_sizes": "/hot/resource/reference-genome/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta.fai",
       "input": {
-        "bam": "/hot/resource/SMC-HET/tumours/A-mini/bams/n1/output/S2.T-n1.bam"
+        "bam": "/hot/data/unregistered/SMC-HET/tumours/A-mini/bams/n1/output/S2.T-n1.bam"
       },
       "log_output_dir": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-VER.SI.ON/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-VER.SI.ON-19970704T165655Z",
       "max_cpus": "16",
@@ -84,8 +84,8 @@
       "picard_CollectHsMetrics_extra_args": "",
       "picard_version": "3.0.0",
       "pipeval_version": "4.0.0-rc.2",
-      "reference_dbSNP": "/hot/ref/database/dbSNP-155/thinned/GRCh38/dbSNP-155_thinned_hg38.vcf.gz",
-      "reference_dict": "/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.dict",
+      "reference_dbSNP": "/hot/resource/database/dbSNP-155/thinned/GRCh38/dbSNP-155_thinned_hg38.vcf.gz",
+      "reference_dict": "/hot/resource/reference-genome/GRCh38-BI-20160721/Homo_sapiens_assembly38.dict",
       "sample": "null",
       "sample_id": "TWGSAMIN000001-T002-S02-F",
       "samtools_depth_extra_args": "",
