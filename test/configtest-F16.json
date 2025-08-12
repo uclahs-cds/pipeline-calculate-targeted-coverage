@@ -51,9 +51,7 @@
       "blcds_registered_dataset": false,
       "collect_metrics": true,
       "coverage_cap": "3000",
-      "dataset_id": "TWGSAMIN000001",
-      "dataset_registry_prefix": "/hot/data",
-      "date": "19970704T165655Z",
+      "dataset_id": "dataset_002",
       "dbSNP_slop": "150",
       "docker_container_registry": "ghcr.io/uclahs-cds",
       "docker_image_bedtools": "ghcr.io/uclahs-cds/bedtools:2.29.2",
@@ -61,11 +59,11 @@
       "docker_image_samtools": "ghcr.io/uclahs-cds/samtools:1.16.1",
       "docker_image_validate": "ghcr.io/uclahs-cds/pipeval:4.0.0-rc.2",
       "gatk_command_mem_diff": "2 GB",
-      "genome_sizes": "/hot/resource/reference-genome/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta.fai",
+      "genome_sizes": "/example/genome/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta.fai",
       "input": {
-        "bam": "/hot/data/unregistered/SMC-HET/tumours/A-mini/bams/n1/output/S2.T-n1.bam"
+        "bam": "/path/to/bam"
       },
-      "log_output_dir": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-VER.SI.ON/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-VER.SI.ON-19970704T165655Z",
+      "log_output_dir": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-VER.SI.ON/sample_001/log-calculate-targeted-coverage-VER.SI.ON-19970704T165655Z",
       "max_cpus": "16",
       "max_memory": "31 GB",
       "merge_operation": "collapse",
@@ -78,28 +76,26 @@
       "off_target_depth": true,
       "off_target_slop": "500",
       "output_dir": "/tmp/nf-config-test-outputs",
-      "output_dir_base": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-VER.SI.ON/TWGSAMIN000001-T002-S02-F",
+      "output_dir_base": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-VER.SI.ON/sample_001",
       "output_enriched_target_file": true,
-      "patient": "null",
       "picard_CollectHsMetrics_extra_args": "",
       "picard_version": "3.0.0",
       "pipeval_version": "4.0.0-rc.2",
-      "reference_dbSNP": "/hot/resource/database/dbSNP-155/thinned/GRCh38/dbSNP-155_thinned_hg38.vcf.gz",
-      "reference_dict": "/hot/resource/reference-genome/GRCh38-BI-20160721/Homo_sapiens_assembly38.dict",
-      "sample": "null",
-      "sample_id": "TWGSAMIN000001-T002-S02-F",
+      "reference_dbSNP": "/example/human_9606_b151_GRCh38p7/dbSNP-155_thinned_hg38.vcf.gz",
+      "reference_dict": "/example/genome/GRCh38-BI-20160721/Homo_sapiens_assembly38.dict",
+      "sample_id": "sample_001",
       "samtools_depth_extra_args": "",
       "samtools_version": "1.16.1",
       "save_all_dbSNP": false,
       "save_intermediate_files": false,
       "save_interval_list": false,
       "save_raw_target_bed": false,
-      "target_bed": "/hot/software/pipeline/pipeline-calculate-targeted-coverage/Nextflow/development/input/GRch38-small.bed",
-      "target_depth": true,
+      "target_bed": "path/to/target/bedfile",
+      "target_depth": false,
       "target_interval_list": "",
       "ucla_cds": true,
       "work_dir": "/scratch/4674821",
-      "workflow_output_dir": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-VER.SI.ON/TWGSAMIN000001-T002-S02-F/SAMtools-1.16.1"
+      "workflow_output_dir": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-VER.SI.ON/sample_001/SAMtools-1.16.1"
     },
     "process": {
       "cache": true,
@@ -206,17 +202,16 @@
     },
     "report": {
       "enabled": true,
-      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-VER.SI.ON/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-VER.SI.ON-19970704T165655Z/nextflow-log/report.html"
+      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-VER.SI.ON/sample_001/log-calculate-targeted-coverage-VER.SI.ON-19970704T165655Z/nextflow-log/report.html"
     },
     "timeline": {
       "enabled": true,
-      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-VER.SI.ON/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-VER.SI.ON-19970704T165655Z/nextflow-log/timeline.html"
+      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-VER.SI.ON/sample_001/log-calculate-targeted-coverage-VER.SI.ON-19970704T165655Z/nextflow-log/timeline.html"
     },
     "trace": {
       "enabled": true,
-      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-VER.SI.ON/TWGSAMIN000001-T002-S02-F/log-calculate-targeted-coverage-VER.SI.ON-19970704T165655Z/nextflow-log/trace.txt"
+      "file": "/tmp/nf-config-test-outputs/calculate-targeted-coverage-VER.SI.ON/sample_001/log-calculate-targeted-coverage-VER.SI.ON-19970704T165655Z/nextflow-log/trace.txt"
     },
-    "tz": "sun.util.calendar.ZoneInfo[id=\"UTC\",offset=0,dstSavings=0,useDaylight=false,transitions=0,lastRule=null]",
     "workDir": "/scratch/4674821"
   }
 }
